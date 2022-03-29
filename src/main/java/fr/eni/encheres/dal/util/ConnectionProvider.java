@@ -11,6 +11,11 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
+/**
+ * Classe en charge de 
+ * @author lleponner2022
+ * @date 28 mars 2022
+ */
 abstract public class ConnectionProvider {
 	private static DataSource dataSource;
 	
