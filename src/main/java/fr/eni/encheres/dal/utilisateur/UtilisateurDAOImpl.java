@@ -77,13 +77,18 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	*/
 	@Override
 	public List<Utilisateur> selectAllUtilisateur() {
-		List<Utilisateur> result = new ArrayList<Utilisateur>();
+		List<Utilisateur> results = new ArrayList<Utilisateur>();
 		try(Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement stmt = con.prepareStatement(SELECT);
+			ResultSet rs = stmt.executeQuery();
 			
+			while(rs.next()) {
+				results.add(itemBuilder(rs));
+			}
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction selectAllUtilisateur : " + e.getMessage());
 		}
-		return null;
+		return results;
 	}
 
 	/**
@@ -111,7 +116,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		}	
 	}
 
-	private Utilisateur itembuilder (ResultSet rs) throws SQLException {
+	private Utilisateur itemBuilder (ResultSet rs) throws SQLException {
 		
 		Integer noUtilisateur = rs.getInt("no_utilisateur");
 		String pseudo = rs.getString("pseudo");
