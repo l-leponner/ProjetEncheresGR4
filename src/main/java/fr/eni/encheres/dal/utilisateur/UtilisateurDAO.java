@@ -6,6 +6,7 @@ package fr.eni.encheres.dal.utilisateur;
 import java.util.List;
 
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.DALException;
 
 /**
  * Classe en charge de
@@ -17,14 +18,14 @@ import fr.eni.encheres.bo.Utilisateur;
  */
 public interface UtilisateurDAO {
 
-	public void insertUtilisateur (Utilisateur utilisateur);
+	public void insertUtilisateur (Utilisateur utilisateur) throws DALException;
 	
-	public void updateUtilisateur (Utilisateur utilisateur);
+	public void updateUtilisateur (Utilisateur utilisateur) throws DALException;
 	
-	public List<Utilisateur> selectAllUtilisateur();
+	public List<Utilisateur> selectAllUtilisateur() throws DALException;
 	
-	public Utilisateur selectByIDutilisateur(Integer idUtilisateur);
+	public Utilisateur selectByIDutilisateur(Integer idUtilisateur) throws DALException;
 	
-	public void deleteUtilisateur (Utilisateur utilisateur);
+	public void deleteUtilisateur (Utilisateur utilisateur) throws DALException;
 	
 }

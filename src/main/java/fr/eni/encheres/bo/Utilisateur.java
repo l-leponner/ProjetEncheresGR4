@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class Utilisateur {
 
+	private final Integer NB_CREDIT_INIT = 1000;
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String nom;
@@ -59,6 +60,8 @@ public class Utilisateur {
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
+		setCredit(NB_CREDIT_INIT);
+		setAdministrateur(false);
 	}
 	/**
 	 * Getter pour noUtilisateur.

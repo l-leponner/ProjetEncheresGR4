@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.util.ConnectionProvider;
 
 
@@ -32,9 +33,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	
 	/**
 	*{@inheritedDoc}
+	 * @throws DALException 
 	*/
 	@Override
-	public void insertUtilisateur(Utilisateur utilisateur) {
+	public void insertUtilisateur(Utilisateur utilisateur) throws DALException {
 		try(Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, utilisateur.getPseudo());
@@ -64,9 +66,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	/**
 	*{@inheritedDoc}
+	 * @throws DALException 
 	*/
 	@Override
-	public void updateUtilisateur(Utilisateur utilisateur) {
+	public void updateUtilisateur(Utilisateur utilisateur) throws DALException {
 		try(Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
 			stmt.setString(1, utilisateur.getPseudo());
@@ -89,9 +92,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	/**
 	*{@inheritedDoc}
+	 * @throws DALException 
 	*/
 	@Override
-	public List<Utilisateur> selectAllUtilisateur() {
+	public List<Utilisateur> selectAllUtilisateur() throws DALException {
 		List<Utilisateur> results = new ArrayList<Utilisateur>();
 		try(Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT);
@@ -108,9 +112,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	/**
 	*{@inheritedDoc}
+	 * @throws DALException 
 	*/
 	@Override
-	public Utilisateur selectByIDutilisateur(Integer idUtilisateur) {
+	public Utilisateur selectByIDutilisateur(Integer idUtilisateur) throws DALException {
 		Utilisateur result = null;
 		try(Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement("SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE no_utilisateur=?");
@@ -128,9 +133,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	/**
 	*{@inheritedDoc}
+	 * @throws DALException 
 	*/
 	@Override
-	public void deleteUtilisateur(Utilisateur utilisateur) {
+	public void deleteUtilisateur(Utilisateur utilisateur) throws DALException {
 		try(Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement("DELETE UTILISATEURS WHERE no_utilisateur=?");
 			stmt.setInt(1, utilisateur.getNoUtilisateur());
