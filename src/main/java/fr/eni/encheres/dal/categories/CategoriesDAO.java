@@ -20,9 +20,9 @@ public interface CategoriesDAO {
 
 	public void updateCategorie(Categorie categorie) throws DALException;
 
-	public List<Retrait> selectALLCategorie() throws DALException;
+	public List<Categorie> selectALLCategorie() throws DALException;
 
-	public List<Retrait> selectByIdCategorie(Categorie categorie) throws DALException;
+	public List<Categorie> selectByIdCategorie(Categorie categorie) throws DALException;
 
 	public void deleteCategorie(Categorie categorie) throws DALException;
 	
