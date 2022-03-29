@@ -24,9 +24,13 @@ public class Categorie {
 
 	public Categorie(String libelle, List<ArticleVendu> lstArticleVendus) {
 		super();
-		this.noCategorie = noCategorie;
 		this.libelle = libelle;
 		this.lstArticleVendus = lstArticleVendus;
+	}
+	
+	public Categorie(String libelle) {
+		super();
+		this.libelle = libelle;
 	}
 
 	public Integer getNoCategorie() {

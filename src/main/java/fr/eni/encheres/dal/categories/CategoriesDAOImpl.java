@@ -1,15 +1,17 @@
 /**
  * 
  */
-package fr.eni.encheres.dal.retrait;
+package fr.eni.encheres.dal.categories;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.util.ConnectionProvider;
@@ -20,24 +22,26 @@ import fr.eni.encheres.dal.util.ConnectionProvider;
  * @author alegeas2022
  * @date 29 mars 2022
  */
-public class RetraitDAOImpl implements RetraitDAO {
+public class CategoriesDAOImpl implements CategoriesDAO {
 
-	private final String INSERT = "INSERT INTO RETRAITS (rue, code_postal, ville, no_article) VALUES (?,?,?,?)";
-	private final String SELECTALL = "SELECT no_article, rue, code_postal, ville FROM RETRAITS";
-	private final String UPDATE = "UPDATE RETRAITS SET rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
-	private final String SELECT_BY_ID = "SELECT rue, code_postal, ville FROM RETRAITS WHERE no_article = ?";
-	private final String DELETE = "DELETE FROM RETRAITS WHERE no_article = ?";
+	private final String INSERT = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
+	private final String SELECTALL = "SELECT no_categorie, libelle FROM CATEGORIES";
+	private final String UPDATE = "UPDATE CATEGORIES SET libelle = ? WHERE no_categorie = ?";
+	private final String SELECT_BY_ID = "SELECT libelle FROM CATEGORIES WHERE no_categorie = ?";
+	private final String DELETE = "DELETE FROM CATEGORIES WHERE no_categorie = ?";
 
 	@Override
-	public void insertRetrait(Retrait retrait) throws DALException {
+	public void insertCategorie(Categorie categorie) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
-			PreparedStatement stmt = con.prepareStatement(INSERT);
-			stmt.setString(1, retrait.getRue());
-			stmt.setString(2, retrait.getCode_postal());
-			stmt.setString(3, retrait.getVille());
-			stmt.setInt(4, retrait.getArticleVendu().getNoArticle());
-			stmt.executeUpdate();
-
+			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, categorie.getLibelle());
+			int nb = stmt.executeUpdate();
+			if (nb > 0) {
+				ResultSet rs = stmt.getGeneratedKeys();
+				if (rs.next()) {
+					categorie.setNoCategorie(rs.getInt(1));
+				}
+			}
 		} catch (SQLException e) {
 			throw new DALException("Probleme lors de la méthode insertRetrait" + e.getMessage());
 		}
@@ -45,13 +49,11 @@ public class RetraitDAOImpl implements RetraitDAO {
 	}
 
 	@Override
-	public void updateRetrait(Retrait retrait) throws DALException {
+	public void updateCategorie(Categorie categorie) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
-			stmt.setString(1, retrait.getRue());
-			stmt.setString(2, retrait.getCode_postal());
-			stmt.setString(3, retrait.getVille());
-			stmt.setInt(4, retrait.getNoArticle());
+			stmt.setString(1, categorie.getLibelle());
+			stmt.setInt(2, categorie.getNoCategorie());
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -61,14 +63,14 @@ public class RetraitDAOImpl implements RetraitDAO {
 	}
 
 	@Override
-	public List<Retrait> selectALLRetrait() throws DALException {
-		List<Retrait> result = new ArrayList<>();
+	public List<Categorie> selectALLCategorie() throws DALException {
+		List<Categorie> result = new ArrayList<>();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECTALL);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Retrait item = null;
+				Categorie item = null;
 				item = itemBuilder(rs);
 				result.add(item);
 			}
@@ -80,15 +82,15 @@ public class RetraitDAOImpl implements RetraitDAO {
 	}
 
 	@Override
-	public List<Retrait> selectByIdRetrait(Retrait retrait) throws DALException {
-		List<Retrait> result = new ArrayList<>();
+	public List<Categorie> selectByIdCategorie(Categorie categorie) throws DALException {
+		List<Categorie> result = new ArrayList<>();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT_BY_ID);
-			stmt.setInt(1, retrait.getNoArticle());
+			stmt.setInt(1, categorie.getNoCategorie());
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Retrait item = null;
+				Categorie item = null;
 				item = itemBuilder(rs);
 				result.add(item);
 			}
@@ -100,10 +102,10 @@ public class RetraitDAOImpl implements RetraitDAO {
 	}
 
 	@Override
-	public void deleteRetrait(Retrait retrait) throws DALException {
+	public void deleteCategorie(Categorie categorie) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(DELETE);
-			stmt.setInt(1, retrait.getNoArticle());
+			stmt.setInt(1, categorie.getNoCategorie());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction DELETE : " + e.getMessage());
@@ -111,16 +113,15 @@ public class RetraitDAOImpl implements RetraitDAO {
 
 	}
 
-	private Retrait itemBuilder(ResultSet rs) throws SQLException {
+	private Categorie itemBuilder(ResultSet rs) throws SQLException {
 
-		int noArticle = rs.getInt("no_article");
-		String rue = rs.getString("rue");
-		String code_postal = rs.getString("code_postal");
-		String ville = rs.getString("ville");
+		int noCategorie = rs.getInt("no_categorie");
+		String libelle = rs.getString("libelle");
 
-		Retrait retrait = new Retrait(noArticle, rue, code_postal, ville);
-
-		return retrait;
+		Categorie categorie = new Categorie(libelle);
+		categorie.setNoCategorie(noCategorie);
+		
+		return categorie;
 	}
-
+	
 }

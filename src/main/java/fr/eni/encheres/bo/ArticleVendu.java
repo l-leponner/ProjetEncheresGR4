@@ -9,56 +9,67 @@ import java.util.List;
 
 /**
  * Classe en charge de
+ * 
  * @author ggastine2022
  * @date 29 mars 2022
  * @version ProjetEncheresGR4- V0.1
- * @since  29 mars 2022 - 11:48:47
+ * @since 29 mars 2022 - 11:48:47
  *
  */
 public class ArticleVendu {
-	
+
 	private Integer noArticle;
 	private String nomArticle;
 	private String description;
 	private LocalDate dateDebutEncheres;
-	private LocalDate finDebutEncheres;
+	private LocalDate dateFinEncheres;
 	private Integer miseAPrix;
-	private Integer prixvente;
+	private Integer prixVente;
 	private String etatVente;
-	private List <Enchere> lstEncheres = new ArrayList<Enchere>();
+	private List<Enchere> lstEncheres = new ArrayList<Enchere>();
 	private Retrait retrait;
-	
+
 	public ArticleVendu() {
 		super();
 	}
 
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate finDebutEncheres, Integer miseAPrix, Integer prixvente, String etatVente,
-			List<Enchere> lstEncheres, Retrait retrait) {
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate finDebutEncheres,
+			Integer miseAPrix, Integer prixvente, String etatVente, List<Enchere> lstEncheres, Retrait retrait) {
 		super();
-		
+
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
-		this.finDebutEncheres = finDebutEncheres;
+		this.dateFinEncheres = finDebutEncheres;
 		this.miseAPrix = miseAPrix;
-		this.prixvente = prixvente;
+		this.prixVente = prixvente;
 		this.etatVente = etatVente;
 		this.lstEncheres = lstEncheres;
 		this.retrait = retrait;
 	}
 
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate finDebutEncheres, Integer miseAPrix, Integer prixvente, String etatVente,
-			List<Enchere> lstEncheres) {
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			Integer miseAPrix, Integer prixVente, String etatVente) {
 		super();
-		
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
-		this.finDebutEncheres = finDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
-		this.prixvente = prixvente;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+	}
+
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate finDebutEncheres,
+			Integer miseAPrix, Integer prixvente, String etatVente, List<Enchere> lstEncheres) {
+		super();
+
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = finDebutEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixvente;
 		this.etatVente = etatVente;
 		this.lstEncheres = lstEncheres;
 	}
@@ -95,28 +106,28 @@ public class ArticleVendu {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
 
-	public LocalDate getFinDebutEncheres() {
-		return finDebutEncheres;
+	public LocalDate getDateFinEncheres() {
+		return dateFinEncheres;
 	}
 
 	public void setFinDebutEncheres(LocalDate finDebutEncheres) {
-		this.finDebutEncheres = finDebutEncheres;
+		this.dateFinEncheres = finDebutEncheres;
 	}
 
-	public Integer getMiseAprix() {
+	public Integer getMiseAPrix() {
 		return miseAPrix;
 	}
 
-	public void setMiseAprix(Integer miseAprix) {
-		this.miseAPrix = miseAprix;
+	public void setMiseAprix(Integer miseAPrix) {
+		this.miseAPrix = miseAPrix;
 	}
 
-	public Integer getPrixvente() {
-		return prixvente;
+	public Integer getPrixVente() {
+		return prixVente;
 	}
 
-	public void setPrixvente(Integer prixvente) {
-		this.prixvente = prixvente;
+	public void setPrixvente(Integer prixVente) {
+		this.prixVente = prixVente;
 	}
 
 	public String getEtatVente() {
@@ -167,19 +178,19 @@ public class ArticleVendu {
 			builder.append(dateDebutEncheres);
 			builder.append(", ");
 		}
-		if (finDebutEncheres != null) {
-			builder.append("finDebutEncheres=");
-			builder.append(finDebutEncheres);
+		if (dateFinEncheres != null) {
+			builder.append("dateFinEncheres=");
+			builder.append(dateFinEncheres);
 			builder.append(", ");
 		}
 		if (miseAPrix != null) {
-			builder.append("miseAprix=");
+			builder.append("miseAPrix=");
 			builder.append(miseAPrix);
 			builder.append(", ");
 		}
-		if (prixvente != null) {
-			builder.append("prixvente=");
-			builder.append(prixvente);
+		if (prixVente != null) {
+			builder.append("prixVente=");
+			builder.append(prixVente);
 			builder.append(", ");
 		}
 		if (etatVente != null) {
@@ -199,8 +210,5 @@ public class ArticleVendu {
 		builder.append("]");
 		return builder.toString();
 	}
-
-	
-	
 
 }
