@@ -15,6 +15,7 @@ import java.time.LocalDate;
  */
 public class Enchere {
 	
+	private Integer noEnchere;
 	private LocalDate dateEncheres;
 	private Integer montantEnchere;
 	
