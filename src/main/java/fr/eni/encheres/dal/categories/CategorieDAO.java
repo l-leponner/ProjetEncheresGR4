@@ -14,7 +14,7 @@ import fr.eni.encheres.dal.DALException;
  * @author alegeas2022
  * @date 29 mars 2022
  */
-public interface CategoriesDAO {
+public interface CategorieDAO {
 
 	public void insertCategorie(Categorie categorie) throws DALException;
 

@@ -22,7 +22,7 @@ import fr.eni.encheres.dal.util.ConnectionProvider;
  * @author alegeas2022
  * @date 29 mars 2022
  */
-public class CategoriesDAOImpl implements CategoriesDAO {
+public class CategorieDAOImpl implements CategorieDAO {
 
 	private final String INSERT = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
 	private final String SELECTALL = "SELECT no_categorie, libelle FROM CATEGORIES";
