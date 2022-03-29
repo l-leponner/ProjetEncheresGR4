@@ -13,7 +13,7 @@ import java.util.List;
 
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.util.ConnectionProvider;
-import fr.eni.lelicode.dal.DALException;
+
 
 /**
  * Classe en charge de
@@ -54,6 +54,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 				if(rs.next()) {
 					utilisateur.setNoUtilisateur(1);
 				}
+			}
+				
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction insertUtilisateur : " + e.getMessage());
 		}
@@ -66,7 +68,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		try(Connection con = ConnectionProvider.getConnection()) {
-			
+			PreparedStatement stmt = con.prepareStatement(UPDATE);
+			stmt.setString(1, utilisateur.getPseudo());
+			stmt.setString(2, utilisateur.getNom());
+			stmt.setString(3, utilisateur.getPrenom());
+			stmt.setString(4, utilisateur.getEmail());
+			stmt.setString(5, utilisateur.getTelephone());
+			stmt.setString(6, utilisateur.getRue());
+			stmt.setString(7, utilisateur.getCodePostal());
+			stmt.setString(8, utilisateur.getVille());
+			stmt.setString(9, utilisateur.getMotDePasse());
+			stmt.setInt(10, utilisateur.getCredit());
+			stmt.setBoolean(11, utilisateur.isAdministrateur());
+			stmt.setInt(12, utilisateur.getNoUtilisateur());
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction updateUtilisateur : " + e.getMessage());
 		}
@@ -96,12 +111,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	*/
 	@Override
 	public Utilisateur selectByIDutilisateur(Integer idUtilisateur) {
+		Utilisateur result = null;
 		try(Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement stmt = con.prepareStatement("SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE no_utilisateur=?");
+			stmt.setInt(1, idUtilisateur);
+			ResultSet rs = stmt.executeQuery();
 			
+			if(rs.next()) {
+				result = itemBuilder(rs);
+			}
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction selectByIDutilisateur : " + e.getMessage());
 		}
-		return null;
+		return result;
 	}
 
 	/**
@@ -110,7 +132,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	@Override
 	public void deleteUtilisateur(Utilisateur utilisateur) {
 		try(Connection con = ConnectionProvider.getConnection()) {
-			
+			PreparedStatement stmt = con.prepareStatement("DELETE UTILISATEURS WHERE no_utilisateur=?");
+			stmt.setInt(1, utilisateur.getNoUtilisateur());
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction deleteUtilisateur : " + e.getMessage());
 		}	
