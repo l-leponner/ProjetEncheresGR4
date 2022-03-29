@@ -11,6 +11,7 @@ package fr.eni.encheres.bo;
  */
 public class Retrait {
 
+	private Integer noArticle;
 	private String rue;
 	private String code_postal;
 	private String ville;

@@ -32,7 +32,7 @@ public class ArticleVendu {
 		super();
 	}
 
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate finDebutEncheres, Integer miseAprix, Integer prixvente, String etatVente,
 			List<Enchere> lstEncheres, Retrait retrait) {
 		super();
