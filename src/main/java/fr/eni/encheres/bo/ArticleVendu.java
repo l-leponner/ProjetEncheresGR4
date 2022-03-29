@@ -22,7 +22,7 @@ public class ArticleVendu {
 	private String description;
 	private LocalDate dateDebutEncheres;
 	private LocalDate finDebutEncheres;
-	private Integer miseAprix;
+	private Integer miseAPrix;
 	private Integer prixvente;
 	private String etatVente;
 	private List <Enchere> lstEncheres = new ArrayList<Enchere>();
@@ -32,32 +32,32 @@ public class ArticleVendu {
 		super();
 	}
 
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate finDebutEncheres, Integer miseAprix, Integer prixvente, String etatVente,
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate finDebutEncheres, Integer miseAPrix, Integer prixvente, String etatVente,
 			List<Enchere> lstEncheres, Retrait retrait) {
 		super();
-		this.noArticle = noArticle;
+		
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.finDebutEncheres = finDebutEncheres;
-		this.miseAprix = miseAprix;
+		this.miseAPrix = miseAPrix;
 		this.prixvente = prixvente;
 		this.etatVente = etatVente;
 		this.lstEncheres = lstEncheres;
 		this.retrait = retrait;
 	}
 
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate finDebutEncheres, Integer miseAprix, Integer prixvente, String etatVente,
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate finDebutEncheres, Integer miseAPrix, Integer prixvente, String etatVente,
 			List<Enchere> lstEncheres) {
 		super();
-		this.noArticle = noArticle;
+		
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.finDebutEncheres = finDebutEncheres;
-		this.miseAprix = miseAprix;
+		this.miseAPrix = miseAPrix;
 		this.prixvente = prixvente;
 		this.etatVente = etatVente;
 		this.lstEncheres = lstEncheres;
@@ -104,11 +104,11 @@ public class ArticleVendu {
 	}
 
 	public Integer getMiseAprix() {
-		return miseAprix;
+		return miseAPrix;
 	}
 
 	public void setMiseAprix(Integer miseAprix) {
-		this.miseAprix = miseAprix;
+		this.miseAPrix = miseAprix;
 	}
 
 	public Integer getPrixvente() {
@@ -172,9 +172,9 @@ public class ArticleVendu {
 			builder.append(finDebutEncheres);
 			builder.append(", ");
 		}
-		if (miseAprix != null) {
+		if (miseAPrix != null) {
 			builder.append("miseAprix=");
-			builder.append(miseAprix);
+			builder.append(miseAPrix);
 			builder.append(", ");
 		}
 		if (prixvente != null) {

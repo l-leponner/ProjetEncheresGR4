@@ -22,7 +22,7 @@ public class Categorie {
 		super();
 	}
 
-	public Categorie(Integer noCategorie, String libelle, List<ArticleVendu> lstArticleVendus) {
+	public Categorie(String libelle, List<ArticleVendu> lstArticleVendus) {
 		super();
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
