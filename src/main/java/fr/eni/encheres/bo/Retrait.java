@@ -15,9 +15,18 @@ public class Retrait {
 	private String rue;
 	private String code_postal;
 	private String ville;
+	private ArticleVendu articleVendu;
 
 	public Retrait() {
 		super();
+	}
+
+	public Retrait(Integer noArticle, String rue, String code_postal, String ville) {
+		super();
+		this.noArticle = noArticle;
+		this.rue = rue;
+		this.code_postal = code_postal;
+		this.ville = ville;
 	}
 
 	public Retrait(String rue, String code_postal, String ville) {
@@ -25,6 +34,14 @@ public class Retrait {
 		this.rue = rue;
 		this.code_postal = code_postal;
 		this.ville = ville;
+	}
+
+	public Integer getNoArticle() {
+		return noArticle;
+	}
+
+	public void setNoArticle(Integer noArticle) {
+		this.noArticle = noArticle;
 	}
 
 	public String getRue() {
@@ -51,10 +68,23 @@ public class Retrait {
 		this.ville = ville;
 	}
 
+	public ArticleVendu getArticleVendu() {
+		return articleVendu;
+	}
+
+	public void setArticleVendu(ArticleVendu articleVendu) {
+		this.articleVendu = articleVendu;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Retrait [");
+		if (noArticle != null) {
+			builder.append("noArticle=");
+			builder.append(noArticle);
+			builder.append(", ");
+		}
 		if (rue != null) {
 			builder.append("rue=");
 			builder.append(rue);
@@ -68,6 +98,11 @@ public class Retrait {
 		if (ville != null) {
 			builder.append("ville=");
 			builder.append(ville);
+			builder.append(", ");
+		}
+		if (articleVendu != null) {
+			builder.append("articleVendu=");
+			builder.append(articleVendu);
 		}
 		builder.append("]");
 		return builder.toString();
