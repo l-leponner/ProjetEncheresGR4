@@ -2,6 +2,9 @@ package fr.eni.encheres.dal;
 
 import fr.eni.encheres.dal.categories.CategorieDAO;
 import fr.eni.encheres.dal.categories.CategorieDAOImpl;
+import fr.eni.encheres.dal.encheres.EnchereDAO;
+import fr.eni.encheres.dal.encheres.EnchereDAOImpl;
+
 import fr.eni.encheres.dal.retrait.RetraitDAO;
 import fr.eni.encheres.dal.retrait.RetraitDAOImpl;
 import fr.eni.encheres.dal.utilisateur.UtilisateurDAO;

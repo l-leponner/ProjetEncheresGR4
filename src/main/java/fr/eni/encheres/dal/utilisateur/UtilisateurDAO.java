@@ -24,7 +24,7 @@ public interface UtilisateurDAO {
 	
 	public List<Utilisateur> selectAllUtilisateur() throws DALException;
 	
-	public Utilisateur selectByIDutilisateur(Integer idUtilisateur) throws DALException;
+	public Utilisateur selectByIDUtilisateur(Integer idUtilisateur) throws DALException;
 	
 	public void deleteUtilisateur (Utilisateur utilisateur) throws DALException;
 	
