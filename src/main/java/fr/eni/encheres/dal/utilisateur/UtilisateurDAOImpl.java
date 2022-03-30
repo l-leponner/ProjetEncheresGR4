@@ -15,29 +15,29 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.util.ConnectionProvider;
 
-
 /**
  * Classe en charge de
+ * 
  * @author lleponner2022
  * @date 29 mars 2022
  * @version Encheres- V0.1
- * @since  29 mars 2022 - 14:09:19
+ * @since 29 mars 2022 - 14:09:19
  *
  */
-public class UtilisateurDAOImpl implements UtilisateurDAO{
+public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private final String SELECT = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 	private final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ?, administrateur = ? WHERE no_utilisateur = ?";
-	
-	
+
 	/**
-	*{@inheritedDoc}
-	 * @throws DALException 
-	*/
+	 * {@inheritedDoc}
+	 * 
+	 * @throws DALException
+	 */
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) throws DALException {
-		try(Connection con = ConnectionProvider.getConnection()) {
+		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
@@ -51,26 +51,27 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			stmt.setInt(10, utilisateur.getCredit());
 			stmt.setBoolean(11, utilisateur.isAdministrateur());
 			int nb = stmt.executeUpdate();
-			if(nb>0) {
+			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
-				if(rs.next()) {
+				if (rs.next()) {
 					utilisateur.setNoUtilisateur(1);
 				}
 			}
-				
+
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction insertUtilisateur : " + e.getMessage());
 		}
-			
+
 	}
 
 	/**
-	*{@inheritedDoc}
-	 * @throws DALException 
-	*/
+	 * {@inheritedDoc}
+	 * 
+	 * @throws DALException
+	 */
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur) throws DALException {
-		try(Connection con = ConnectionProvider.getConnection()) {
+		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
@@ -91,17 +92,18 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 
 	/**
-	*{@inheritedDoc}
-	 * @throws DALException 
-	*/
+	 * {@inheritedDoc}
+	 * 
+	 * @throws DALException
+	 */
 	@Override
 	public List<Utilisateur> selectAllUtilisateur() throws DALException {
 		List<Utilisateur> results = new ArrayList<Utilisateur>();
-		try(Connection con = ConnectionProvider.getConnection()) {
+		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT);
 			ResultSet rs = stmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				results.add(itemBuilder(rs));
 			}
 		} catch (SQLException e) {
@@ -111,18 +113,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 
 	/**
-	*{@inheritedDoc}
-	 * @throws DALException 
-	*/
+	 * {@inheritedDoc}
+	 * 
+	 * @throws DALException
+	 */
 	@Override
-	public Utilisateur selectByIDutilisateur(Integer idUtilisateur) throws DALException {
+	public Utilisateur selectByIDUtilisateur(Integer idUtilisateur) throws DALException {
 		Utilisateur result = null;
-		try(Connection con = ConnectionProvider.getConnection()) {
-			PreparedStatement stmt = con.prepareStatement("SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE no_utilisateur=?");
+		try (Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement stmt = con.prepareStatement(
+					"SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE no_utilisateur=?");
 			stmt.setInt(1, idUtilisateur);
 			ResultSet rs = stmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				result = itemBuilder(rs);
 			}
 		} catch (SQLException e) {
@@ -132,22 +136,23 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 
 	/**
-	*{@inheritedDoc}
-	 * @throws DALException 
-	*/
+	 * {@inheritedDoc}
+	 * 
+	 * @throws DALException
+	 */
 	@Override
 	public void deleteUtilisateur(Utilisateur utilisateur) throws DALException {
-		try(Connection con = ConnectionProvider.getConnection()) {
+		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement("DELETE UTILISATEURS WHERE no_utilisateur=?");
 			stmt.setInt(1, utilisateur.getNoUtilisateur());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction deleteUtilisateur : " + e.getMessage());
-		}	
+		}
 	}
 
-	private Utilisateur itemBuilder (ResultSet rs) throws SQLException {
-		
+	private Utilisateur itemBuilder(ResultSet rs) throws SQLException {
+
 		Integer noUtilisateur = rs.getInt("no_utilisateur");
 		String pseudo = rs.getString("pseudo");
 		String nom = rs.getString("nom");
@@ -160,7 +165,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		String motDePasse = rs.getString("mot_de_passe");
 		Integer credit = rs.getInt("credit");
 		boolean administrateur = rs.getBoolean("administrateur");
-		
+
 		Utilisateur utilisateur = new Utilisateur();
 		utilisateur.setNoUtilisateur(noUtilisateur);
 		utilisateur.setPseudo(pseudo);
