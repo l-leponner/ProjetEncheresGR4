@@ -22,7 +22,7 @@ public interface CategorieDAO {
 
 	public List<Categorie> selectALLCategorie() throws DALException;
 
-	public Categorie selectByIdCategorie(Categorie categorie) throws DALException;
+	public Categorie selectByIdCategorie(Integer idCategorie) throws DALException;
 
 	public void deleteCategorie(Categorie categorie) throws DALException;
 	
