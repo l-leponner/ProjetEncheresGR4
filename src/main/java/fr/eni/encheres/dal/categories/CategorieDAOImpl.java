@@ -81,11 +81,11 @@ public class CategorieDAOImpl implements CategorieDAO {
 	}
 
 	@Override
-	public Categorie selectByIdCategorie(Categorie categorie) throws DALException {
+	public Categorie selectByIdCategorie(Integer idCategorie) throws DALException {
 		Categorie result = new Categorie();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT_BY_ID);
-			stmt.setInt(1, categorie.getNoCategorie());
+			stmt.setInt(1, idCategorie);
 			ResultSet rs = stmt.executeQuery();
 
 			if(rs.next())
