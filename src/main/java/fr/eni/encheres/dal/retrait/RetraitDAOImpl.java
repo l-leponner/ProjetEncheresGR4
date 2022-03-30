@@ -36,6 +36,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 			stmt.setString(2, retrait.getCode_postal());
 			stmt.setString(3, retrait.getVille());
 			stmt.setInt(4, retrait.getArticleVendu().getNoArticle());
+			
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {

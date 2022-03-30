@@ -27,7 +27,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 	private final String INSERT = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
 	private final String SELECTALL = "SELECT no_categorie, libelle FROM CATEGORIES";
 	private final String UPDATE = "UPDATE CATEGORIES SET libelle = ? WHERE no_categorie = ?";
-	private final String SELECT_BY_ID = "SELECT libelle FROM CATEGORIES WHERE no_categorie = ?";
+	private final String SELECT_BY_ID = "SELECT no_categorie, libelle FROM CATEGORIES WHERE no_categorie = ?";
 	private final String DELETE = "DELETE FROM CATEGORIES WHERE no_categorie = ?";
 
 	@Override
@@ -82,17 +82,16 @@ public class CategorieDAOImpl implements CategorieDAO {
 	}
 
 	@Override
-	public List<Categorie> selectByIdCategorie(Categorie categorie) throws DALException {
-		List<Categorie> result = new ArrayList<>();
+	public Categorie selectByIdCategorie(Categorie categorie) throws DALException {
+		Categorie result = new Categorie();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT_BY_ID);
 			stmt.setInt(1, categorie.getNoCategorie());
 			ResultSet rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				Categorie item = null;
-				item = itemBuilder(rs);
-				result.add(item);
+			if(rs.next())
+			{
+				result = itemBuilder(rs);
 			}
 
 		} catch (SQLException e) {
