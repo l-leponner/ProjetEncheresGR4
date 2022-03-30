@@ -21,14 +21,15 @@ public class Enchere {
 	private LocalDate dateEnchere;
 	private Integer montantEnchere;
 	
-	private List<Utilisateur> lstUtilisateurs = new ArrayList<Utilisateur>();
-	private List<ArticleVendu> lstArticlesVendus = new ArrayList<ArticleVendu>();
+	private Utilisateur utilisateur;
+	private ArticleVendu articleVendu;
 	
 	
-	public Enchere(LocalDate dateEncheres, Integer montantEnchere) {
+	public Enchere(LocalDate dateEnchere, Integer montantEnchere, ArticleVendu articleVendu, Utilisateur utilisateur) {
 		super();
-		this.dateEnchere = dateEncheres;
+		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
+		this.articleVendu = articleVendu;
 		
 		
 	}
@@ -78,32 +79,32 @@ public class Enchere {
 		this.montantEnchere = montantEnchere;
 	}
 	/**
-	 * Getter pour lstUtilisateurs.
-	 * @return the lstUtilisateurs
+	 * Getter pour utilisateur.
+	 * @return the utilisateur
 	 */
-	public List<Utilisateur> getLstUtilisateurs() {
-		return lstUtilisateurs;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 	/**
-	 * Setter pour lstUtilisateurs.
-	 * @param lstUtilisateurs the lstUtilisateurs to set
+	 * Setter pour utilisateur.
+	 * @param utilisateur the utilisateur to set
 	 */
-	public void setLstUtilisateurs(List<Utilisateur> lstUtilisateurs) {
-		this.lstUtilisateurs = lstUtilisateurs;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 	/**
-	 * Getter pour lstArticlesVendus.
-	 * @return the lstArticlesVendus
+	 * Getter pour articleVendu.
+	 * @return the articleVendu
 	 */
-	public List<ArticleVendu> getLstArticlesVendus() {
-		return lstArticlesVendus;
+	public ArticleVendu getArticleVendu() {
+		return articleVendu;
 	}
 	/**
-	 * Setter pour lstArticlesVendus.
-	 * @param lstArticlesVendus the lstArticlesVendus to set
+	 * Setter pour articleVendu.
+	 * @param articleVendu the articleVendu to set
 	 */
-	public void setLstArticlesVendus(List<ArticleVendu> lstArticlesVendus) {
-		this.lstArticlesVendus = lstArticlesVendus;
+	public void setArticleVendu(ArticleVendu articleVendu) {
+		this.articleVendu = articleVendu;
 	}
 	/**
 	*{@inheritedDoc}
@@ -127,14 +128,14 @@ public class Enchere {
 			builder.append(montantEnchere);
 			builder.append(", ");
 		}
-		if (lstUtilisateurs != null) {
-			builder.append("lstUtilisateurs=");
-			builder.append(lstUtilisateurs);
+		if (utilisateur != null) {
+			builder.append("utilisateur=");
+			builder.append(utilisateur);
 			builder.append(", ");
 		}
-		if (lstArticlesVendus != null) {
-			builder.append("lstArticlesVendus=");
-			builder.append(lstArticlesVendus);
+		if (articleVendu != null) {
+			builder.append("articleVendu=");
+			builder.append(articleVendu);
 		}
 		builder.append("]");
 		return builder.toString();
