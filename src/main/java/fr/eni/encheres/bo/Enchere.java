@@ -3,9 +3,7 @@
  */
 package fr.eni.encheres.bo;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * Classe en charge de
@@ -18,14 +16,14 @@ import java.util.List;
 public class Enchere {
 	
 	private Integer noEnchere;
-	private LocalDate dateEnchere;
+	private LocalDateTime dateEnchere;
 	private Integer montantEnchere;
 	
 	private Utilisateur utilisateur;
 	private ArticleVendu articleVendu;
 	
 	
-	public Enchere(LocalDate dateEnchere, Integer montantEnchere, ArticleVendu articleVendu, Utilisateur utilisateur) {
+	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu articleVendu, Utilisateur utilisateur) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
@@ -54,14 +52,14 @@ public class Enchere {
 	 * Getter pour dateEnchere.
 	 * @return the dateEnchere
 	 */
-	public LocalDate getDateEnchere() {
+	public LocalDateTime getDateEnchere() {
 		return dateEnchere;
 	}
 	/**
 	 * Setter pour dateEnchere.
 	 * @param dateEnchere the dateEnchere to set
 	 */
-	public void setDateEnchere(LocalDate dateEnchere) {
+	public void setDateEnchere(LocalDateTime dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 	/**

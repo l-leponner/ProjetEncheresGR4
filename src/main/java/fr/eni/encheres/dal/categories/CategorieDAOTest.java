@@ -59,7 +59,7 @@ public class CategorieDAOTest {
 
 		// SelectByID
 		try {
-			System.out.println(dao.selectByIdCategorie(cat1));
+			System.out.println(dao.selectByIdCategorie(cat1.getNoCategorie()));
 		} catch (DALException e) {
 			throw new DALException("Erreur : " + e.getMessage());
 		}

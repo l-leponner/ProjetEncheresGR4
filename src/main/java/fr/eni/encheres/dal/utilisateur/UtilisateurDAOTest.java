@@ -44,33 +44,33 @@ public class UtilisateurDAOTest {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-//		u1.setNoUtilisateur(1);
-//		System.out.println("");
-//		System.out.println("-----------------");
-//		System.out.println("");
-//		try {
-//			System.out.println("selectByIDutilisateur");
-//			System.out.println(dao.selectByIDUtilisateur(1));
-//		} catch (DALException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println("");
-//		System.out.println("-----------------");
-//		System.out.println("");
-//		u1.setAdministrateur(true);
-//		try {
-//			System.out.println("updateUtilisateur");
-//			dao.updateUtilisateur(u1);
-//			System.out.println(dao.selectByIDUtilisateur(1));
-//		} catch (DALException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		try {
-//			dao.deleteUtilisateur(u1);
-//		} catch (DALException e) {
-//			e.printStackTrace();
-//		}
+		u1.setNoUtilisateur(1);
+		System.out.println("");
+		System.out.println("-----------------");
+		System.out.println("");
+		try {
+			System.out.println("selectByIDutilisateur");
+			System.out.println(dao.selectByIDUtilisateur(1));
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		System.out.println("");
+		System.out.println("-----------------");
+		System.out.println("");
+		u1.setAdministrateur(true);
+		try {
+			System.out.println("updateUtilisateur");
+			dao.updateUtilisateur(u1);
+			System.out.println(dao.selectByIDUtilisateur(1));
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			dao.deleteUtilisateur(u1);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
