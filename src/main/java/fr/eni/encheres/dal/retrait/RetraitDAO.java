@@ -22,7 +22,7 @@ public interface RetraitDAO {
 
 	public List<Retrait> selectALLRetrait() throws DALException;
 
-	public List<Retrait> selectByIdRetrait(Retrait retrait) throws DALException;
+	public Retrait selectByIdRetrait(Integer idRetrait) throws DALException;
 
 	public void deleteRetrait(Retrait retrait) throws DALException;
 

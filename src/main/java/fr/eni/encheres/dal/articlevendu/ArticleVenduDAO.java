@@ -21,7 +21,7 @@ public interface ArticleVenduDAO {
 
 	public void insertArticleVendu(ArticleVendu articlevendu) throws DALException;
 
-	public void selectByIdArticleVendu(ArticleVendu articlevendu) throws DALException;
+	public void selectByIdArticleVendu(Integer IDArticleVendu) throws DALException;
 
 	public List<ArticleVendu> selectAllArticleVendu() throws DALException;
 
