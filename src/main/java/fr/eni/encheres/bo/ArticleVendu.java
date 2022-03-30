@@ -27,29 +27,21 @@ public class ArticleVendu {
 	private Integer prixVente;
 	private String etatVente;
 	private List<Enchere> lstEncheres = new ArrayList<Enchere>();
-	private Retrait retrait;
+	private Retrait lieuRetrait;
+	private Categorie categorie;
+	private Utilisateur utilisateur;
+	
+	
 
 	public ArticleVendu() {
 		super();
 	}
 
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate finDebutEncheres,
-			Integer miseAPrix, Integer prixvente, String etatVente, List<Enchere> lstEncheres, Retrait retrait) {
-		super();
+	
 
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = finDebutEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixvente;
-		this.etatVente = etatVente;
-		this.lstEncheres = lstEncheres;
-		this.retrait = retrait;
-	}
 
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			Integer miseAPrix, Integer prixVente, String etatVente) {
+			Integer miseAPrix, Integer prixVente, String etatVente, Categorie categorie, Utilisateur utilisateur) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -58,21 +50,31 @@ public class ArticleVendu {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
+		this.categorie = categorie;
+		this.utilisateur = utilisateur;
 	}
 
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate finDebutEncheres,
-			Integer miseAPrix, Integer prixvente, String etatVente, List<Enchere> lstEncheres) {
-		super();
 
+
+
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			Integer miseAPrix, Integer prixVente, String etatVente, Retrait lieuRetrait, Categorie categorie,
+			Utilisateur utilisateur) {
+		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = finDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
-		this.prixVente = prixvente;
+		this.prixVente = prixVente;
 		this.etatVente = etatVente;
-		this.lstEncheres = lstEncheres;
+		this.lieuRetrait = lieuRetrait;
+		this.categorie = categorie;
+		this.utilisateur = utilisateur;
 	}
+
+
+
 
 	public Integer getNoArticle() {
 		return noArticle;
@@ -147,12 +149,64 @@ public class ArticleVendu {
 	}
 
 	public Retrait getRetrait() {
-		return retrait;
+		return lieuRetrait;
 	}
 
 	public void setRetrait(Retrait retrait) {
-		this.retrait = retrait;
+		this.lieuRetrait = retrait;
 	}
+
+	
+
+	/**
+	 * Getter pour utilisateur.
+	 * @return the utilisateur
+	 */
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	/**
+	 * Setter pour utilisateur.
+	 * @param utilisateur the utilisateur to set
+	 */
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	/**
+	 * Getter pour categorie.
+	 * @return the categorie
+	 */
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	/**
+	 * Setter pour categorie.
+	 * @param categorie the categorie to set
+	 */
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	/**
+	 * Getter pour lieuRetrait.
+	 * @return the lieuRetrait
+	 */
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
+	}
+
+	/**
+	 * Setter pour lieuRetrait.
+	 * @param lieuRetrait the lieuRetrait to set
+	 */
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
+	}
+
+
 
 	@Override
 	public String toString() {
@@ -203,6 +257,21 @@ public class ArticleVendu {
 			builder.append(lstEncheres);
 			builder.append(", ");
 		}
+		if (lieuRetrait != null) {
+			builder.append("lieuRetrait=");
+			builder.append(lieuRetrait);
+			builder.append(", ");
+		}
+		if (categorie != null) {
+			builder.append("categorie=");
+			builder.append(categorie);
+			builder.append(", ");
+		}
+		if (utilisateur != null) {
+			builder.append("utilisateur=");
+			builder.append(utilisateur);
+			builder.append(", ");
+		}
 		if (super.toString() != null) {
 			builder.append("toString()=");
 			builder.append(super.toString());
@@ -211,4 +280,6 @@ public class ArticleVendu {
 		return builder.toString();
 	}
 
+	
+	
 }
