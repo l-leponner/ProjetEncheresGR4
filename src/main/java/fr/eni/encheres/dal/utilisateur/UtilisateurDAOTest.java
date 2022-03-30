@@ -40,7 +40,7 @@ public class UtilisateurDAOTest {
 		}
 		try {
 			System.out.println("selectAllUtilisateur");
-			System.out.println(dao.selectAllUtilisateur());
+			dao.selectAllUtilisateur().stream().forEach(System.out::println);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
@@ -66,11 +66,11 @@ public class UtilisateurDAOTest {
 			e.printStackTrace();
 		}
 		
-		try {
-			dao.deleteUtilisateur(u1);
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			dao.deleteUtilisateur(u1);
+//		} catch (DALException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

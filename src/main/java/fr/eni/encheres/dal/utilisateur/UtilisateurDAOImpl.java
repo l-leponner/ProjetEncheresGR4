@@ -54,7 +54,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
 				if (rs.next()) {
-					utilisateur.setNoUtilisateur(1);
+					utilisateur.setNoUtilisateur(rs.getInt(1));
 				}
 			}
 
@@ -172,9 +172,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		utilisateur.setNom(nom);
 		utilisateur.setPrenom(prenom);
 		utilisateur.setEmail(email);
+		utilisateur.setTelephone(telephone);
 		utilisateur.setRue(rue);
 		utilisateur.setCodePostal(codePostal);
 		utilisateur.setVille(ville);
+		utilisateur.setMotDePasse(motDePasse);
+		utilisateur.setCredit(credit);
 		utilisateur.setAdministrateur(administrateur);
 		return utilisateur;
 	}
