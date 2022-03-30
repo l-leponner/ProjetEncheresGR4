@@ -7,15 +7,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.encheres.bo.ArticleVendu;
-import fr.eni.encheres.bo.Categorie;
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.DALException;
-import fr.eni.encheres.dal.DAOFactory;
-import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
 import fr.eni.encheres.dal.util.ConnectionProvider;
 
 /**
@@ -116,13 +117,13 @@ public class RetraitDAOImpl implements RetraitDAO {
 
 	private Retrait itemBuilder(ResultSet rs) throws SQLException {
 
-		int noArticle = rs.getInt("no_article");
+		Integer noArticle = rs.getInt("no_article");
 		String rue = rs.getString("rue");
 		String code_postal = rs.getString("code_postal");
 		String ville = rs.getString("ville");
 
 		Retrait retrait = new Retrait(noArticle, rue, code_postal, ville);
-
+		
 		return retrait;
 	}
 
