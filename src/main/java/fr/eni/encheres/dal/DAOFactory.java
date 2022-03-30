@@ -1,5 +1,7 @@
 package fr.eni.encheres.dal;
 
+import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
+import fr.eni.encheres.dal.articlevendu.ArticleVenduDAOImpl;
 import fr.eni.encheres.dal.categories.CategorieDAO;
 import fr.eni.encheres.dal.categories.CategorieDAOImpl;
 import fr.eni.encheres.dal.retrait.RetraitDAO;

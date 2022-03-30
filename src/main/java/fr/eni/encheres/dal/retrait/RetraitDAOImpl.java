@@ -10,8 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.DALException;
+import fr.eni.encheres.dal.DAOFactory;
+import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
 import fr.eni.encheres.dal.util.ConnectionProvider;
 
 /**
@@ -36,7 +40,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 			stmt.setString(2, retrait.getCode_postal());
 			stmt.setString(3, retrait.getVille());
 			stmt.setInt(4, retrait.getArticleVendu().getNoArticle());
-			
+
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -81,17 +85,15 @@ public class RetraitDAOImpl implements RetraitDAO {
 	}
 
 	@Override
-	public List<Retrait> selectByIdRetrait(Retrait retrait) throws DALException {
-		List<Retrait> result = new ArrayList<>();
+	public Retrait selectByIdRetrait(Integer idRetrait) throws DALException {
+		Retrait result = new Retrait();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT_BY_ID);
-			stmt.setInt(1, retrait.getNoArticle());
+			stmt.setInt(1, idRetrait);
 			ResultSet rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				Retrait item = null;
-				item = itemBuilder(rs);
-				result.add(item);
+			if (rs.next()) {
+				result = itemBuilder(rs);
 			}
 
 		} catch (SQLException e) {
