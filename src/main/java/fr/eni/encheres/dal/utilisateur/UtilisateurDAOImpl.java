@@ -155,9 +155,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		String email = rs.getString("email");
 		String telephone = rs.getString("telephone");
 		String rue = rs.getString("rue");
-		String codePostal = rs.getString("codePostal");
+		String codePostal = rs.getString("code_postal");
 		String ville = rs.getString("ville");
-		String motDePasse = rs.getString("motDePasse");
+		String motDePasse = rs.getString("mot_de_passe");
 		Integer credit = rs.getInt("credit");
 		boolean administrateur = rs.getBoolean("administrateur");
 		
