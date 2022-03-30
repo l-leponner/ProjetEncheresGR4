@@ -103,7 +103,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 	public Enchere selectByIDEnchere(Integer idEnchere) throws DALException {
 		Enchere result = null;
 		try (Connection con = ConnectionProvider.getConnection()) {
-			PreparedStatement stmt = con.prepareStatement("SELECTBYID");
+			PreparedStatement stmt = con.prepareStatement(SELECTBYID);
 			stmt.setInt(1, idEnchere);
 			ResultSet rs = stmt.executeQuery();
 
@@ -122,7 +122,13 @@ public class EnchereDAOImpl implements EnchereDAO{
 	*/
 	@Override
 	public void deleteEnchere(Enchere enchere) throws DALException {
-		
+		try (Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement stmt = con.prepareStatement("DELETE ENCHERES WHERE no_enchere=?");
+			stmt.setInt(1, enchere.getNoEnchere());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new DALException("Erreur dans la fonction deleteEnchere : " + e.getMessage());
+		}
 	}
 	
 	private Enchere itemBuilder(ResultSet rs) throws SQLException {
