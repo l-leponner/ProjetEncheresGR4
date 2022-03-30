@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 	public void insertEnchere(Enchere enchere) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-			stmt.setDate(1, java.sql.Date.valueOf(enchere.getDateEnchere()));
+			stmt.setTimestamp(1, java.sql.Timestamp.valueOf(enchere.getDateEnchere()));
 			stmt.setInt(1, enchere.getMontantEnchere());
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
@@ -70,7 +71,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 	public void updateEnchere(Enchere enchere) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
-			stmt.setDate(1, java.sql.Date.valueOf(enchere.getDateEnchere()));
+			stmt.setTimestamp(1, java.sql.Timestamp.valueOf(enchere.getDateEnchere()));
 			stmt.setInt(2, enchere.getMontantEnchere());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -134,7 +135,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 	private Enchere itemBuilder(ResultSet rs) throws SQLException {
 
 		Integer noEnchere = rs.getInt("no_enchere");
-		LocalDate dateEnchere = rs.getDate("date_enchere").toLocalDate();
+		LocalDateTime dateEnchere = rs.getTimestamp("date_enchere").toLocalDateTime();
 		Integer montantEnchere = rs.getInt("montant_enchere");
 		Integer noArticle = rs.getInt("no_article");
 		Integer noUtilisateur = rs.getInt("no_utilisateur");
