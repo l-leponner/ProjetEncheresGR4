@@ -7,13 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.DALException;
@@ -32,7 +27,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 	private final String INSERT = "INSERT INTO RETRAITS (rue, code_postal, ville, no_article) VALUES (?,?,?,?)";
 	private final String SELECTALL = "SELECT no_article, rue, code_postal, ville FROM RETRAITS";
 	private final String UPDATE = "UPDATE RETRAITS SET rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
-	private final String SELECT_BY_ID = "SELECT rue, code_postal, ville FROM RETRAITS WHERE no_article = ?";
+	private final String SELECT_BY_ID = "SELECT no_article, rue, code_postal, ville FROM RETRAITS WHERE no_article = ?";
 	private final String DELETE = "DELETE FROM RETRAITS WHERE no_article = ?";
 
 	@Override

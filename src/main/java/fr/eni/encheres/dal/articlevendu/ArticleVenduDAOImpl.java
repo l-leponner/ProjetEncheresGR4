@@ -36,12 +36,12 @@ import fr.eni.encheres.dal.utilisateur.UtilisateurDAO;
  */
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
-	private final String SELECTBYID = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS Where no_article = ?";
+	private final String SELECTBYID = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS Where no_article = ?";
 
-	private final String INSERT = "INSERT INTO ARTICLE_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?)";
-	private final String SELECTALL = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS";
+	private final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, no_utilisateur, no_categorie, etat_vente) VALUES (?,?,?,?,?,?,?,?)";
+	private final String SELECTALL = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS";
 
-	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article =?, description =?, date_debut_enchere = ?, date_fin_enchere = ?, prix_initial =?, prix_vente =? FROM ARTICLES_VENDUS WHERE no_article = ?";
+	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article =?, description =?, date_debut_enchere = ?, date_fin_enchere = ?, prix_initial = ?, prix_vente =?, etat_vente = ? FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article =?";
 
 	/**
@@ -51,7 +51,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	public void insertArticleVendu(ArticleVendu articlevendu) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-
+			
 			stmt.setString(1, articlevendu.getNomArticle());
 			stmt.setString(2, articlevendu.getDescription());
 			stmt.setTimestamp(3, Timestamp.valueOf(articlevendu.getDateDebutEncheres()));
@@ -59,6 +59,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getUtilisateur().getNoUtilisateur());
 			stmt.setInt(7, articlevendu.getCategorie().getNoCategorie());
+			stmt.setString(8, articlevendu.getEtatVente());
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
@@ -79,8 +80,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		ArticleVendu result = new ArticleVendu();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECTBYID);
+			stmt.setInt(1, IDArticleVendu);
 			ResultSet rs = stmt.executeQuery();
-
+			
 			while (rs.next()) {
 
 				result = itemBuilder(rs);
@@ -149,6 +151,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			stmt.setTimestamp(4, Timestamp.valueOf(articlevendu.getDateFinEncheres()));
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getPrixVente());
+			stmt.setString(7, articlevendu.getEtatVente());
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -171,9 +174,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		String description = rs.getString("description");
 		LocalDateTime dateDebutEncheres = rs.getTimestamp("date_debut_enchere").toLocalDateTime();
 		LocalDateTime dateFinEncheres = rs.getTimestamp("date_fin_enchere").toLocalDateTime();
-		Integer miseAPrix = rs.getInt("mise_initial");
+		Integer miseAPrix = rs.getInt("prix_initial");
 		Integer prixVente = rs.getInt("prix_vente");
-		String etatVente = (String) rs.getObject("no_article");
+		String etatVente = rs.getString("etat_vente");
 
 		Retrait lieuRetrait;
 		Categorie categorie;
@@ -188,10 +191,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		} catch (DALException | SQLException e) {
 			throw new DALException("Erreur dans l'itembuilder" + e.getMessage());
 		}
+		
 
 			result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, etatVente);	
 			result.setNoArticle(noArticle);
-			result.setLstEncheres(daoEnchere.selectByNo_article(noArticle));
+			result.setLstEncheres(daoEnchere.selectByNoArticle(noArticle));
 			result.setPrixVente(prixVente);
 			result.setLieuRetrait(lieuRetrait);
 			result.setCategorie(categorie);
