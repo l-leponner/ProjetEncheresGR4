@@ -145,7 +145,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 				results.add(itemBuilder(rs));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Erreur dans la fonction selectByNo_article : " + e.getMessage());
+			throw new DALException("Erreur dans la fonction selectByNoArticle : " + e.getMessage());
 		}
 	
 		return results;
