@@ -24,7 +24,7 @@ public class ArticleVendu {
 	private LocalDateTime dateDebutEncheres;
 	private LocalDateTime dateFinEncheres;
 	private Integer miseAPrix;
-	private Integer prixVente;
+	private Integer prixVente = 0;
 	private String etatVente;
 	private List<Enchere> lstEncheres = new ArrayList<Enchere>();
 	private Retrait lieuRetrait;

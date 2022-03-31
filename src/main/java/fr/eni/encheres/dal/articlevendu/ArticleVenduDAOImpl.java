@@ -36,11 +36,9 @@ import fr.eni.encheres.dal.utilisateur.UtilisateurDAO;
  */
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
-	private final String SELECTBYID = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS Where no_article = ?";
-
 	private final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, no_utilisateur, no_categorie, etat_vente) VALUES (?,?,?,?,?,?,?,?)";
 	private final String SELECTALL = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS";
-
+	private final String SELECTBYID = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS Where no_article = ?";
 	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article =?, description =?, date_debut_enchere = ?, date_fin_enchere = ?, prix_initial = ?, prix_vente =?, etat_vente = ? FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article =?";
 	private final String SELECT_RETRAIT_BY_ID = "SELECT r.no_article, rue, code_postal, ville FROM RETRAITS AS r INNER JOIN ARTICLES_VENDUS AS a ON a.no_article = r.no_article WHERE r.no_article = ?";
@@ -69,7 +67,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DALException("Probleme lors de la méthode insertArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode insertArticleVendu : " + e.getMessage());
 		}
 	}
 
@@ -91,7 +89,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		}
 
 		catch (SQLException e) {
-			throw new DALException("Probleme lors de la méthode selectByIdArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode selectByIdArticleVendu : " + e.getMessage());
 		}
 		return result;
 	}
@@ -101,7 +99,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	 */
 	@Override
 	public List<ArticleVendu> selectAllArticleVendu() throws DALException {
-		List<ArticleVendu> result = new ArrayList<ArticleVendu>();
+		List<ArticleVendu> results = new ArrayList<ArticleVendu>();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECTALL);
 			ResultSet rs = stmt.executeQuery();
@@ -109,14 +107,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 				ArticleVendu item = null;
 				item = itemBuilder(rs);
-				result.add(item);
+				results.add(item);
 			}
 		}
 
 		catch (SQLException e) {
-			throw new DALException("Probleme lors de la méthode selectAllArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode selectAllArticleVendu : " + e.getMessage());
 		}
-		return result;
+		return results;
 	}
 
 	/**
@@ -153,10 +151,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getPrixVente());
 			stmt.setString(7, articlevendu.getEtatVente());
+			stmt.setInt(8, articlevendu.getNoArticle());
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("Probleme lors de la méthode updateArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode updateArticleVendu " + e.getMessage());
 		}
 
 	}
@@ -215,18 +214,18 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			utilisateur = daoUtilisateur.selectByIDUtilisateur(rs.getInt("no_utilisateur"));
 
 		} catch (DALException e) {
-			throw new DALException("Erreur dans l'itembuilder" + e.getMessage());
+			throw new DALException("Erreur dans l'itembuilder : " + e.getMessage());
 		}
 
 		result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, etatVente);
 		result.setNoArticle(noArticle);
-		result.setLstEncheres(daoEnchere.selectByNoArticle(noArticle));
+		result.setLstEncheres(daoEnchere.selectAllEncheresByNoArticle(noArticle));
 		result.setPrixVente(prixVente);
 		
 		try {
 		lieuRetrait = selectRetraitByID(result);
 		} catch (DALException e) {
-			throw new DALException("Erreur dans la méthode selectRetraitByID" + e.getMessage());
+			throw new DALException("Erreur dans la méthode selectRetraitByID : " + e.getMessage());
 		}
 		
 		result.setLieuRetrait(lieuRetrait);

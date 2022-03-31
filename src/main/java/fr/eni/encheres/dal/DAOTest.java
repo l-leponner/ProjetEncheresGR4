@@ -84,6 +84,12 @@ public class DAOTest {
 		article1.setDescription("DescriptionUPDATE");
 		retrait1.setCode_postal("0");
 		enchere1.setMontantEnchere(120);
+		
+		daoUtilisateur.updateUtilisateur(utilisateur1);
+		daoCategorie.updateCategorie(categorie1);
+		daoArticleVendu.updateArticleVendu(article1);
+		daoRetrait.updateRetrait(retrait1);
+		daoEnchere.updateEnchere(enchere1);
 
 		// Test SELECTALL
 
@@ -98,6 +104,14 @@ public class DAOTest {
 		} catch (DALException e) {
 			throw new DALException("Erreur" + e.getMessage());
 		}
+		
+		// Test SELECTBYID
+		
+		daoUtilisateur.selectByIDUtilisateur(5);
+		daoCategorie.selectByIdCategorie(1);
+		daoArticleVendu.updateArticleVendu(article1);
+		daoRetrait.updateRetrait(retrait1);
+		daoEnchere.updateEnchere(enchere1);
 	}
 
 }
