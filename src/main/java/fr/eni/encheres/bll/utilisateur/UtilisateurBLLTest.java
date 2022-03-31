@@ -25,11 +25,11 @@ public class UtilisateurBLLTest {
 		
 		Utilisateur u1 = new Utilisateur("LHommeLePlusClasseDuMonde", "Abitbol", "George", "lhommeleplusclassedumonde@gmail.com", "02 98 87 76 65", "rue de la Classe", "75000", "Paris", "georgeazerty");
 		
-		try {
-			uManager.addUtilisateur(u1);
-		} catch (BLLException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			uManager.addUtilisateur(u1);
+//		} catch (BLLException e) {
+//			e.printStackTrace();
+//		}
 		try {
 			System.out.println("getAllUtilisateur");
 			uManager.getAllUtilisateur().stream().forEach(System.out::println);
@@ -42,23 +42,7 @@ public class UtilisateurBLLTest {
 
 		try {
 			System.out.println("getByIDUtilisateur");
-			System.out.println(uManager.getByIDUtilisateur(u1.getNoUtilisateur()));
-		} catch (BLLException e) {
-			e.printStackTrace();
-		}
-		System.out.println("");
-		System.out.println("-----------------");
-		System.out.println("");
-		
-		u1.setCredit(500);
-		try {
-			uManager.updateUtilisateur(u1);
-		} catch (BLLException e) {
-			e.printStackTrace();
-		}
-		try {
-			System.out.println("getByIDUtilisateur après updateUtilisateur des credits");
-			System.out.println(uManager.getByIDUtilisateur(u1.getNoUtilisateur()));
+			System.out.println(uManager.getByIDUtilisateur(5));
 		} catch (BLLException e) {
 			e.printStackTrace();
 		}
@@ -67,16 +51,36 @@ public class UtilisateurBLLTest {
 		System.out.println("");
 		
 		try {
-			uManager.removeUtilisateur(u1);
+			uManager.getByIDUtilisateur(5).setCredit(500);
+		} catch (BLLException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			uManager.updateUtilisateur(uManager.getByIDUtilisateur(5));
 		} catch (BLLException e) {
 			e.printStackTrace();
 		}
 		try {
-			System.out.println("getAllUtilisateur après removeUtilisateur");
-			uManager.getAllUtilisateur().stream().forEach(System.out::println);
+			System.out.println("getByIDUtilisateur après updateUtilisateur des credits de " + uManager.getByIDUtilisateur(5));
+			System.out.println(uManager.getByIDUtilisateur(5));
 		} catch (BLLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("");
+		System.out.println("-----------------");
+		System.out.println("");
+		
+//		try {
+//			uManager.removeUtilisateur(uManager.getByIDUtilisateur(6));
+//		} catch (BLLException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			System.out.println("getAllUtilisateur après removeUtilisateur de " + uManager.getByIDUtilisateur(6));
+//			uManager.getAllUtilisateur().stream().forEach(System.out::println);
+//		} catch (BLLException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

@@ -30,14 +30,14 @@ public class UtilisateurDAOTest {
 		Utilisateur u3 = new Utilisateur("LLep", "Le Ponner", "Laurent", "llepo@gmail.com", "02 00 11 22 33", "rue des Laurent", "35740", "Pace", "loloazerty");
 		Utilisateur u4 = new Utilisateur("GaGas", "Gastine", "Gabriel", "gagas@gmail.com", "02 44 55 66 77", "rue des Gabriel", "35000", "Rennes", "gagaazerty");
 		
-		try {
-			dao.insertUtilisateur(u1);
-			dao.insertUtilisateur(u2);
-			dao.insertUtilisateur(u3);
-			dao.insertUtilisateur(u4);
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			dao.insertUtilisateur(u1);
+//			dao.insertUtilisateur(u2);
+//			dao.insertUtilisateur(u3);
+//			dao.insertUtilisateur(u4);
+//		} catch (DALException e) {
+//			e.printStackTrace();
+//		}
 		try {
 			System.out.println("selectAllUtilisateur");
 			dao.selectAllUtilisateur().stream().forEach(System.out::println);
@@ -50,7 +50,7 @@ public class UtilisateurDAOTest {
 		System.out.println("");
 		try {
 			System.out.println("selectByIDutilisateur");
-			System.out.println(dao.selectByIDUtilisateur(1));
+			System.out.println(dao.selectByIDUtilisateur(5));
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
@@ -61,7 +61,7 @@ public class UtilisateurDAOTest {
 		try {
 			System.out.println("updateUtilisateur");
 			dao.updateUtilisateur(u1);
-			System.out.println(dao.selectByIDUtilisateur(1));
+			System.out.println(dao.selectByIDUtilisateur(5));
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
