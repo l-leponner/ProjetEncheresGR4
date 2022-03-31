@@ -132,7 +132,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 		}
 	}
 	
-	private Enchere itemBuilder(ResultSet rs) throws SQLException {
+	private Enchere itemBuilder(ResultSet rs) throws SQLException, DALException {
 
 		Integer noEnchere = rs.getInt("no_enchere");
 		LocalDateTime dateEnchere = rs.getTimestamp("date_enchere").toLocalDateTime();
@@ -145,8 +145,16 @@ public class EnchereDAOImpl implements EnchereDAO{
 		enchere.setNoEnchere(noEnchere);
 		enchere.setDateEnchere(dateEnchere);
 		enchere.setMontantEnchere(montantEnchere);
-		enchere.setArticleVendu(avDAO.selectByIDArticleVendu(noArticle));
-		enchere.setUtilisateur(uDAO.selectByIDUtilisateur(noUtilisateur));
+		try {
+			enchere.setArticleVendu(avDAO.selectByIdArticleVendu(noArticle));
+		} catch (DALException e) {
+			throw new DALException("Erreur dans itembuilder EnchereDAOImpl : " + e.getMessage());
+		}
+		try {
+			enchere.setUtilisateur(uDAO.selectByIDUtilisateur(noUtilisateur));
+		} catch (DALException e) {
+			throw new DALException("Erreur dans itembuilder EnchereDAOImpl : " + e.getMessage());
+		}
 		
 		return enchere;
 	}
