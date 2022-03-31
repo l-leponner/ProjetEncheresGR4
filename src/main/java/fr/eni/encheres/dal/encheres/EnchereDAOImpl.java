@@ -173,5 +173,4 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 		return results;
 	}
-
 }

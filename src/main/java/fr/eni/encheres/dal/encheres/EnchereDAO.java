@@ -29,5 +29,6 @@ public void insertEnchere (Enchere enchere) throws DALException;
 	public void deleteEnchere (Enchere enchere) throws DALException;
 	
 	public List<Enchere> selectByNo_article(Integer noArticle) throws DALException;
+
 	
 }
