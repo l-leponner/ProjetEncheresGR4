@@ -40,6 +40,9 @@ public class EnchereDAOTest {
 		ArticleVendu av1 = null;
 		ArticleVendu av2 = null;
 		ArticleVendu av3 = null;
+		
+		avDAO.insertArticleVendu(av1);
+		
 		try {
 			u1 = uDAO.selectByIDUtilisateur(1);
 			u2 = uDAO.selectByIDUtilisateur(2);
@@ -57,6 +60,8 @@ public class EnchereDAOTest {
 		
 		try {
 			enchDAO.insertEnchere(e1);
+			enchDAO.insertEnchere(e2);
+			enchDAO.insertEnchere(e3);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

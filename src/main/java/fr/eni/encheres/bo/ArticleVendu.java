@@ -21,8 +21,8 @@ public class ArticleVendu {
 	private Integer noArticle;
 	private String nomArticle;
 	private String description;
-	private   LocalDateTime dateDebutEncheres;
-	private  LocalDateTime dateFinEncheres;
+	private LocalDateTime dateDebutEncheres;
+	private LocalDateTime dateFinEncheres;
 	private Integer miseAPrix;
 	private Integer prixVente;
 	private String etatVente;
@@ -30,35 +30,13 @@ public class ArticleVendu {
 	private Retrait lieuRetrait;
 	private Categorie categorie;
 	private Utilisateur utilisateur;
-	
-	
 
 	public ArticleVendu() {
 		super();
 	}
 
-	
-
-
-	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres,
-			Integer miseAPrix, Integer prixVente, String etatVente, Categorie categorie, Utilisateur utilisateur) {
-		super();
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-		this.etatVente = etatVente;
-		this.categorie = categorie;
-		this.utilisateur = utilisateur;
-	}
-
-
-
-
-	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres,
-			Integer miseAPrix, Integer prixVente, String etatVente, Retrait lieuRetrait, Categorie categorie,
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, Integer miseAPrix, String etatVente, Categorie categorie,
 			Utilisateur utilisateur) {
 		super();
 		this.nomArticle = nomArticle;
@@ -66,15 +44,25 @@ public class ArticleVendu {
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.categorie = categorie;
+		this.utilisateur = utilisateur;
+	}
+
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, Integer miseAPrix, String etatVente, Retrait lieuRetrait,
+			Categorie categorie, Utilisateur utilisateur) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
 		this.etatVente = etatVente;
 		this.lieuRetrait = lieuRetrait;
 		this.categorie = categorie;
 		this.utilisateur = utilisateur;
 	}
-
-
-
 
 	public Integer getNoArticle() {
 		return noArticle;
@@ -156,10 +144,9 @@ public class ArticleVendu {
 		this.lieuRetrait = retrait;
 	}
 
-	
-
 	/**
 	 * Getter pour utilisateur.
+	 * 
 	 * @return the utilisateur
 	 */
 	public Utilisateur getUtilisateur() {
@@ -168,6 +155,7 @@ public class ArticleVendu {
 
 	/**
 	 * Setter pour utilisateur.
+	 * 
 	 * @param utilisateur the utilisateur to set
 	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
@@ -176,6 +164,7 @@ public class ArticleVendu {
 
 	/**
 	 * Getter pour categorie.
+	 * 
 	 * @return the categorie
 	 */
 	public Categorie getCategorie() {
@@ -184,6 +173,7 @@ public class ArticleVendu {
 
 	/**
 	 * Setter pour categorie.
+	 * 
 	 * @param categorie the categorie to set
 	 */
 	public void setCategorie(Categorie categorie) {
@@ -192,6 +182,7 @@ public class ArticleVendu {
 
 	/**
 	 * Getter pour lieuRetrait.
+	 * 
 	 * @return the lieuRetrait
 	 */
 	public Retrait getLieuRetrait() {
@@ -200,13 +191,12 @@ public class ArticleVendu {
 
 	/**
 	 * Setter pour lieuRetrait.
+	 * 
 	 * @param lieuRetrait the lieuRetrait to set
 	 */
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -280,6 +270,4 @@ public class ArticleVendu {
 		return builder.toString();
 	}
 
-	
-	
 }
