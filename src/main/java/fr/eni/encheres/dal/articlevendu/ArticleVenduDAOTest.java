@@ -3,6 +3,8 @@
  */
 package fr.eni.encheres.dal.articlevendu;
 
+import java.time.LocalDateTime;
+
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
@@ -22,7 +24,7 @@ public class ArticleVenduDAOTest {
 
 
 	public static void main(String[] args) throws DALException {
-		dao.insertArticleVendu(new ArticleVendu("beau tapis persan","couleur rose",(2nd October 2007 at 13:45.30.123456789), (2nd October 2007 at 13:45.30.123456158));
+		dao.insertArticleVendu(new ArticleVendu("beau tapis persan","couleur rose",(LocalDateTime.of(2022, 12, 15, 16, 30)), (LocalDateTime.of(2022, 12, 15, 16, 30)), 400, "en vente"));
 		
 		dao.selectAllArticleVendu().forEach(System.out::println);
 	}
