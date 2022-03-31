@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,31 +21,28 @@ import fr.eni.encheres.dal.utilisateur.UtilisateurDAO;
 
 /**
  * Classe en charge de
+ * 
  * @author lleponner2022
  * @date 30 mars 2022
  * @version Encheres- V0.1
- * @since  30 mars 2022 - 09:14:17
+ * @since 30 mars 2022 - 09:14:17
  *
  */
-public class EnchereDAOImpl implements EnchereDAO{
+public class EnchereDAOImpl implements EnchereDAO {
 
 	private final ArticleVenduDAO avDAO = DAOFactory.getArticleVenduDAO();
 	private final UtilisateurDAO uDAO = DAOFactory.getUtilisateurDAO();
+
 	private final String INSERT = "INSERT INTO ENCHERES (date_enchere, montant_enchere) VALUES (?,?)";
-	private final String SELECT = "SELECT no_enchere, date_enchere, montant_enchere, a.no_article, u.no_utilisateur "
-			+ "FROM ENCHERES AS e"
-			+ "INNER JOIN UTILISATEURS AS u ON u.no_utilisateur = e.no_utilisateur"
-			+ "INNER JOIN ARTICLES_VENDUS AS a ON a.no_article = e.no_article";
-	private final String SELECTBYID = "SELECT no_enchere, date_enchere, montant_enchere, a.no_article, u.no_utilisateur "
-			+ "FROM ENCHERES AS e"
-			+ "INNER JOIN UTILISATEURS AS u ON u.no_utilisateur = e.no_utilisateur"
-			+ "INNER JOIN ARTICLES_VENDUS AS a ON a.no_article = e.no_article"
-			+ "WHERE no_enchere=?";
+	private final String SELECT = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES";
+	private final String SELECTBYID = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES ";
 	private final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=?";
+	private final String SELECT_BY_NOARTICLE = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur WHERE no_article = ?";
+
 	/**
-	*{@inheritedDoc}
-	*/
-	
+	 * {@inheritedDoc}
+	 */
+
 	@Override
 	public void insertEnchere(Enchere enchere) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
@@ -64,9 +60,10 @@ public class EnchereDAOImpl implements EnchereDAO{
 			throw new DALException("Erreur dans la fonction insertEnchere : " + e.getMessage());
 		}
 	}
+
 	/**
-	*{@inheritedDoc}
-	*/
+	 * {@inheritedDoc}
+	 */
 	@Override
 	public void updateEnchere(Enchere enchere) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
@@ -77,11 +74,12 @@ public class EnchereDAOImpl implements EnchereDAO{
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction updateEnchere : " + e.getMessage());
 		}
-			
+
 	}
+
 	/**
-	*{@inheritedDoc}
-	*/
+	 * {@inheritedDoc}
+	 */
 	@Override
 	public List<Enchere> selectAllEnchere() throws DALException {
 		List<Enchere> results = new ArrayList<Enchere>();
@@ -94,12 +92,13 @@ public class EnchereDAOImpl implements EnchereDAO{
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction selectAllEnchere : " + e.getMessage());
 		}
-			
+
 		return results;
 	}
+
 	/**
-	*{@inheritedDoc}
-	*/
+	 * {@inheritedDoc}
+	 */
 	@Override
 	public Enchere selectByIDEnchere(Integer idEnchere) throws DALException {
 		Enchere result = null;
@@ -114,13 +113,13 @@ public class EnchereDAOImpl implements EnchereDAO{
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction selectByIDEnchere : " + e.getMessage());
 		}
-			
-			
+
 		return result;
 	}
+
 	/**
-	*{@inheritedDoc}
-	*/
+	 * {@inheritedDoc}
+	 */
 	@Override
 	public void deleteEnchere(Enchere enchere) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
@@ -131,7 +130,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 			throw new DALException("Erreur dans la fonction deleteEnchere : " + e.getMessage());
 		}
 	}
-	
+
 	private Enchere itemBuilder(ResultSet rs) throws SQLException, DALException {
 
 		Integer noEnchere = rs.getInt("no_enchere");
@@ -139,7 +138,6 @@ public class EnchereDAOImpl implements EnchereDAO{
 		Integer montantEnchere = rs.getInt("montant_enchere");
 		Integer noArticle = rs.getInt("no_article");
 		Integer noUtilisateur = rs.getInt("no_utilisateur");
-		
 
 		Enchere enchere = new Enchere();
 		enchere.setNoEnchere(noEnchere);
@@ -155,8 +153,25 @@ public class EnchereDAOImpl implements EnchereDAO{
 		} catch (DALException e) {
 			throw new DALException("Erreur dans itembuilder EnchereDAOImpl : " + e.getMessage());
 		}
-		
+
 		return enchere;
+	}
+
+	@Override
+	public List<Enchere> selectByNo_article(Integer noArticle) throws DALException {
+		List<Enchere> results = new ArrayList<Enchere>();
+		try (Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement stmt = con.prepareStatement(SELECT_BY_NOARTICLE);
+			stmt.setInt(1, noArticle);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				results.add(itemBuilder(rs));
+			}
+		} catch (SQLException e) {
+			throw new DALException("Erreur dans la fonction selectByNo_article : " + e.getMessage());
+		}
+
+		return results;
 	}
 
 }
