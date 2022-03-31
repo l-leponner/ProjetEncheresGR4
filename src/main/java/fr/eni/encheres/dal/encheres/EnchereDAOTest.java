@@ -3,7 +3,6 @@
  */
 package fr.eni.encheres.dal.encheres;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import fr.eni.encheres.bo.ArticleVendu;
@@ -41,7 +40,7 @@ public class EnchereDAOTest {
 		ArticleVendu av2 = null;
 		ArticleVendu av3 = null;
 		
-		avDAO.insertArticleVendu(av1);
+		// avDAO.insertArticleVendu(av1);
 		
 		try {
 			u1 = uDAO.selectByIDUtilisateur(1);
