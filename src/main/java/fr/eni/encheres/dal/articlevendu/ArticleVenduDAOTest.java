@@ -22,7 +22,7 @@ public class ArticleVenduDAOTest {
 
 
 	public static void main(String[] args) throws DALException {
-		dao.insertArticleVendu(new ArticleVendu("beau tapis persan","couleur rose",(2nd October 2007 at 13:45.30.123456789), (2nd October 2007 at 13:45.30.123456158), null, 15111, 1122));
+		dao.insertArticleVendu(new ArticleVendu("beau tapis persan","couleur rose",(2nd October 2007 at 13:45.30.123456789), (2nd October 2007 at 13:45.30.123456158));
 		
 		dao.selectAllArticleVendu().forEach(System.out::println);
 	}

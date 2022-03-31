@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Utilisateur {
 
-	private final Integer NB_CREDIT_INIT = 1000;
+	private final Integer NB_CREDIT_INIT = 100;
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String nom;
