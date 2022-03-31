@@ -43,6 +43,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article =?, description =?, date_debut_enchere = ?, date_fin_enchere = ?, prix_initial = ?, prix_vente =?, etat_vente = ? FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article =?";
+	private final String SELECT_RETRAIT_BY_ID = "SELECT r.no_article, rue, code_postal, ville FROM RETRAITS AS r INNER JOIN ARTICLES_VENDUS AS a ON a.no_article = r.no_article WHERE r.no_article = ?";
 
 	/**
 	 * {@inheritedDoc}
@@ -51,7 +52,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	public void insertArticleVendu(ArticleVendu articlevendu) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-			
+
 			stmt.setString(1, articlevendu.getNomArticle());
 			stmt.setString(2, articlevendu.getDescription());
 			stmt.setTimestamp(3, Timestamp.valueOf(articlevendu.getDateDebutEncheres()));
@@ -82,7 +83,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			PreparedStatement stmt = con.prepareStatement(SELECTBYID);
 			stmt.setInt(1, IDArticleVendu);
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) {
 
 				result = itemBuilder(rs);
@@ -160,6 +161,32 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	}
 
+	@Override
+	public Retrait selectRetraitByID(ArticleVendu articlevendu) throws DALException {
+		Retrait result = new Retrait();
+		try (Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement stmt = con.prepareStatement(SELECT_RETRAIT_BY_ID);
+			stmt.setInt(1, articlevendu.getNoArticle());
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				String rue = rs.getString("rue");
+				String code_postal = rs.getString("code_postal");
+				String ville = rs.getString("ville");
+
+				Retrait retrait = new Retrait(rue, code_postal, ville);
+				retrait.setArticleVendu(articlevendu);
+
+			}
+		}
+
+		catch (SQLException e) {
+			throw new DALException("Probleme lors de la méthode selectRetraitByID" + e.getMessage());
+		}
+		return result;
+	}
+
 	private ArticleVendu itemBuilder(ResultSet rs) throws SQLException, DALException {
 
 		RetraitDAO daoRetrait = DAOFactory.getRetraitDAO();
@@ -184,22 +211,27 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 		try {
 
-			lieuRetrait = daoRetrait.selectByIdRetrait(rs.getInt("no_article"));
 			categorie = daoCategorie.selectByIdCategorie(rs.getInt("no_categorie"));
 			utilisateur = daoUtilisateur.selectByIDUtilisateur(rs.getInt("no_utilisateur"));
 
-		} catch (DALException | SQLException e) {
+		} catch (DALException e) {
 			throw new DALException("Erreur dans l'itembuilder" + e.getMessage());
 		}
-		
 
-			result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, etatVente);	
-			result.setNoArticle(noArticle);
-			result.setLstEncheres(daoEnchere.selectByNoArticle(noArticle));
-			result.setPrixVente(prixVente);
-			result.setLieuRetrait(lieuRetrait);
-			result.setCategorie(categorie);
-			result.setUtilisateur(utilisateur);
+		result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, etatVente);
+		result.setNoArticle(noArticle);
+		result.setLstEncheres(daoEnchere.selectByNoArticle(noArticle));
+		result.setPrixVente(prixVente);
+		
+		try {
+		lieuRetrait = selectRetraitByID(result);
+		} catch (DALException e) {
+			throw new DALException("Erreur dans la méthode selectRetraitByID" + e.getMessage());
+		}
+		
+		result.setLieuRetrait(lieuRetrait);
+		result.setCategorie(categorie);
+		result.setUtilisateur(utilisateur);
 
 		return result;
 	}

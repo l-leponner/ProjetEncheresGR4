@@ -121,12 +121,9 @@ public class RetraitDAOImpl implements RetraitDAO {
 		String code_postal = rs.getString("code_postal");
 		String ville = rs.getString("ville");
 
+		
 		Retrait retrait = new Retrait(rue, code_postal, ville);
-		try {
-			retrait.setArticleVendu(dao.selectByIdArticleVendu(noArticle));
-		} catch (DALException e) {
-			throw new DALException("Erreur dans la fonction selectByIDArticleVendu " + e.getMessage());
-		}
+		retrait.setArticleVendu(dao.selectByIdArticleVendu(noArticle));;
 
 		return retrait;
 	}

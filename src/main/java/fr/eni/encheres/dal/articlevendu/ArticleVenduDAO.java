@@ -6,6 +6,7 @@ package fr.eni.encheres.dal.articlevendu;
 import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.DALException;
 
 /**
@@ -28,5 +29,7 @@ public interface ArticleVenduDAO {
 	public void deleteArticleVendu(ArticleVendu articlevendu) throws DALException;
 
 	public void updateArticleVendu(ArticleVendu articlevendu) throws DALException;
+	
+	public Retrait selectRetraitByID (ArticleVendu articlevendu) throws DALException;
 
 }
