@@ -39,7 +39,7 @@ public class CategorieManagerImpl implements CategoriesManager {
 			dao.updateCategorie(categorie);
 			;
 		} catch (DALException e) {
-			throw new BLLException("Erreur dans la méthode addCategorie" + e.getMessage());
+			throw new BLLException("Erreur dans la méthode updateCategorie" + e.getMessage());
 		}
 
 	}
@@ -50,7 +50,7 @@ public class CategorieManagerImpl implements CategoriesManager {
 		try {
 			dao.deleteCategorie(categorie);
 		} catch (DALException e) {
-			throw new BLLException("Erreur dans la méthode addCategorie" + e.getMessage());
+			throw new BLLException("Erreur dans la méthode removeCategorie" + e.getMessage());
 		}
 
 	}
@@ -61,7 +61,7 @@ public class CategorieManagerImpl implements CategoriesManager {
 		try {
 			lstCategories = dao.selectALLCategorie();
 		} catch (DALException e) {
-			throw new BLLException("Erreur dans la méthode addCategorie" + e.getMessage());
+			throw new BLLException("Erreur dans la méthode getALLCategorie" + e.getMessage());
 		}
 		return lstCategories;
 	}
@@ -73,7 +73,7 @@ public class CategorieManagerImpl implements CategoriesManager {
 		try {
 			categorie = dao.selectByIdCategorie(idCategorie);
 		} catch (DALException e) {
-			throw new BLLException("Erreur dans la méthode addCategorie" + e.getMessage());
+			throw new BLLException("Erreur dans la méthode getByIDCategorie" + e.getMessage());
 		}
 		return categorie;
 		

@@ -20,6 +20,7 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.categories.CategorieDAO;
+import fr.eni.encheres.dal.encheres.EnchereDAO;
 import fr.eni.encheres.dal.retrait.RetraitDAO;
 import fr.eni.encheres.dal.util.ConnectionProvider;
 import fr.eni.encheres.dal.utilisateur.UtilisateurDAO;
@@ -35,16 +36,12 @@ import fr.eni.encheres.dal.utilisateur.UtilisateurDAO;
  */
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
-	private final String SELECT = "SELECT a.no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial_prix_vente, u.no_utilisateur as 'no_utilisateur', c.no_categorie as 'no_categorie' "
-			+ "FROM ARTICLES_VENDUS a" + "INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur "
-			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie" + "Where no_article = ?";
+	private final String SELECTBYID = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS Where no_article = ?";
 
-	private final String INSERT = "INSERT INTO ARTICLE_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_vente FROM articlevendu) VALUES (?,?,?,?,?,?,?)";
-	private final String SELECTALL = "SELECT a.no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, u.no_utilisateur as 'no_utilisateur', c.no_categorie as 'no_categorie' "
-			+ "FROM ARTICLES_VENDUS a" + "INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur "
-			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie";
+	private final String INSERT = "INSERT INTO ARTICLE_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?)";
+	private final String SELECTALL = "SELECT no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS";
 
-	private final String UPDATE = "UPDATE ARTICLES_VENDUS set no_article =?, nom_article =?, description =?, date_debut_encheres =?, date_fin_encheres =?, prix_initial =?, prix_vente =? FROM ARTICLES_VENDUS WHERE noArticle =?";
+	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article =?, description =?, date_debut_enchere = ?, date_fin_enchere = ?, prix_initial =?, prix_vente =? FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article =?";
 
 	/**
@@ -54,12 +51,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	public void insertArticleVendu(ArticleVendu articlevendu) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+
 			stmt.setString(1, articlevendu.getNomArticle());
 			stmt.setString(2, articlevendu.getDescription());
 			stmt.setTimestamp(3, Timestamp.valueOf(articlevendu.getDateDebutEncheres()));
 			stmt.setTimestamp(4, Timestamp.valueOf(articlevendu.getDateFinEncheres()));
-			stmt.setInt(5, articlevendu.getPrixVente());
-			stmt.setString(6, articlevendu.getEtatVente());
+			stmt.setInt(5, articlevendu.getMiseAPrix());
+			stmt.setInt(6, articlevendu.getUtilisateur().getNoUtilisateur());
+			stmt.setInt(7, articlevendu.getCategorie().getNoCategorie());
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
@@ -68,7 +67,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DALException("pb lors de la méthode insertArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode insertArticleVendu" + e.getMessage());
 		}
 	}
 
@@ -79,7 +78,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	public ArticleVendu selectByIdArticleVendu(Integer IDArticleVendu) throws DALException {
 		ArticleVendu result = new ArticleVendu();
 		try (Connection con = ConnectionProvider.getConnection()) {
-			PreparedStatement stmt = con.prepareStatement(SELECT);
+			PreparedStatement stmt = con.prepareStatement(SELECTBYID);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -89,7 +88,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		}
 
 		catch (SQLException e) {
-			throw new DALException("pb lors de la méthode selectByIdArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode selectByIdArticleVendu" + e.getMessage());
 		}
 		return result;
 	}
@@ -112,7 +111,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		}
 
 		catch (SQLException e) {
-			throw new DALException("pb lors de la méthode selectAllArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode selectAllArticleVendu" + e.getMessage());
 		}
 		return result;
 	}
@@ -130,7 +129,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("pb lors de la méthode deleteArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode deleteArticleVendu" + e.getMessage());
 		}
 	}
 
@@ -150,22 +149,23 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			stmt.setTimestamp(4, Timestamp.valueOf(articlevendu.getDateFinEncheres()));
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getPrixVente());
-			stmt.setString(7, articlevendu.getEtatVente());
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("pb lors de la méthode updateArticleVendu" + e.getMessage());
+			throw new DALException("Probleme lors de la méthode updateArticleVendu" + e.getMessage());
 		}
-		// TODO Auto-generated method stub
 
 	}
 
 	private ArticleVendu itemBuilder(ResultSet rs) throws SQLException, DALException {
+
 		RetraitDAO daoRetrait = DAOFactory.getRetraitDAO();
 		CategorieDAO daoCategorie = DAOFactory.getCategorieDAO();
 		UtilisateurDAO daoUtilisateur = DAOFactory.getUtilisateurDAO();
+		EnchereDAO daoEnchere = DAOFactory.getEnchereDAO();
 
 		ArticleVendu result = null;
+
 		Integer noArticle = rs.getInt("no_article");
 		String nomArticle = rs.getString("nom_article");
 		String description = rs.getString("description");
@@ -186,19 +186,17 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			utilisateur = daoUtilisateur.selectByIDUtilisateur(rs.getInt("no_utilisateur"));
 
 		} catch (DALException | SQLException e) {
-			throw new DALException("erreur dans l'itembuilder" + e.getMessage());
+			throw new DALException("Erreur dans l'itembuilder" + e.getMessage());
 		}
 
-		if (lieuRetrait == null) {
+			result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, etatVente);	
+			result.setNoArticle(noArticle);
+			result.setLstEncheres(daoEnchere.selectByNo_article(noArticle));
+			result.setPrixVente(prixVente);
+			result.setLieuRetrait(lieuRetrait);
+			result.setCategorie(categorie);
+			result.setUtilisateur(utilisateur);
 
-			result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, prixVente,
-					etatVente, categorie, utilisateur);
-			result.setNoArticle(noArticle);
-		} else {
-			result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, prixVente,
-					etatVente, lieuRetrait, categorie, utilisateur);
-			result.setNoArticle(noArticle);
-		}
 		return result;
 	}
 }

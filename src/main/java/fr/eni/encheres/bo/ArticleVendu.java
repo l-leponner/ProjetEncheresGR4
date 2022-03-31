@@ -36,8 +36,7 @@ public class ArticleVendu {
 	}
 
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, Integer miseAPrix, String etatVente, Categorie categorie,
-			Utilisateur utilisateur) {
+			LocalDateTime dateFinEncheres, Integer miseAPrix, String etatVente) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -45,143 +44,172 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.etatVente = etatVente;
-		this.categorie = categorie;
-		this.utilisateur = utilisateur;
 	}
 
-	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, Integer miseAPrix, String etatVente, Retrait lieuRetrait,
-			Categorie categorie, Utilisateur utilisateur) {
-		super();
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.etatVente = etatVente;
-		this.lieuRetrait = lieuRetrait;
-		this.categorie = categorie;
-		this.utilisateur = utilisateur;
-	}
-
+	/**
+	 * Getter pour noArticle
+	 * 
+	 * @return the noArticle
+	 */
 	public Integer getNoArticle() {
 		return noArticle;
 	}
 
+	/**
+	 * Setter pour noArticle
+	 * 
+	 * @param noArticle the noArticle to set
+	 */
 	public void setNoArticle(Integer noArticle) {
 		this.noArticle = noArticle;
 	}
 
+	/**
+	 * Getter pour nomArticle
+	 * 
+	 * @return the nomArticle
+	 */
 	public String getNomArticle() {
 		return nomArticle;
 	}
 
+	/**
+	 * Setter pour nomArticle
+	 * 
+	 * @param nomArticle the nomArticle to set
+	 */
 	public void setNomArticle(String nomArticle) {
 		this.nomArticle = nomArticle;
 	}
 
+	/**
+	 * Getter pour description
+	 * 
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Setter pour description
+	 * 
+	 * @param description the description to set
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Getter pour dateDebutEncheres
+	 * 
+	 * @return the dateDebutEncheres
+	 */
 	public LocalDateTime getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
 
+	/**
+	 * Setter pour dateDebutEncheres
+	 * 
+	 * @param dateDebutEncheres the dateDebutEncheres to set
+	 */
 	public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
 
+	/**
+	 * Getter pour dateFinEncheres
+	 * 
+	 * @return the dateFinEncheres
+	 */
 	public LocalDateTime getDateFinEncheres() {
 		return dateFinEncheres;
 	}
 
-	public void setFinDebutEncheres(LocalDateTime finDebutEncheres) {
-		this.dateFinEncheres = finDebutEncheres;
+	/**
+	 * Setter pour dateFinEncheres
+	 * 
+	 * @param dateFinEncheres the dateFinEncheres to set
+	 */
+	public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
+		this.dateFinEncheres = dateFinEncheres;
 	}
 
+	/**
+	 * Getter pour miseAPrix
+	 * 
+	 * @return the miseAPrix
+	 */
 	public Integer getMiseAPrix() {
 		return miseAPrix;
 	}
 
-	public void setMiseAprix(Integer miseAPrix) {
+	/**
+	 * Setter pour miseAPrix
+	 * 
+	 * @param miseAPrix the miseAPrix to set
+	 */
+	public void setMiseAPrix(Integer miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
 
+	/**
+	 * Getter pour prixVente
+	 * 
+	 * @return the prixVente
+	 */
 	public Integer getPrixVente() {
 		return prixVente;
 	}
 
-	public void setPrixvente(Integer prixVente) {
+	/**
+	 * Setter pour prixVente
+	 * 
+	 * @param prixVente the prixVente to set
+	 */
+	public void setPrixVente(Integer prixVente) {
 		this.prixVente = prixVente;
 	}
 
+	/**
+	 * Getter pour etatVente
+	 * 
+	 * @return the etatVente
+	 */
 	public String getEtatVente() {
 		return etatVente;
 	}
 
+	/**
+	 * Setter pour etatVente
+	 * 
+	 * @param etatVente the etatVente to set
+	 */
 	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
 
+	/**
+	 * Getter pour lstEncheres
+	 * 
+	 * @return the lstEncheres
+	 */
 	public List<Enchere> getLstEncheres() {
 		return lstEncheres;
 	}
 
+	/**
+	 * Setter pour lstEncheres
+	 * 
+	 * @param lstEncheres the lstEncheres to set
+	 */
 	public void setLstEncheres(List<Enchere> lstEncheres) {
 		this.lstEncheres = lstEncheres;
 	}
 
-	public Retrait getRetrait() {
-		return lieuRetrait;
-	}
-
-	public void setRetrait(Retrait retrait) {
-		this.lieuRetrait = retrait;
-	}
-
 	/**
-	 * Getter pour utilisateur.
-	 * 
-	 * @return the utilisateur
-	 */
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	/**
-	 * Setter pour utilisateur.
-	 * 
-	 * @param utilisateur the utilisateur to set
-	 */
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
-
-	/**
-	 * Getter pour categorie.
-	 * 
-	 * @return the categorie
-	 */
-	public Categorie getCategorie() {
-		return categorie;
-	}
-
-	/**
-	 * Setter pour categorie.
-	 * 
-	 * @param categorie the categorie to set
-	 */
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
-	}
-
-	/**
-	 * Getter pour lieuRetrait.
+	 * Getter pour lieuRetrait
 	 * 
 	 * @return the lieuRetrait
 	 */
@@ -190,12 +218,48 @@ public class ArticleVendu {
 	}
 
 	/**
-	 * Setter pour lieuRetrait.
+	 * Setter pour lieuRetrait
 	 * 
 	 * @param lieuRetrait the lieuRetrait to set
 	 */
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
+	}
+
+	/**
+	 * Getter pour categorie
+	 * 
+	 * @return the categorie
+	 */
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	/**
+	 * Setter pour categorie
+	 * 
+	 * @param categorie the categorie to set
+	 */
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	/**
+	 * Getter pour utilisateur
+	 * 
+	 * @return the utilisateur
+	 */
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	/**
+	 * Setter pour utilisateur
+	 * 
+	 * @param utilisateur the utilisateur to set
+	 */
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	@Override
@@ -260,11 +324,6 @@ public class ArticleVendu {
 		if (utilisateur != null) {
 			builder.append("utilisateur=");
 			builder.append(utilisateur);
-			builder.append(", ");
-		}
-		if (super.toString() != null) {
-			builder.append("toString()=");
-			builder.append(super.toString());
 		}
 		builder.append("]");
 		return builder.toString();
