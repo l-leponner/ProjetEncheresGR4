@@ -17,6 +17,8 @@ import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.DALException;
+import fr.eni.encheres.dal.DAOFactory;
+import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
 import fr.eni.encheres.dal.util.ConnectionProvider;
 
 /**
@@ -57,11 +59,11 @@ public class RetraitDAOImpl implements RetraitDAO {
 			stmt.setString(1, retrait.getRue());
 			stmt.setString(2, retrait.getCode_postal());
 			stmt.setString(3, retrait.getVille());
-			stmt.setInt(4, retrait.getNoArticle());
+			stmt.setInt(4, retrait.getArticleVendu().getNoArticle());
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new DALException("Erreur dans la fonction UPDATE : " + e.getMessage());
+			throw new DALException("Erreur dans la fonction updateRetrait : " + e.getMessage());
 		}
 
 	}
@@ -80,7 +82,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new DALException("Erreur dans la fonction SELECTALL : " + e.getMessage());
+			throw new DALException("Erreur dans la fonction selectALLRetrait : " + e.getMessage());
 		}
 		return result;
 	}
@@ -98,7 +100,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new DALException("Erreur dans la fonction SELECT_BY_ID : " + e.getMessage());
+			throw new DALException("Erreur dans la fonction selectByIdRetrait : " + e.getMessage());
 		}
 		return result;
 	}
@@ -107,23 +109,30 @@ public class RetraitDAOImpl implements RetraitDAO {
 	public void deleteRetrait(Retrait retrait) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(DELETE);
-			stmt.setInt(1, retrait.getNoArticle());
+			stmt.setInt(1, retrait.getArticleVendu().getNoArticle());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new DALException("Erreur dans la fonction DELETE : " + e.getMessage());
+			throw new DALException("Erreur dans la fonction deleteRetrait : " + e.getMessage());
 		}
 
 	}
 
-	private Retrait itemBuilder(ResultSet rs) throws SQLException {
+	private Retrait itemBuilder(ResultSet rs) throws SQLException, DALException {
 
+		ArticleVenduDAO dao = DAOFactory.getArticleVenduDAO();
+		
 		Integer noArticle = rs.getInt("no_article");
 		String rue = rs.getString("rue");
 		String code_postal = rs.getString("code_postal");
 		String ville = rs.getString("ville");
 
-		Retrait retrait = new Retrait(noArticle, rue, code_postal, ville);
-		
+		Retrait retrait = new Retrait(rue, code_postal, ville);
+		try {
+			retrait.setArticleVendu(dao.selectByIdArticleVendu(noArticle));
+		} catch (DALException e) {
+			throw new DALException("Erreur dans la fonction selectByIDArticleVendu " + e.getMessage());
+		}
+
 		return retrait;
 	}
 
