@@ -39,12 +39,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			+ "FROM ARTICLES_VENDUS a" + "INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur "
 			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie" + "Where no_article = ?";
 
-	private final String INSERT = "INSERT INTO ARTICLE_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, mise_a_prix, prix_vente FROM articlevendu) VALUES (?,?,?,?,?,?,?)";
+	private final String INSERT = "INSERT INTO ARTICLE_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_vente FROM articlevendu) VALUES (?,?,?,?,?,?,?)";
 	private final String SELECTALL = "SELECT a.no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, u.no_utilisateur as 'no_utilisateur', c.no_categorie as 'no_categorie' "
 			+ "FROM ARTICLES_VENDUS a" + "INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur "
 			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie";
 
-	private final String UPDATE = "UPDATE ARTICLES_VENDUS set no_article =?, nom_article =?, description =?, date_debut_encheres =?, date_fin_encheres =?, mise_a_prix =?, prix_vente =? FROM ARTICLES_VENDUS WHERE noArticle =?";
+	private final String UPDATE = "UPDATE ARTICLES_VENDUS set no_article =?, nom_article =?, description =?, date_debut_encheres =?, date_fin_encheres =?, prix_initial =?, prix_vente =? FROM ARTICLES_VENDUS WHERE noArticle =?";
 	private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article =?";
 
 	/**
@@ -58,9 +58,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			stmt.setString(2, articlevendu.getDescription());
 			stmt.setTimestamp(3, Timestamp.valueOf(articlevendu.getDateDebutEncheres()));
 			stmt.setTimestamp(4, Timestamp.valueOf(articlevendu.getDateFinEncheres()));
-			stmt.setInt(5, articlevendu.getMiseAPrix());
-			stmt.setInt(6, articlevendu.getPrixVente());
-			stmt.setString(7, articlevendu.getEtatVente());
+			stmt.setInt(5, articlevendu.getPrixVente());
+			stmt.setString(6, articlevendu.getEtatVente());
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
