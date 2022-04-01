@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.eni.encheres.ihm.loginServlet;
+package fr.eni.encheres.ihm.UtilisateurServlet;
 
 import fr.eni.encheres.bo.Utilisateur;
 
@@ -9,22 +9,21 @@ import fr.eni.encheres.bo.Utilisateur;
  * Classe en charge de
  * 
  * @author ggastine2022
- * @date 31 mars 2022
+ * @date 1 avr. 2022
  * @version ProjetEncheresGR4- V0.1
- * @since 31 mars 2022 - 16:16:46
+ * @since 1 avr. 2022 - 11:11:27
  *
  */
-public class LoginModel {
+public class UtilisateurModel {
 
 	private Utilisateur current;
-	
-	
 
-	public LoginModel() {
+
+	public UtilisateurModel() {
 		super();
 	}
 
-	public LoginModel(Utilisateur current) {
+	public UtilisateurModel(Utilisateur current) {
 		super();
 		this.current = current;
 	}
@@ -36,16 +35,19 @@ public class LoginModel {
 	public void setCurrent(Utilisateur current) {
 		this.current = current;
 	}
+	
+	
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("LoginModel [");
+		builder.append("UtilisateurModel [");
 		if (current != null) {
 			builder.append("current=");
 			builder.append(current);
 			builder.append(", ");
 		}
+	
 		if (super.toString() != null) {
 			builder.append("toString()=");
 			builder.append(super.toString());
@@ -53,7 +55,4 @@ public class LoginModel {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-
 }
