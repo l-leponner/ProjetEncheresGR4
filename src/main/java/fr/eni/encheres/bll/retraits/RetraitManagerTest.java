@@ -27,12 +27,12 @@ public class RetraitManagerTest {
 		Retrait retrait2 = new Retrait("15 rue du popo", "35000", "Rennes");
 
 		// Add
-		try {
-			manager.addRetrait(retrait1);
-			manager.addRetrait(retrait2);
-		} catch (BLLException e) {
-			throw new BLLException("Erreur :" + e.getMessage());
-		}
+//		try {
+//			manager.addRetrait(retrait1);
+//			manager.addRetrait(retrait2);
+//		} catch (BLLException e) {
+//			throw new BLLException("Erreur :" + e.getMessage());
+//		}
 
 		System.out.println("############");
 
@@ -45,7 +45,7 @@ public class RetraitManagerTest {
 
 		// GetByID
 		System.out.println("Get ID");
-		System.out.println(manager.getByIDRetrait(retrait1.getNoArticle()));
+		//System.out.println(manager.getByIDRetrait(retrait1.getNoArticle()));
 
 		System.out.println("############");
 

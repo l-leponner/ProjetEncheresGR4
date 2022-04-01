@@ -12,10 +12,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
+import fr.eni.encheres.dal.categories.CategorieDAO;
 import fr.eni.encheres.dal.util.ConnectionProvider;
 import fr.eni.encheres.dal.utilisateur.UtilisateurDAO;
 
@@ -37,7 +39,11 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private final String SELECT = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES";
 	private final String SELECTBYID = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES ";
 	private final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=?";
-	private final String SELECT_BY_NOARTICLE = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur WHERE no_article = ?";
+	private final String SELECT_BY_NOARTICLE = "SELECT no_enchere, date_enchere, montant_enchere, "
+			+ "a.no_article, a.no_utilisateur, a.nom_article, a.description, a.date_debut_enchere, a.date_fin_enchere, a.prix_initial, a.prix_vente, a.no_categorie, a.etat_vente "
+			+ "FROM ENCHERES AS e "
+			+ "INNER JOIN ARTICLES_VENDUS AS a ON e.no_article = a.no_article "
+			+ "WHERE a.no_article = ?";
 
 	/**
 	 * {@inheritedDoc}
@@ -135,17 +141,17 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
 
 	@Override
-	public List<Enchere> selectByNoArticle(Integer noArticle) throws DALException {
+	public List<Enchere> selectAllEncheresByNoArticle(Integer noArticle) throws DALException {
 		List<Enchere> results = new ArrayList<Enchere>();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT_BY_NOARTICLE);
 			stmt.setInt(1, noArticle);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				results.add(itemBuilder(rs));
+				results.add(itemBuilderByNoArticle(rs));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Erreur dans la fonction selectByNo_article : " + e.getMessage());
+			throw new DALException("Erreur dans la fonction selectByNoArticle : " + e.getMessage());
 		}
 	
 		return results;
@@ -168,6 +174,46 @@ public class EnchereDAOImpl implements EnchereDAO {
 		} catch (DALException e) {
 			throw new DALException("Erreur dans itembuilder EnchereDAOImpl : " + e.getMessage());
 		}
+		try {
+			enchere.setUtilisateur(uDAO.selectByIDUtilisateur(noUtilisateur));
+		} catch (DALException e) {
+			throw new DALException("Erreur dans itembuilder EnchereDAOImpl : " + e.getMessage());
+		}
+
+		return enchere;
+	}
+	private Enchere itemBuilderByNoArticle(ResultSet rs) throws SQLException, DALException {
+
+		CategorieDAO daoCategorie = DAOFactory.getCategorieDAO();
+		
+		Integer noEnchere = rs.getInt("no_enchere");
+		LocalDateTime dateEnchere = rs.getTimestamp("date_enchere").toLocalDateTime();
+		Integer montantEnchere = rs.getInt("montant_enchere");
+		Integer noArticle = rs.getInt("no_article");
+		Integer noUtilisateur = rs.getInt("no_utilisateur");
+		
+		String nomArticle = rs.getString("nom_article");
+		String description = rs.getString("description");
+		LocalDateTime dateDebutEncheres = rs.getTimestamp("date_debut_enchere").toLocalDateTime();
+		LocalDateTime dateFinEncheres = rs.getTimestamp("date_fin_enchere").toLocalDateTime();
+		Integer miseAPrix = rs.getInt("prix_initial");
+		Integer prixVente = rs.getInt("prix_vente");
+		String etatVente = rs.getString("etat_vente");
+
+		Enchere enchere = new Enchere();
+		enchere.setNoEnchere(noEnchere);
+		enchere.setDateEnchere(dateEnchere);
+		enchere.setMontantEnchere(montantEnchere);
+		
+		ArticleVendu article = new ArticleVendu();
+		article.setCategorie(daoCategorie.selectByIdCategorie(rs.getInt("no_categorie")));
+		article.setDateDebutEncheres(dateDebutEncheres);
+		article.setDateFinEncheres(dateFinEncheres);
+		article.setDescription(description);
+		article.setEtatVente(etatVente);
+		article.setMiseAPrix(miseAPrix);
+		article.setNomArticle(nomArticle);
+		enchere.setArticleVendu(article);
 		try {
 			enchere.setUtilisateur(uDAO.selectByIDUtilisateur(noUtilisateur));
 		} catch (DALException e) {
