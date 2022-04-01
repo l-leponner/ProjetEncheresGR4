@@ -18,13 +18,13 @@
 	<div>
 		Identifiant:<input type="texte" name="identifiant"
 			value="${model.identifiant}" /><br> 
-		Mot de passe:<input type="texte" name="MDP" value="${model.motDePasse}" /><br> 
+		Mot de passe:<input type="hidden" name="MDP" value="${model.motDePasse}" /><br> 
 	</div>
 	<div>
 		<input type="submit" name="BT_CONNEXION" value="connexion" />
 	<aside>
 		<input type="checkbox" name="BT_SE_SOUVENIR_DE_MOI" value="se souvenir de moi" /> Se souvenir de moi
-		<input type="submit" name="BT_MOT_DE_PASSE_OUBLIE" value="Mot de passe oublié" />
+		<a href="http://localhost:8080/Encheres/LoginServlet">Mot de passe oublié</a>
 	</aside>
 	</div>
 	<div>

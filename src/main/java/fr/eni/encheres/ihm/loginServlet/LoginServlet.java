@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bo.Utilisateur;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -29,13 +31,26 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		LoginModel model = new LoginModel();
-
+		
+	
 		request.setAttribute("model", model);
 
 		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
 		;
-	}
-
+		
+	
+		String email = request.getParameter("email");
+		String pseudo = request.getParameter("pseudo");
+		String motDePasse = request.getParameter("motDePasse");
+		
+		for (Utilisateur utilisateur : manager.getAllUtilisateur) {
+		if(email equals((utilisateur.email) || pseudo equals(utilisateur.pseudo) && motDePasse equals(utilisateur.motDePasse) {
+		}
+		else {
+			  println("Username or Password incorrect");
+			  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+		}
+		
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -45,5 +60,4 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

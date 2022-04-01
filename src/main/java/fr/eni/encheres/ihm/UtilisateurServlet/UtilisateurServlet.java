@@ -51,7 +51,7 @@ public class UtilisateurServlet extends HttpServlet {
 			model.setCurrent(utilisateur);
 			
 		}
-		model.setCurrent(manager.getByIDUtilisateur());
+		model.setCurrent(manager.updateUtilisateur());
 		}
 		else {
 		
