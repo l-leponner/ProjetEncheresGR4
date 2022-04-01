@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Inscription</title>
+<title>Modification du profil</title>
 </head>
 <body>
-
 <h1>Mon Profil</h1>
 <form action="InscriptionServlet" method="POST">
 <label for="pseudo">Pseudo : </label>
@@ -28,13 +27,17 @@
 <input type="text" id="codePostal" name="codePostal" required placeholder="Votre code postal"><br>
 <label for="ville">Ville : </label>
 <input type="text" id="ville" name="ville" required placeholder="Votre ville"><br>
-<label for="MDP">Mot de passe : </label>
-<input type="password" id="MDP" name="MDP" required placeholder="Votre mot de passe"><br>
+<label for="actuelMDP">Mot de passe actuel : </label>
+<input type="password" id="actuelMDP" name="actuelMDP" required placeholder="Votre mot de passe actuel"><br>
+<label for="nouveauMDP">Nouveau mot de passe : </label>
+<input type="password" id="nouveauMDP" name="nouveauMDP" required placeholder="Votre nouveau smot de passe"><br>
 <label for="confirmationMDP">Confirmation : </label>
 <input type="password" id="confirmationMDP" name="confirmationMDP" required placeholder="Confirmation de votre mot de passe"><br>
+<label for="credit">Crédit : </label>
+<p id="credit">${credit}</p>
 <br>
-<input type="submit" name="BTN_CREER" value="Créer">
-<input type="reset" name="BTN_ANNULER" value="Annuler">
+<input type="submit" name="BTN_ENREGISTRER" value="Enregistrer">
+<input type="reset" name="BTN_SUPPRIMER" value="Supprimer mon compte">
 </form>
 
 <p style="color:red">${error}</p>

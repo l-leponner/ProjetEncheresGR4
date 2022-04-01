@@ -108,10 +108,34 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	public void inscriptionUtilisateur(Utilisateur utilisateur, String confirmationMDP) throws BLLException {
 		try {
 			controlMDP(utilisateur.getMotDePasse(), confirmationMDP);
+			controlUnicite(utilisateur.getPseudo(), utilisateur.getEmail(), utilisateur.getMotDePasse());
 			addUtilisateur(utilisateur);
 		} catch (BLLException e) {
-			throw new BLLException("Erreur dans la méthode inscriptionUtilisateur : " +e.getMessage());
+			throw new BLLException(e.getMessage());
 		}
+	}
+
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public void controlUnicite(String pseudo, String email, String motDePasse) throws BLLException {
+		try {
+			for (Utilisateur u : getAllUtilisateur()) {
+				if(pseudo.equalsIgnoreCase(pseudo)){
+					throw new BLLException("Erreur : Pseudo déjà existant");
+				}
+				if(email.equalsIgnoreCase(email)) {
+					throw new BLLException("Erreur : Email déjà existant");
+				}
+				if(motDePasse.equalsIgnoreCase(motDePasse)) {
+					throw new BLLException("Erreur : Mot de passe déjà existant");
+				}
+			}
+		} catch (BLLException e) {
+			throw new BLLException("Erreur dans la méthode controlUnicite : " +e.getMessage());
+		}		
 	}
 
 }
