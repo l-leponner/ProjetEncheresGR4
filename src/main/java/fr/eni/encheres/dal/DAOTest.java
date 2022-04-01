@@ -40,8 +40,15 @@ public class DAOTest {
 		ArticleVendu article3 = new ArticleVendu("Couteau", "Description", LocalDateTime.now(),LocalDateTime.of(1900, 7, 4, 7, 0), 100, "En cours");
 		Retrait retrait1 = new Retrait("256 rue de nantes", "35136", "Rennes");
 		Enchere enchere1 = new Enchere(LocalDateTime.now(), 100, article1, utilisateur1);
+
 //		Enchere enchere2 = new Enchere(LocalDateTime.now(), 120, article1, utilisateur1);
 //		Enchere enchere3 = new Enchere(LocalDateTime.now(), 150, article1, utilisateur1);
+
+		Enchere enchere2 = new Enchere(LocalDateTime.now(), 120, article1, utilisateur1);
+		Enchere enchere3 = new Enchere(LocalDateTime.now(), 150, article1, utilisateur1);
+		ArticleVendu article2 = new ArticleVendu("BD", "Description", LocalDateTime.now(),LocalDateTime.of(1999, 7, 4, 7, 0), 100, "En cours");
+		ArticleVendu article3 = new ArticleVendu("Couteau", "Description", LocalDateTime.now(),LocalDateTime.of(1900, 7, 4, 7, 0), 100, "En cours");
+
 
 		// Test d'insertion
 		try {
@@ -60,7 +67,10 @@ public class DAOTest {
 			retrait1.setNoArticleVendu(article3.getNoArticle());
 
 			daoRetrait.insertRetrait(retrait1);
-
+			daoArticleVendu.insertArticleVendu(article2);
+			retrait1.setNoArticleVendu(article2.getNoArticle());
+			daoArticleVendu.insertArticleVendu(article3);
+			retrait1.setNoArticleVendu(article3.getNoArticle());
 			enchere1.setUtilisateur(utilisateur1);
 			enchere1.setArticleVendu(article1);
 			daoEnchere.insertEnchere(enchere1);
