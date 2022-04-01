@@ -89,4 +89,29 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 		}
 	}
 
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public void controlMDP(String MDP, String confirmationMDP) throws BLLException {
+		if (!MDP.equals(confirmationMDP)) {
+			throw new BLLException("Mot de passe et confirmation de mot de passe différents");
+		}
+	}
+
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public void inscriptionUtilisateur(Utilisateur utilisateur, String confirmationMDP) throws BLLException {
+		try {
+			controlMDP(utilisateur.getMotDePasse(), confirmationMDP);
+			addUtilisateur(utilisateur);
+		} catch (BLLException e) {
+			throw new BLLException("Erreur dans la méthode inscriptionUtilisateur : " +e.getMessage());
+		}
+	}
+
 }

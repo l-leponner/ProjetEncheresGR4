@@ -46,10 +46,10 @@ public class DAOTest {
 		try {
 			daoUtilisateur.insertUtilisateur(utilisateur1);
 
-			daoCategorie.insertCategorie(categorie1);
+			//daoCategorie.insertCategorie(categorie1);
 
 			article1.setUtilisateur(utilisateur1);
-			article1.setCategorie(categorie1);
+			article1.setCategorie(daoCategorie.selectByIdCategorie(1));
 
 			daoArticleVendu.insertArticleVendu(article1);
 			retrait1.setNoArticleVendu(article1.getNoArticle());
@@ -125,11 +125,11 @@ public class DAOTest {
 		
 		// Test DELETE
 		
-		daoRetrait.deleteRetrait(retrait1);
-		daoEnchere.deleteEnchere(enchere1);
-		daoArticleVendu.deleteArticleVendu(article1);
-		daoCategorie.deleteCategorie(categorie1);
-		daoUtilisateur.deleteUtilisateur(utilisateur1);
+//		daoRetrait.deleteRetrait(retrait1);
+//		daoEnchere.deleteEnchere(enchere1);
+//		daoArticleVendu.deleteArticleVendu(article1);
+//		daoCategorie.deleteCategorie(categorie1);
+//		daoUtilisateur.deleteUtilisateur(utilisateur1);
 	}
 
 }
