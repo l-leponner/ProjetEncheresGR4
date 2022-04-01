@@ -37,7 +37,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	private final String INSERT = "INSERT INTO ENCHERES (date_enchere, montant_enchere, no_article, no_utilisateur) VALUES (?,?,?,?)";
 	private final String SELECT = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES";
-	private final String SELECTBYID = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES ";
+	private final String SELECTBYID = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES WHERE no_enchere = ?";
 	private final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=?";
 	private final String SELECT_BY_NOARTICLE = "SELECT no_enchere, date_enchere, montant_enchere, "
 			+ "a.no_article, a.no_utilisateur, a.nom_article, a.description, a.date_debut_enchere, a.date_fin_enchere, a.prix_initial, a.prix_vente, a.no_categorie, a.etat_vente "

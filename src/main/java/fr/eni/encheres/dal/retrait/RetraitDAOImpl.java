@@ -37,7 +37,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 			stmt.setString(1, retrait.getRue());
 			stmt.setString(2, retrait.getCode_postal());
 			stmt.setString(3, retrait.getVille());
-			stmt.setInt(4, retrait.getArticleVendu().getNoArticle());
+			stmt.setInt(4, retrait.getNoArticleVendu());
 
 			stmt.executeUpdate();
 
@@ -54,7 +54,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 			stmt.setString(1, retrait.getRue());
 			stmt.setString(2, retrait.getCode_postal());
 			stmt.setString(3, retrait.getVille());
-			stmt.setInt(4, retrait.getArticleVendu().getNoArticle());
+			stmt.setInt(4, retrait.getNoArticleVendu());
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -104,7 +104,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 	public void deleteRetrait(Retrait retrait) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(DELETE);
-			stmt.setInt(1, retrait.getArticleVendu().getNoArticle());
+			stmt.setInt(1, retrait.getNoArticleVendu());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans la fonction deleteRetrait : " + e.getMessage());
@@ -123,7 +123,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 
 		
 		Retrait retrait = new Retrait(rue, code_postal, ville);
-		retrait.setArticleVendu(dao.selectByIdArticleVendu(noArticle));;
+		retrait.setNoArticleVendu(noArticle);;
 
 		return retrait;
 	}

@@ -6,6 +6,7 @@ package fr.eni.encheres.bll.enchere;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
 
 /**
@@ -27,4 +28,6 @@ public void addEnchere (Enchere enchere) throws BLLException;
 	public Enchere getByIDEnchere(Integer idEnchere) throws BLLException;
 	
 	public void removeEnchere (Enchere enchere) throws BLLException;
+	
+	public List<Enchere> getAllArticleFilterCategorie(Categorie categorie)throws BLLException;
 }

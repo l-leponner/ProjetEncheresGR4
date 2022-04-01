@@ -14,7 +14,7 @@ public class Retrait {
 	private String rue;
 	private String code_postal;
 	private String ville;
-	private ArticleVendu articleVendu;
+	private Integer noArticleVendu;
 
 	public Retrait() {
 		super();
@@ -51,14 +51,25 @@ public class Retrait {
 		this.ville = ville;
 	}
 
-	public ArticleVendu getArticleVendu() {
-		return articleVendu;
+	/**
+	 * Getter pour noArticleVendu.
+	 * @return the noArticleVendu
+	 */
+	public Integer getNoArticleVendu() {
+		return noArticleVendu;
 	}
 
-	public void setArticleVendu(ArticleVendu articleVendu) {
-		this.articleVendu = articleVendu;
+	/**
+	 * Setter pour noArticleVendu.
+	 * @param noArticleVendu the noArticleVendu to set
+	 */
+	public void setNoArticleVendu(Integer noArticleVendu) {
+		this.noArticleVendu = noArticleVendu;
 	}
 
+	/**
+	*{@inheritedDoc}
+	*/
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -78,9 +89,9 @@ public class Retrait {
 			builder.append(ville);
 			builder.append(", ");
 		}
-		if (articleVendu != null) {
-			builder.append("articleVendu=");
-			builder.append(articleVendu);
+		if (noArticleVendu != null) {
+			builder.append("noArticleVendu=");
+			builder.append(noArticleVendu);
 		}
 		builder.append("]");
 		return builder.toString();
