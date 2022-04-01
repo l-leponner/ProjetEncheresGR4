@@ -3,10 +3,12 @@
  */
 package fr.eni.encheres.bll.articleVendu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
@@ -95,6 +97,51 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			throw new BLLException("Problème dans la méthode updateArticleVendu" + e.getMessage());
 		}
 
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleFilterNomArticle(String nomArticle) throws BLLException {
+		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
+		try {
+			for (ArticleVendu i : dao.selectAllArticleVendu()) {
+				if (i.getNomArticle().equals(nomArticle)) {
+					lstArticleVendus.add(i);
+				}
+			}
+			return lstArticleVendus;
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleFilterNomArticle" + e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleFilterCategorie(String categorie) throws BLLException {
+		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
+		try {
+			for (ArticleVendu i : dao.selectAllArticleVendu()) {
+				if (i.getCategorie().getLibelle().equals(categorie)) {
+					lstArticleVendus.add(i);
+				}
+			}
+			return lstArticleVendus;
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleFilterCategorie" + e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie) throws BLLException {
+		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
+		try {
+			for (ArticleVendu i : dao.selectAllArticleVendu()) {
+				if (i.getCategorie().getLibelle().equals(categorie) && i.getNomArticle().equals(nomArticle)) {
+					lstArticleVendus.add(i);
+				}
+			}
+			return lstArticleVendus;
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleFilterCategorieAndNomArticle" + e.getMessage());
+		}
 	}
 
 }

@@ -23,6 +23,12 @@ public interface ArticleVenduBLLManager {
 	public ArticleVendu getByIdArticleVendu(Integer IDArticleVendu) throws BLLException;
 
 	public List<ArticleVendu> getAllArticleVendu() throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleFilterNomArticle(String nomArticle) throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleFilterCategorie(String categorie) throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie) throws BLLException;
 
 	public void removeArticleVendu(ArticleVendu articlevendu) throws BLLException;
 
