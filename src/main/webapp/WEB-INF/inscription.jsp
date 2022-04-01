@@ -30,11 +30,13 @@
 <input type="text" id="ville" name="ville" required placeholder="Votre ville"><br>
 <label for="MDP">Mot de passe : </label>
 <input type="text" id="MDP" name="MDP" required placeholder="Votre mot de passe"><br>
-<label for="confirmationMDP">Pseudo : </label>
+<label for="confirmationMDP">Confirmation : </label>
 <input type="text" id="confirmationMDP" name="confirmationMDP" required placeholder="Confirmation de votre mot de passe"><br>
 <br>
 <input type="submit" name="BTN_CREER" value="Créer">
 <input type="reset" name="BTN_ANNULER" value="Annuler">
 </form>
+
+<p style="color:red">${error}</p>
 </body>
 </html>

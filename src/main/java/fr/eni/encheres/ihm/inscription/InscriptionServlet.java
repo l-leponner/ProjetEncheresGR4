@@ -39,7 +39,6 @@ public class InscriptionServlet extends HttpServlet {
 		
 		InscriptionModel model = new InscriptionModel();
 		
-
 		
 		if(request.getParameter("BTN_CREER") != null) {
 			String pseudo = request.getParameter("pseudo");
@@ -57,19 +56,17 @@ public class InscriptionServlet extends HttpServlet {
 			try {
 				uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
 			} catch (BLLException e1) {
+				request.setAttribute("error", e1.getMessage());
 				model.setMessage(e1.getMessage());
 			}
 			model.setCurrent(utilisateur);
+			session.setAttribute("current", utilisateur);
+//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 			
-			try {
-				uManager.addUtilisateur(utilisateur);
-			} catch (BLLException e) {
-				model.setMessage("Erreur lors de l'inscription : " + e.getMessage());
-			}
 		}
 		
 //		if(request.getParameter("BTN_ANNULER") != null) {
-//			
+//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 //		}
 		
 		request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);

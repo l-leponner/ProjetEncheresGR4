@@ -17,7 +17,7 @@ public class InscriptionModel {
 
 	private Utilisateur current;
 	private String message;
-	private String confirmationMDP;
+	
 	/**
 	 * Constructeur.
 	 */
@@ -59,20 +59,6 @@ public class InscriptionModel {
 		this.message = message;
 	}
 	/**
-	 * Getter pour confirmationMDP.
-	 * @return the confirmationMDP
-	 */
-	public String getConfirmationMDP() {
-		return confirmationMDP;
-	}
-	/**
-	 * Setter pour confirmationMDP.
-	 * @param confirmationMDP the confirmationMDP to set
-	 */
-	public void setConfirmationMDP(String confirmationMDP) {
-		this.confirmationMDP = confirmationMDP;
-	}
-	/**
 	*{@inheritedDoc}
 	*/
 	@Override
@@ -87,11 +73,6 @@ public class InscriptionModel {
 		if (message != null) {
 			builder.append("message=");
 			builder.append(message);
-			builder.append(", ");
-		}
-		if (confirmationMDP != null) {
-			builder.append("confirmationMDP=");
-			builder.append(confirmationMDP);
 		}
 		builder.append("]");
 		return builder.toString();

@@ -41,6 +41,8 @@ public class DAOTest {
 		Enchere enchere1 = new Enchere(LocalDateTime.now(), 100, article1, utilisateur1);
 		Enchere enchere2 = new Enchere(LocalDateTime.now(), 120, article1, utilisateur1);
 		Enchere enchere3 = new Enchere(LocalDateTime.now(), 150, article1, utilisateur1);
+		ArticleVendu article2 = new ArticleVendu("BD", "Description", LocalDateTime.now(),LocalDateTime.of(1999, 7, 4, 7, 0), 100, "En cours");
+		ArticleVendu article3 = new ArticleVendu("Couteau", "Description", LocalDateTime.now(),LocalDateTime.of(1900, 7, 4, 7, 0), 100, "En cours");
 
 		// Test d'insertion
 		try {
@@ -55,7 +57,10 @@ public class DAOTest {
 			retrait1.setNoArticleVendu(article1.getNoArticle());
 
 			daoRetrait.insertRetrait(retrait1);
-
+			daoArticleVendu.insertArticleVendu(article2);
+			retrait1.setNoArticleVendu(article2.getNoArticle());
+			daoArticleVendu.insertArticleVendu(article3);
+			retrait1.setNoArticleVendu(article3.getNoArticle());
 			enchere1.setUtilisateur(utilisateur1);
 			enchere1.setArticleVendu(article1);
 			daoEnchere.insertEnchere(enchere1);
@@ -113,15 +118,15 @@ public class DAOTest {
 		// Test SELECTBYID
 //		System.out.println(daoUtilisateur.selectByIDUtilisateur(5));
 //		System.out.println(daoCategorie.selectByIdCategorie(1));
-		System.out.println(daoArticleVendu.selectByIdArticleVendu(5));
-		System.out.println("selectRetraitByID");
-		System.out.println(daoArticleVendu.selectRetraitByIDArticleVendu(5));
-		System.out.println("selectByIdRetrait");
-		System.out.println(daoRetrait.selectByIdRetrait(2));
-		System.out.println("selectByIDEnchere");
-		System.out.println(daoEnchere.selectByIDEnchere(1));
-		System.out.println("selectAllEncheresByNoArticle");
-		System.out.println(daoEnchere.selectAllEncheresByNoArticle(article1.getNoArticle()));
+//		System.out.println(daoArticleVendu.selectByIdArticleVendu(5));
+//		System.out.println("selectRetraitByID");
+//		System.out.println(daoArticleVendu.selectRetraitByIDArticleVendu(5));
+//		System.out.println("selectByIdRetrait");
+//		System.out.println(daoRetrait.selectByIdRetrait(2));
+//		System.out.println("selectByIDEnchere");
+//		System.out.println(daoEnchere.selectByIDEnchere(1));
+//		System.out.println("selectAllEncheresByNoArticle");
+//		System.out.println(daoEnchere.selectAllEncheresByNoArticle(article1.getNoArticle()));
 		
 		// Test DELETE
 		

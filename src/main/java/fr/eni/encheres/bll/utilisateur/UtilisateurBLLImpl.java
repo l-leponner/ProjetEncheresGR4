@@ -95,8 +95,8 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	*/
 	@Override
 	public void controlMDP(String MDP, String confirmationMDP) throws BLLException {
-		if (!MDP.equals(confirmationMDP)) {
-			throw new BLLException("Mot de passe et confirmation de mot de passe différents");
+		if (!confirmationMDP.equals(MDP)) {
+			throw new BLLException("Mot de passe et confirmation de mot de passe différents svp");
 		}
 	}
 
