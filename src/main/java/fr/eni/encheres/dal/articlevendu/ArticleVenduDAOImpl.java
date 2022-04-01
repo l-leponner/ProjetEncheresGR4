@@ -161,11 +161,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public Retrait selectRetraitByID(ArticleVendu articlevendu) throws DALException {
+	public Retrait selectRetraitByIDArticleVendu(Integer noArticleVendu) throws DALException {
 		Retrait result = new Retrait();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(SELECT_RETRAIT_BY_ID);
-			stmt.setInt(1, articlevendu.getNoArticle());
+			stmt.setInt(1, noArticleVendu);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -174,10 +174,13 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 				String code_postal = rs.getString("code_postal");
 				String ville = rs.getString("ville");
 
-				Retrait retrait = new Retrait(rue, code_postal, ville);
-				retrait.setArticleVendu(articlevendu);
+				result.setRue(rue);
+				result.setCode_postal(code_postal);
+				result.setVille(ville);
 
 			}
+			
+			result.setNoArticleVendu(noArticleVendu);
 		}
 
 		catch (SQLException e) {
@@ -193,7 +196,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		UtilisateurDAO daoUtilisateur = DAOFactory.getUtilisateurDAO();
 		EnchereDAO daoEnchere = DAOFactory.getEnchereDAO();
 
-		ArticleVendu result = null;
+		ArticleVendu result = new ArticleVendu();
 
 		Integer noArticle = rs.getInt("no_article");
 		String nomArticle = rs.getString("nom_article");
@@ -204,7 +207,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		Integer prixVente = rs.getInt("prix_vente");
 		String etatVente = rs.getString("etat_vente");
 
-		Retrait lieuRetrait;
+		Retrait lieuRetrait = null;
 		Categorie categorie;
 		Utilisateur utilisateur;
 
@@ -216,21 +219,23 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		} catch (DALException e) {
 			throw new DALException("Erreur dans l'itembuilder : " + e.getMessage());
 		}
-
-		result = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, etatVente);
+		
+		result.setCategorie(categorie);
+		result.setUtilisateur(utilisateur);
+		result.setNomArticle(nomArticle);
+		result.setDescription(description);
+		result.setDateDebutEncheres(dateDebutEncheres);
+		result.setDateFinEncheres(dateFinEncheres);
+		result.setMiseAPrix(miseAPrix);
+		result.setEtatVente(etatVente);
 		result.setNoArticle(noArticle);
 		result.setLstEncheres(daoEnchere.selectAllEncheresByNoArticle(noArticle));
 		result.setPrixVente(prixVente);
 		
-		try {
-		lieuRetrait = selectRetraitByID(result);
-		} catch (DALException e) {
-			throw new DALException("Erreur dans la méthode selectRetraitByID : " + e.getMessage());
-		}
+		lieuRetrait = selectRetraitByIDArticleVendu(result.getNoArticle()); 
 		
 		result.setLieuRetrait(lieuRetrait);
-		result.setCategorie(categorie);
-		result.setUtilisateur(utilisateur);
+		
 
 		return result;
 	}

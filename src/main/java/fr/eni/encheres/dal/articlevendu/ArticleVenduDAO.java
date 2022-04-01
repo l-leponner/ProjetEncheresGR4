@@ -30,6 +30,6 @@ public interface ArticleVenduDAO {
 
 	public void updateArticleVendu(ArticleVendu articlevendu) throws DALException;
 	
-	public Retrait selectRetraitByID (ArticleVendu articlevendu) throws DALException;
+	public Retrait selectRetraitByIDArticleVendu (Integer noArticleVendu) throws DALException;
 
 }
