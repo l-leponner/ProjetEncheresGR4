@@ -43,12 +43,12 @@ public class LoginServlet extends HttpServlet {
 		String pseudo = request.getParameter("pseudo");
 		String motDePasse = request.getParameter("motDePasse");
 		
-		for (Utilisateur utilisateur : manager.getAllUtilisateur) {
-		if(email equals((utilisateur.email) || pseudo equals(utilisateur.pseudo) && motDePasse equals(utilisateur.motDePasse) {
-		}
-		else {
-			  println("Username or Password incorrect");
-			  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+//		for (Utilisateur utilisateur : manager.getAllUtilisateur) {
+//		if(email.equals((utilisateur.email) || pseudo.equals(utilisateur.pseudo) && motDePasse.equals(utilisateur.motDePasse) {
+//		}
+//		else {
+//			  println("Username or Password incorrect");
+//			  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
 		}
 		
 	/**

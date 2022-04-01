@@ -35,33 +35,33 @@ public class UtilisateurServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		if (User == log) {
-		UtilisateurModel model = new UtilisateurModel();
-		if (request.getParameter("BT_MODIFIER")!=null) {
-			Utilisateur utilisateur = new Utilisateur();
-			utilisateur.setPseudo(request.getParameter("pseudo")); 
-			utilisateur.setNom(request.getParameter("nom")); 
-			utilisateur.setPrenom(request.getParameter("prenom")); 
-			utilisateur.setEmail(request.getParameter("email")); 
-			utilisateur.setTelephone(request.getParameter("telephone")); 
-			utilisateur.setRue(request.getParameter("rue")); 
-			utilisateur.setCodePostal(request.getParameter("codePostal")); 
-			utilisateur.setVille(request.getParameter("ville")); 
-		
-			model.setCurrent(utilisateur);
-			
-		}
-		model.setCurrent(manager.updateUtilisateur());
-		}
-		else {
-		
-			
-		}
-		
-		request.setAttribute("model", model);
-
-		request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
-		;
+//		if (User == log) {
+//		UtilisateurModel model = new UtilisateurModel();
+//		if (request.getParameter("BT_MODIFIER")!=null) {
+//			Utilisateur utilisateur = new Utilisateur();
+//			utilisateur.setPseudo(request.getParameter("pseudo")); 
+//			utilisateur.setNom(request.getParameter("nom")); 
+//			utilisateur.setPrenom(request.getParameter("prenom")); 
+//			utilisateur.setEmail(request.getParameter("email")); 
+//			utilisateur.setTelephone(request.getParameter("telephone")); 
+//			utilisateur.setRue(request.getParameter("rue")); 
+//			utilisateur.setCodePostal(request.getParameter("codePostal")); 
+//			utilisateur.setVille(request.getParameter("ville")); 
+//		
+//			model.setCurrent(utilisateur);
+//			
+//		}
+//		model.setCurrent(manager.updateUtilisateur());
+//		}
+//		else {
+//		
+//			
+//		}
+//		
+//		request.setAttribute("model", model);
+//
+//		request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
+//		;
 	}
 
 	/**

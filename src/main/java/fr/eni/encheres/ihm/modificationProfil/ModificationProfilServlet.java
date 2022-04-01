@@ -54,7 +54,7 @@ public class ModificationProfilServlet extends HttpServlet {
 			String nouveauMDP = request.getParameter("nouveauMDP");
 			String confirmationMDP = request.getParameter("confirmationMDP");
 			
-			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, MDP);
+			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, nouveauMDP);
 			try {
 				uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
 			} catch (BLLException e1) {
