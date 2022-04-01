@@ -46,8 +46,8 @@ public class DAOTest {
 
 		Enchere enchere2 = new Enchere(LocalDateTime.now(), 120, article1, utilisateur1);
 		Enchere enchere3 = new Enchere(LocalDateTime.now(), 150, article1, utilisateur1);
-		ArticleVendu article2 = new ArticleVendu("BD", "Description", LocalDateTime.now(),LocalDateTime.of(1999, 7, 4, 7, 0), 100, "En cours");
-		ArticleVendu article3 = new ArticleVendu("Couteau", "Description", LocalDateTime.now(),LocalDateTime.of(1900, 7, 4, 7, 0), 100, "En cours");
+//		ArticleVendu article2 = new ArticleVendu("BD", "Description", LocalDateTime.now(),LocalDateTime.of(1999, 7, 4, 7, 0), 100, "En cours");
+//		ArticleVendu article3 = new ArticleVendu("Couteau", "Description", LocalDateTime.now(),LocalDateTime.of(1900, 7, 4, 7, 0), 100, "En cours");
 
 
 		// Test d'insertion
