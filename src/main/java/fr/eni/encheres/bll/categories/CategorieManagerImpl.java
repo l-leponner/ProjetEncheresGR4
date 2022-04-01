@@ -21,6 +21,24 @@ public class CategorieManagerImpl implements CategoriesManager {
 
 	CategorieDAO dao = DAOFactory.getCategorieDAO();
 
+	public CategorieManagerImpl() throws BLLException {
+		try {
+			if (dao.selectALLCategorie().isEmpty()) {
+				Categorie informatique = new Categorie("Informatique");
+				Categorie ameublement = new Categorie("Ameublement");
+				Categorie vetement = new Categorie("Vêtement");
+				Categorie sportLoisirs = new Categorie("Sport&Loisirs");
+
+				dao.insertCategorie(informatique);
+				dao.insertCategorie(ameublement);
+				dao.insertCategorie(vetement);
+				dao.insertCategorie(sportLoisirs);
+			}
+		} catch (DALException e) {
+			throw new BLLException("Erreur dans le constructeur CategorieManagerImpl" + e.getMessage());
+		}
+	}
+
 	@Override
 	public void addCategorie(Categorie categorie) throws BLLException {
 
@@ -68,15 +86,15 @@ public class CategorieManagerImpl implements CategoriesManager {
 
 	@Override
 	public Categorie getByIDCategorie(Integer idCategorie) throws BLLException {
-		Categorie categorie ;
-		
+		Categorie categorie;
+
 		try {
 			categorie = dao.selectByIdCategorie(idCategorie);
 		} catch (DALException e) {
 			throw new BLLException("Erreur dans la méthode getByIDCategorie" + e.getMessage());
 		}
 		return categorie;
-		
+
 	}
 
 }
