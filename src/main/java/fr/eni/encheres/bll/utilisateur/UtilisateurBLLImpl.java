@@ -123,13 +123,13 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	public void controlUnicite(String pseudo, String email, String motDePasse) throws BLLException {
 		try {
 			for (Utilisateur u : getAllUtilisateur()) {
-				if(pseudo.equalsIgnoreCase(pseudo)){
+				if(pseudo.equalsIgnoreCase(u.getPseudo())){
 					throw new BLLException("Erreur : Pseudo déjà existant");
 				}
-				if(email.equalsIgnoreCase(email)) {
+				if(email.equalsIgnoreCase(u.getEmail())) {
 					throw new BLLException("Erreur : Email déjà existant");
 				}
-				if(motDePasse.equalsIgnoreCase(motDePasse)) {
+				if(motDePasse.equalsIgnoreCase(u.getMotDePasse())) {
 					throw new BLLException("Erreur : Mot de passe déjà existant");
 				}
 			}
