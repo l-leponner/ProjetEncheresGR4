@@ -115,18 +115,18 @@ public class DAOTest {
 //			throw new DALException("Erreur" + e.getMessage());
 //		}
 		
-		// Test SELECTBYID
-//		System.out.println(daoUtilisateur.selectByIDUtilisateur(5));
-//		System.out.println(daoCategorie.selectByIdCategorie(1));
-//		System.out.println(daoArticleVendu.selectByIdArticleVendu(5));
-//		System.out.println("selectRetraitByID");
-//		System.out.println(daoArticleVendu.selectRetraitByIDArticleVendu(5));
-//		System.out.println("selectByIdRetrait");
-//		System.out.println(daoRetrait.selectByIdRetrait(2));
-//		System.out.println("selectByIDEnchere");
-//		System.out.println(daoEnchere.selectByIDEnchere(1));
-//		System.out.println("selectAllEncheresByNoArticle");
-//		System.out.println(daoEnchere.selectAllEncheresByNoArticle(article1.getNoArticle()));
+			// Test SELECTBYID
+//			System.out.println(daoUtilisateur.selectByIDUtilisateur(5));
+//			System.out.println(daoCategorie.selectByIdCategorie(1));
+//			System.out.println(daoArticleVendu.selectByIdArticleVendu(5));
+//			System.out.println("selectRetraitByID");
+//			System.out.println(daoArticleVendu.selectRetraitByIDArticleVendu(5));
+//			System.out.println("selectByIdRetrait");
+//			System.out.println(daoRetrait.selectByIdRetrait(2));
+//			System.out.println("selectByIDEnchere");
+//			System.out.println(daoEnchere.selectByIDEnchere(1));
+//			System.out.println("selectAllEncheresByNoArticle");
+//			System.out.println(daoEnchere.selectAllEncheresByNoArticle(article1.getNoArticle()));
 		
 		// Test DELETE
 //		daoRetrait.deleteRetrait(retrait1);
