@@ -27,4 +27,8 @@ public interface UtilisateurBLL {
 	public Utilisateur getByIDUtilisateur(Integer idUtilisateur) throws BLLException;
 	
 	public void removeUtilisateur (Utilisateur utilisateur) throws BLLException;
+	
+	public void controlMDP(String MDP, String confirmationMDP) throws BLLException;
+	
+	public void inscriptionUtilisateur(Utilisateur utilisateur, String confirmationMDP) throws BLLException;
 }
