@@ -39,6 +39,8 @@ public class DAOTest {
 				LocalDateTime.of(1998, 7, 4, 7, 0), 100, "En cours");
 		Retrait retrait1 = new Retrait("256 rue de nantes", "35136", "Rennes");
 		Enchere enchere1 = new Enchere(LocalDateTime.now(), 100, article1, utilisateur1);
+		Enchere enchere2 = new Enchere(LocalDateTime.now(), 120, article1, utilisateur1);
+		Enchere enchere3 = new Enchere(LocalDateTime.now(), 150, article1, utilisateur1);
 
 		// Test d'insertion
 		try {
@@ -48,14 +50,17 @@ public class DAOTest {
 
 			article1.setUtilisateur(utilisateur1);
 			article1.setCategorie(categorie1);
-			retrait1.setArticleVendu(article1);
+
 			daoArticleVendu.insertArticleVendu(article1);
+			retrait1.setNoArticleVendu(article1.getNoArticle());
 
 			daoRetrait.insertRetrait(retrait1);
 
 			enchere1.setUtilisateur(utilisateur1);
 			enchere1.setArticleVendu(article1);
 			daoEnchere.insertEnchere(enchere1);
+//			daoEnchere.insertEnchere(enchere2);
+//			daoEnchere.insertEnchere(enchere3);
 
 		} catch (DALException e) {
 			throw new DALException("Erreur" + e.getMessage());
@@ -63,55 +68,68 @@ public class DAOTest {
 
 		// Test SELECTALL
 
-		try {
-
-			daoUtilisateur.selectAllUtilisateur().stream().forEach(System.out::println);
-			daoCategorie.selectALLCategorie().stream().forEach(System.out::println);
-			daoArticleVendu.selectAllArticleVendu().stream().forEach(System.out::println);
-			daoRetrait.selectALLRetrait().stream().forEach(System.out::println);
-			daoEnchere.selectAllEnchere().stream().forEach(System.out::println);
-
-		} catch (DALException e) {
-			throw new DALException("Erreur : " + e.getMessage());
-		}
-
-		System.out.println("######################");
-
-		// Test update
-
-		utilisateur1.setCodePostal("0");
-		categorie1.setLibelle("LibelleUPDATE");
-		article1.setDescription("DescriptionUPDATE");
-		retrait1.setCode_postal("0");
-		enchere1.setMontantEnchere(120);
-		
-		daoUtilisateur.updateUtilisateur(utilisateur1);
-		daoCategorie.updateCategorie(categorie1);
-		daoArticleVendu.updateArticleVendu(article1);
-		daoRetrait.updateRetrait(retrait1);
-		daoEnchere.updateEnchere(enchere1);
-
-		// Test SELECTALL
-
-		try {
-
-			daoUtilisateur.selectAllUtilisateur().stream().forEach(System.out::println);
-			daoCategorie.selectALLCategorie().stream().forEach(System.out::println);
-			daoArticleVendu.selectAllArticleVendu().stream().forEach(System.out::println);
-			daoRetrait.selectALLRetrait().stream().forEach(System.out::println);
-			daoEnchere.selectAllEnchere().stream().forEach(System.out::println);
-
-		} catch (DALException e) {
-			throw new DALException("Erreur" + e.getMessage());
-		}
+//		try {
+//
+//			daoUtilisateur.selectAllUtilisateur().stream().forEach(System.out::println);
+//			daoCategorie.selectALLCategorie().stream().forEach(System.out::println);
+//			daoArticleVendu.selectAllArticleVendu().stream().forEach(System.out::println);
+//			daoRetrait.selectALLRetrait().stream().forEach(System.out::println);
+//			daoEnchere.selectAllEnchere().stream().forEach(System.out::println);
+//
+//		} catch (DALException e) {
+//			throw new DALException("Erreur : " + e.getMessage());
+//		}
+//
+//		System.out.println("######################");
+//
+//		// Test update
+//
+//		utilisateur1.setCodePostal("0");
+//		categorie1.setLibelle("LibelleUPDATE");
+//		article1.setDescription("DescriptionUPDATE");
+//		retrait1.setCode_postal("0");
+//		enchere1.setMontantEnchere(120);
+//		
+//		daoUtilisateur.updateUtilisateur(utilisateur1);
+//		daoCategorie.updateCategorie(categorie1);
+//		daoArticleVendu.updateArticleVendu(article1);
+//		daoRetrait.updateRetrait(retrait1);
+//		daoEnchere.updateEnchere(enchere1);
+//
+//		// Test SELECTALL
+//
+//		try {
+//
+//			daoUtilisateur.selectAllUtilisateur().stream().forEach(System.out::println);
+//			daoCategorie.selectALLCategorie().stream().forEach(System.out::println);
+//			daoArticleVendu.selectAllArticleVendu().stream().forEach(System.out::println);
+//			daoRetrait.selectALLRetrait().stream().forEach(System.out::println);
+//			daoEnchere.selectAllEnchere().stream().forEach(System.out::println);
+//
+//		} catch (DALException e) {
+//			throw new DALException("Erreur" + e.getMessage());
+//		}
 		
 		// Test SELECTBYID
+//		System.out.println(daoUtilisateur.selectByIDUtilisateur(5));
+//		System.out.println(daoCategorie.selectByIdCategorie(1));
+		System.out.println(daoArticleVendu.selectByIdArticleVendu(5));
+		System.out.println("selectRetraitByID");
+		System.out.println(daoArticleVendu.selectRetraitByIDArticleVendu(5));
+		System.out.println("selectByIdRetrait");
+		System.out.println(daoRetrait.selectByIdRetrait(2));
+		System.out.println("selectByIDEnchere");
+		System.out.println(daoEnchere.selectByIDEnchere(1));
+		System.out.println("selectAllEncheresByNoArticle");
+		System.out.println(daoEnchere.selectAllEncheresByNoArticle(article1.getNoArticle()));
 		
-		daoUtilisateur.selectByIDUtilisateur(5);
-		daoCategorie.selectByIdCategorie(1);
-		daoArticleVendu.updateArticleVendu(article1);
-		daoRetrait.updateRetrait(retrait1);
-		daoEnchere.updateEnchere(enchere1);
+		// Test DELETE
+		
+		daoRetrait.deleteRetrait(retrait1);
+		daoEnchere.deleteEnchere(enchere1);
+		daoArticleVendu.deleteArticleVendu(article1);
+		daoCategorie.deleteCategorie(categorie1);
+		daoUtilisateur.deleteUtilisateur(utilisateur1);
 	}
 
 }
