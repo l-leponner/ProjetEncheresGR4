@@ -65,11 +65,11 @@ public class CategorieDAOTest {
 		}
 
 		// Delete
-		try {
-			dao.deleteCategorie(cat3);
-		} catch (DALException e) {
-			throw new DALException("Erreur : " + e.getMessage());
-		}
+//		try {
+//			dao.deleteCategorie(cat3);
+//		} catch (DALException e) {
+//			throw new DALException("Erreur : " + e.getMessage());
+//		}
 
 		// SelectALL
 		try {
