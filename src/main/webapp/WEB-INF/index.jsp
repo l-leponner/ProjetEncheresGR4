@@ -21,7 +21,7 @@
 
 	<h2>Liste des enchères</h2>
 	<p style="color: red">${model.message}</p>
-	<form role="recherche">
+	<form action="IndexServlet" method="post">
 		<div>
 			<h2>Filtres :</h2> 
 			<input type="search" id="filtres" name="filtreNomArticle" placeholder="Le nom de l'article contient">
