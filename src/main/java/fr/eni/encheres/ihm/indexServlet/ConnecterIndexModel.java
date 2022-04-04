@@ -6,9 +6,6 @@ package fr.eni.encheres.ihm.indexServlet;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.encheres.bll.BLLException;
-import fr.eni.encheres.bll.categories.CategorieManagerSing;
-import fr.eni.encheres.bll.categories.CategoriesManager;
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
@@ -17,31 +14,30 @@ import fr.eni.encheres.bo.Utilisateur;
  * Class en charge de
  * 
  * @author alegeas2022
- * @date 1 avr. 2022
+ * @date 4 avr. 2022
  */
-public class IndexModel {
+public class ConnecterIndexModel {
 
 	private String message;
-	private Utilisateur currentUser;
-	private Utilisateur userVendeur;
 	private String filterArticle;
 	private String filtreCategorie;
+	private Utilisateur currentUser;
+	private Utilisateur vendeur;
 	private List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 	private List<Categorie> lstCategories = new ArrayList<Categorie>();
-	
-	public IndexModel() {
+
+	public ConnecterIndexModel() {
 		super();
 	}
 
-	public IndexModel(String message, Utilisateur currentUser, Utilisateur userVendeur,
-			String filterArticle, String filtreCategorie, List<ArticleVendu> lstArticleVendus,
-			List<Categorie> lstCategories) {
+	public ConnecterIndexModel(String message, String filterArticle, String filtreCategorie, Utilisateur currentUser,
+			Utilisateur vendeur, List<ArticleVendu> lstArticleVendus, List<Categorie> lstCategories) {
 		super();
 		this.message = message;
-		this.currentUser = currentUser;
-		this.userVendeur = userVendeur;
 		this.filterArticle = filterArticle;
 		this.filtreCategorie = filtreCategorie;
+		this.currentUser = currentUser;
+		this.vendeur = vendeur;
 		this.lstArticleVendus = lstArticleVendus;
 		this.lstCategories = lstCategories;
 	}
@@ -62,42 +58,6 @@ public class IndexModel {
 	 */
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	/**
-	 * Getter pour currentUser
-	 * 
-	 * @return the currentUser
-	 */
-	public Utilisateur getCurrentUser() {
-		return currentUser;
-	}
-
-	/**
-	 * Setter pour currentUser
-	 * 
-	 * @param currentUser the currentUser to set
-	 */
-	public void setCurrentUser(Utilisateur currentUser) {
-		this.currentUser = currentUser;
-	}
-
-	/**
-	 * Getter pour userVendeur
-	 * 
-	 * @return the userVendeur
-	 */
-	public Utilisateur getUserVendeur() {
-		return userVendeur;
-	}
-
-	/**
-	 * Setter pour userVendeur
-	 * 
-	 * @param userVendeur the userVendeur to set
-	 */
-	public void setUserVendeur(Utilisateur userVendeur) {
-		this.userVendeur = userVendeur;
 	}
 
 	/**
@@ -134,6 +94,42 @@ public class IndexModel {
 	 */
 	public void setFiltreCategorie(String filtreCategorie) {
 		this.filtreCategorie = filtreCategorie;
+	}
+
+	/**
+	 * Getter pour currentUser
+	 * 
+	 * @return the currentUser
+	 */
+	public Utilisateur getCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * Setter pour currentUser
+	 * 
+	 * @param currentUser the currentUser to set
+	 */
+	public void setCurrentUser(Utilisateur currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	/**
+	 * Getter pour vendeur
+	 * 
+	 * @return the vendeur
+	 */
+	public Utilisateur getVendeur() {
+		return vendeur;
+	}
+
+	/**
+	 * Setter pour vendeur
+	 * 
+	 * @param vendeur the vendeur to set
+	 */
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
 	}
 
 	/**
@@ -175,20 +171,10 @@ public class IndexModel {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ModelIndexServlet [");
+		builder.append("ConnecterIndexModel [");
 		if (message != null) {
 			builder.append("message=");
 			builder.append(message);
-			builder.append(", ");
-		}
-		if (currentUser != null) {
-			builder.append("currentUser=");
-			builder.append(currentUser);
-			builder.append(", ");
-		}
-		if (userVendeur != null) {
-			builder.append("userVendeur=");
-			builder.append(userVendeur);
 			builder.append(", ");
 		}
 		if (filterArticle != null) {
@@ -199,6 +185,16 @@ public class IndexModel {
 		if (filtreCategorie != null) {
 			builder.append("filtreCategorie=");
 			builder.append(filtreCategorie);
+			builder.append(", ");
+		}
+		if (currentUser != null) {
+			builder.append("currentUser=");
+			builder.append(currentUser);
+			builder.append(", ");
+		}
+		if (vendeur != null) {
+			builder.append("vendeur=");
+			builder.append(vendeur);
 			builder.append(", ");
 		}
 		if (lstArticleVendus != null) {

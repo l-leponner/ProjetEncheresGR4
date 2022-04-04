@@ -10,12 +10,13 @@
 <title>Encheres</title>
 </head>
 <body>
+
+	<p>${FilterArticle}</p>
+	<p>${FilterCategorie}</p>
+	
+
 	<h1>ENI-Encheres</h1>
 	<ul>
-		<li><a href="https://example.com">Enchères</a></li>
-		<li><a href="https://example.com">Vendre un article</a></li>
-		<li><a href="https://example.com">Mon profil</a></li>
-		<li><a href="https://example.com">Déconnexion</a></li>
 		<li><a href="https://example.com">S'inscrire - Se connecter</a></li>
 	</ul>
 
