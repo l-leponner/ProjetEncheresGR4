@@ -15,6 +15,8 @@ import fr.eni.encheres.bll.categories.CategorieManagerSing;
 import fr.eni.encheres.bll.categories.CategoriesManager;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
+import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Categorie;
 
 /**
  * Servlet implementation class IndexServlet
@@ -41,47 +43,52 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		ModelIndexServlet model = new ModelIndexServlet();
 
+		model.setFilterArticle(request.getParameter("filtreNomArticle"));
+		model.setFiltreCategorie(request.getParameter("filtreCategorie"));
+
 		if (request.getParameter("BT_RECHERCHER") != null) {
-			if (request.getParameter("filtreNomArticle") != null && request.getParameter("filtreCategorie") == null) {
+			if (model.getFilterArticle() != null && model.getFiltreCategorie().equalsIgnoreCase("Toutes")) {
 				try {
-					model.setLstArticleVendus(managerArticle.getAllArticleFilterNomArticle(request.getParameter("filtreNomArticle")));
-				System.out.println(model.getLstArticleVendus());
+					model.setLstArticleVendus(managerArticle.getAllArticleFilterNomArticle(model.getFilterArticle()));
+					System.out.println("Je suis passé dans le premier filtre filtreNomArticle != null");
 				} catch (BLLException e) {
 					model.setMessage("Erreur !!!! : " + e.getMessage());
 				}
 			}
-			if (request.getParameter("filtreNomArticle") == null && request.getParameter("filtreCategorie") != null) {
+			if (model.getFilterArticle() == null && !model.getFiltreCategorie().equalsIgnoreCase("Toutes")) {
 				try {
 					model.setLstArticleVendus(
-							managerArticle.getAllArticleFilterCategorie(request.getParameter("filtreCategorie")));
-					System.out.println(model.getLstArticleVendus());
+							managerArticle.getAllArticleFilterCategorie(model.getFiltreCategorie()));
+					System.out.println("Je suis passé dans le premier filtre filtreCategorie != null");
 				} catch (BLLException e) {
 					model.setMessage("Erreur !!!! : " + e.getMessage());
 				}
 			}
-			if (request.getParameter("filtreNomArticle") != null && request.getParameter("filtreCategorie") != null) {
+			if (model.getFilterArticle() != null && !model.getFiltreCategorie().equalsIgnoreCase("Toutes")) {
 				try {
 					model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-							request.getParameter("filtreNomArticle"), request.getParameter("filtreCategorie")));
-					System.out.println(model.getLstArticleVendus());
+							model.getFilterArticle(), model.getFiltreCategorie()));
+					System.out.println(
+							"Je suis passé dans le premier filtre filtreCategorie != null et filtreNomArticle != null");
 				} catch (BLLException e) {
 					model.setMessage("Erreur !!!! : " + e.getMessage());
 				}
 			}
-
-			if (request.getParameter("filtreNomArticle") == null && request.getParameter("filtreCategorie") == null) {
-				try {
-					model.setLstArticleVendus(managerArticle.getAllArticleVendu());
-					System.out.println(model.getLstArticleVendus());
-				} catch (BLLException e) {
-					model.setMessage("Erreur !!!! : " + e.getMessage());
-				}
-			}
-
 		}
+
+		if (model.getFilterArticle() == null && model.getFiltreCategorie() == null) {
+			try {
+				model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+				System.out.println(
+						"Je suis passé dans le premier filtre filtreCategorie = null et filtreNomArticle = null");
+			} catch (BLLException e) {
+				model.setMessage("Erreur !!!! : " + e.getMessage());
+			}
+		}
+
+		System.out.println("#######");
 		System.out.println(model.getLstArticleVendus());
-		
-		
+		System.out.println(request.getParameter("filtreNomArticle"));
 
 		request.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);

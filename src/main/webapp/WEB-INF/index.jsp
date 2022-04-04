@@ -27,8 +27,7 @@
 			<input type="search" id="filtres" name="filtreNomArticle" placeholder="Le nom de l'article contient">
 
 			<h2>Catégorie : </h2> 
-			<select name="filtreCategorie"
-				id="categorie">
+			<select name="filtreCategorie" id="categorie">
 				<option selected>Toutes</option>
 				<c:forEach items="${model.lstCategories}" var="categorie">
 					<option>${categorie.libelle}</option>

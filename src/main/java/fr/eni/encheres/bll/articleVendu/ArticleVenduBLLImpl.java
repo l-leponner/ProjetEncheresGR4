@@ -104,7 +104,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
 			for (ArticleVendu i : dao.selectAllArticleVendu()) {
-				if (i.getNomArticle().equals(nomArticle)) {
+				if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
 					lstArticleVendus.add(i);
 				}
 			}
@@ -119,7 +119,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
 			for (ArticleVendu i : dao.selectAllArticleVendu()) {
-				if (i.getCategorie().getLibelle().equals(categorie)) {
+				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie)) {
 					lstArticleVendus.add(i);
 				}
 			}
@@ -134,7 +134,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
 			for (ArticleVendu i : dao.selectAllArticleVendu()) {
-				if (i.getCategorie().getLibelle().equals(categorie) && i.getNomArticle().equals(nomArticle)) {
+				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie) && i.getNomArticle().equalsIgnoreCase(nomArticle)) {
 					lstArticleVendus.add(i);
 				}
 			}

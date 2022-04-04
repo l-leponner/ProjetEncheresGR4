@@ -24,18 +24,17 @@ public class ModelIndexServlet {
 	private String message;
 	private Utilisateur currentUser;
 	private Utilisateur userVendeur;
-	private ArticleVendu filterArticle;
-	private Categorie filtreCategorie;
+	private String filterArticle;
+	private String filtreCategorie;
 	private List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 	private List<Categorie> lstCategories = new ArrayList<Categorie>();
-	
+
 	public ModelIndexServlet() {
 		super();
 	}
 
-	public ModelIndexServlet(String message, Utilisateur currentUser, Utilisateur userVendeur,
-			ArticleVendu filterArticle, Categorie filtreCategorie, List<ArticleVendu> lstArticleVendus,
-			List<Categorie> lstCategories) {
+	public ModelIndexServlet(String message, Utilisateur currentUser, Utilisateur userVendeur, String filterArticle,
+			String filtreCategorie, List<ArticleVendu> lstArticleVendus, List<Categorie> lstCategories) {
 		super();
 		this.message = message;
 		this.currentUser = currentUser;
@@ -105,7 +104,7 @@ public class ModelIndexServlet {
 	 * 
 	 * @return the filterArticle
 	 */
-	public ArticleVendu getFilterArticle() {
+	public String getFilterArticle() {
 		return filterArticle;
 	}
 
@@ -114,7 +113,7 @@ public class ModelIndexServlet {
 	 * 
 	 * @param filterArticle the filterArticle to set
 	 */
-	public void setFilterArticle(ArticleVendu filterArticle) {
+	public void setFilterArticle(String filterArticle) {
 		this.filterArticle = filterArticle;
 	}
 
@@ -123,7 +122,7 @@ public class ModelIndexServlet {
 	 * 
 	 * @return the filtreCategorie
 	 */
-	public Categorie getFiltreCategorie() {
+	public String getFiltreCategorie() {
 		return filtreCategorie;
 	}
 
@@ -132,7 +131,7 @@ public class ModelIndexServlet {
 	 * 
 	 * @param filtreCategorie the filtreCategorie to set
 	 */
-	public void setFiltreCategorie(Categorie filtreCategorie) {
+	public void setFiltreCategorie(String filtreCategorie) {
 		this.filtreCategorie = filtreCategorie;
 	}
 
@@ -158,9 +157,8 @@ public class ModelIndexServlet {
 	 * Getter pour lstCategories
 	 * 
 	 * @return the lstCategories
-	 * @throws BLLException 
 	 */
-	public List<Categorie> getLstCategories() throws BLLException {
+	public List<Categorie> getLstCategories() {
 		return lstCategories;
 	}
 
