@@ -138,4 +138,39 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 		}		
 	}
 
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public void controlNouveauMDP(String actuelMDP, String nouveauMDP) throws BLLException {
+
+		if(actuelMDP.equals(nouveauMDP)) {
+			throw new BLLException("Erreur : Le nouveau mot de passe et l'ancien mot de passe doivent être différents svp !");
+		}
+	}
+
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public Utilisateur getByIdentifiant(String sessionPseudo, String sessionEmail) throws BLLException {
+		List<Utilisateur> lstUtilisateurs;
+		Utilisateur utilisateur = null;
+		try {
+			lstUtilisateurs = uDAO.selectAllUtilisateur();
+		} catch (DALException e) {
+			throw new BLLException("Erreur dans la méthode getByIdentifiant : " +e.getMessage());
+		}
+		for (Utilisateur u : lstUtilisateurs) {
+			if(u.getPseudo().equals(sessionPseudo) || u.getEmail().equals(sessionEmail)) {
+				utilisateur = u;
+			}
+		}
+		return utilisateur;
+	}
+	
+	
+
 }

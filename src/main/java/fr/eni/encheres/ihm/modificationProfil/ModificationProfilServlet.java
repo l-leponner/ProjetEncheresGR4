@@ -40,6 +40,18 @@ public class ModificationProfilServlet extends HttpServlet {
 		
 		InscriptionModel model = new InscriptionModel();
 		
+		String sessionPseudo = (String) session.getAttribute("pseudo");
+		String sessionEmail = (String) session.getAttribute("email");
+		
+		Utilisateur utilisateur = null;
+		
+		try {
+			utilisateur = uManager.getByIdentifiant(sessionPseudo, sessionEmail);
+			model.setCurrent(utilisateur);
+		} catch (BLLException e) {
+			e.printStackTrace();
+		}
+		session.setAttribute("credit", utilisateur.getCredit());
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String pseudo = request.getParameter("pseudo");
@@ -54,25 +66,47 @@ public class ModificationProfilServlet extends HttpServlet {
 			String nouveauMDP = request.getParameter("nouveauMDP");
 			String confirmationMDP = request.getParameter("confirmationMDP");
 			
-			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, nouveauMDP);
+			try{
+				uManager.controlNouveauMDP(actuelMDP, nouveauMDP);
+			} catch (BLLException e1) {
+				request.setAttribute("error", e1.getMessage());
+			}
+			
+			utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, nouveauMDP);
 			try {
-				uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
+				uManager.controlMDP(nouveauMDP, confirmationMDP);
 			} catch (BLLException e1) {
 				request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
 				model.setMessage("Mot de passe et confirmation de mot de passe différents svp");
 			}
 			model.setCurrent(utilisateur);
+			try {
+				uManager.updateUtilisateur(utilisateur);
+			} catch (BLLException e) {
+				request.setAttribute("error", e.getMessage());
+			}
 			session.setAttribute("current", utilisateur);
+			// Retour sur index
 //			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			
+			
+		}
+		if(request.getParameter("BTN_SUPPRIMER") != null){
+			
+			
+			try {
+				uManager.removeUtilisateur(utilisateur);
+				// Retour sur index
+//				request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			} catch (BLLException e) {
+				e.printStackTrace();
+			}
+			
 			
 		}
 		
-//		if(request.getParameter("BTN_ANNULER") != null) {
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-//		}
-		
 		request.getRequestDispatcher("/WEB-INF/modificationProfil.jsp").forward(request, response);
-	
+		
 	}
 
 	/**
