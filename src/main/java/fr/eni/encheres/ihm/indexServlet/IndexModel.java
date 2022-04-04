@@ -19,7 +19,7 @@ import fr.eni.encheres.bo.Utilisateur;
  * @author alegeas2022
  * @date 1 avr. 2022
  */
-public class ModelIndexServlet {
+public class IndexModel {
 
 	private String message;
 	private Utilisateur currentUser;
@@ -28,13 +28,14 @@ public class ModelIndexServlet {
 	private String filtreCategorie;
 	private List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 	private List<Categorie> lstCategories = new ArrayList<Categorie>();
-
-	public ModelIndexServlet() {
+	
+	public IndexModel() {
 		super();
 	}
 
-	public ModelIndexServlet(String message, Utilisateur currentUser, Utilisateur userVendeur, String filterArticle,
-			String filtreCategorie, List<ArticleVendu> lstArticleVendus, List<Categorie> lstCategories) {
+	public IndexModel(String message, Utilisateur currentUser, Utilisateur userVendeur,
+			String filterArticle, String filtreCategorie, List<ArticleVendu> lstArticleVendus,
+			List<Categorie> lstCategories) {
 		super();
 		this.message = message;
 		this.currentUser = currentUser;

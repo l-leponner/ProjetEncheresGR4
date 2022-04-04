@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
 import fr.eni.encheres.bo.Utilisateur;
@@ -34,6 +35,26 @@ public class UtilisateurServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+
+		UtilisateurModel model = new UtilisateurModel();
+		if (request.getParameter("BT_MODIFIER") == null) {
+				try {
+					model.setCurrent(manager.getByIDUtilisateur((Integer) request.getSession().getAttribute("idUtilsateur")));
+				} catch (BLLException e) {
+					model.setMessage("Erreur dans l'affichage utilisateur: " + e.getMessage());
+				}
+
+			request.setAttribute("model", model);
+
+			request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
+		}
+
+		else {
+			request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
+
+		}
+
 		
 //		if (User == log) {
 //		UtilisateurModel model = new UtilisateurModel();
@@ -62,6 +83,7 @@ public class UtilisateurServlet extends HttpServlet {
 //
 //		request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
 //		;
+
 	}
 
 	/**

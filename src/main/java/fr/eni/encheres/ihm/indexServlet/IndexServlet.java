@@ -41,7 +41,7 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ModelIndexServlet model = new ModelIndexServlet();
+		IndexModel model = new IndexModel();
 
 		model.setFilterArticle(request.getParameter("filtreNomArticle"));
 		model.setFiltreCategorie(request.getParameter("filtreCategorie"));
