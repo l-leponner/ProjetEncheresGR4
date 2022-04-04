@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>Navigation</title>
+=======
+<title>Insert title here</title>
+>>>>>>> laurent
 </head>
 <body>
 

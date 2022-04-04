@@ -39,7 +39,7 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ModelIndexServlet model = new ModelIndexServlet();
+		IndexModel model = new IndexModel();
 
 		if (request.getParameter("BT_RECHERCHER") != null) {
 			if (request.getParameter("filtreNomArticle") != null && request.getParameter("filtreCategorie") == null) {
