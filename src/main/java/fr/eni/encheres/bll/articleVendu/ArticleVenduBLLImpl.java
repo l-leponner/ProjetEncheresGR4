@@ -135,11 +135,20 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie) throws BLLException {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
-			for (ArticleVendu i : dao.selectAllArticleVendu()) {
-				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie) && i.getNomArticle().equalsIgnoreCase(nomArticle)) {
-					lstArticleVendus.add(i);
+			if (categorie.equalsIgnoreCase("toutes")) {
+				for (ArticleVendu i : dao.selectAllArticleVendu()) {
+					if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+						lstArticleVendus.add(i);
+					}
+				}
+			}else {
+				for (ArticleVendu i : dao.selectAllArticleVendu()) {
+					if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie) && i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+						lstArticleVendus.add(i);
+					}
 				}
 			}
+			
 			return lstArticleVendus;
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode getAllArticleFilterCategorieAndNomArticle" + e.getMessage());
