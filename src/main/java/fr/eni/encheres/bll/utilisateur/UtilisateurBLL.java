@@ -31,4 +31,6 @@ public interface UtilisateurBLL {
 	public void controlMDP(String MDP, String confirmationMDP) throws BLLException;
 	
 	public void inscriptionUtilisateur(Utilisateur utilisateur, String confirmationMDP) throws BLLException;
+	
+	public void controlUnicite(String pseudo, String email, String motDePasse) throws BLLException;
 }

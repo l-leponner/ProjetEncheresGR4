@@ -1,4 +1,4 @@
-package fr.eni.encheres.ihm.inscription;
+package fr.eni.encheres.ihm.modificationProfil;
 
 import java.io.IOException;
 
@@ -14,33 +14,34 @@ import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.ihm.inscription.InscriptionModel;
 
 /**
- * Servlet implementation class InscriptionServlet
+ * Servlet implementation class ModificationProfilServlet
  */
-@WebServlet("/InscriptionServlet")
-public class InscriptionServlet extends HttpServlet {
+@WebServlet("/ModificationProfilServlet")
+public class ModificationProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UtilisateurBLL uManager= UtilisateurBLLSing.getInstance();
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public InscriptionServlet() {
+    public ModificationProfilServlet() {
+        super();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
 		InscriptionModel model = new InscriptionModel();
 		
 		
-		if(request.getParameter("BTN_CREER") != null) {
+		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String pseudo = request.getParameter("pseudo");
 			String nom = request.getParameter("nom");
 			String prenom = request.getParameter("prenom");
@@ -49,10 +50,11 @@ public class InscriptionServlet extends HttpServlet {
 			String rue = request.getParameter("rue");
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
-			String MDP = request.getParameter("MDP");
+			String actuelMDP = request.getParameter("actuelMDP");
+			String nouveauMDP = request.getParameter("nouveauMDP");
 			String confirmationMDP = request.getParameter("confirmationMDP");
 			
-			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, MDP);
+			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, nouveauMDP);
 			try {
 				uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
 			} catch (BLLException e1) {
@@ -69,7 +71,8 @@ public class InscriptionServlet extends HttpServlet {
 //			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 //		}
 		
-		request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/modificationProfil.jsp").forward(request, response);
+	
 	}
 
 	/**

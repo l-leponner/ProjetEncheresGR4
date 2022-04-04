@@ -41,46 +41,50 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		ModelIndexServlet model = new ModelIndexServlet();
 
-		try {
-			model.setLstCategories(managerCategorie.getALLCategorie());
-		} catch (BLLException e1) {
-			e1.printStackTrace();
-		}
-		
-		if (request.getParameter("filtreNomArticle") == null && request.getParameter("filtreCategorie") == null) {
-			try {
-				model.setLstArticleVendus(managerArticle.getAllArticleVendu());
-			} catch (BLLException e) {
-				model.setMessage("Erreur !!!! : " + e.getMessage());
-			}
-		}
-		
 		if (request.getParameter("BT_RECHERCHER") != null) {
 			if (request.getParameter("filtreNomArticle") != null && request.getParameter("filtreCategorie") == null) {
 				try {
-					managerArticle.getAllArticleFilterNomArticle(request.getParameter("filtreNomArticle"));
+					model.setLstArticleVendus(managerArticle.getAllArticleFilterNomArticle(request.getParameter("filtreNomArticle")));
+				System.out.println(model.getLstArticleVendus());
 				} catch (BLLException e) {
 					model.setMessage("Erreur !!!! : " + e.getMessage());
 				}
 			}
 			if (request.getParameter("filtreNomArticle") == null && request.getParameter("filtreCategorie") != null) {
 				try {
-					managerArticle.getAllArticleFilterCategorie(request.getParameter("filtreCategorie"));
+					model.setLstArticleVendus(
+							managerArticle.getAllArticleFilterCategorie(request.getParameter("filtreCategorie")));
+					System.out.println(model.getLstArticleVendus());
 				} catch (BLLException e) {
 					model.setMessage("Erreur !!!! : " + e.getMessage());
 				}
 			}
 			if (request.getParameter("filtreNomArticle") != null && request.getParameter("filtreCategorie") != null) {
 				try {
-					managerArticle.getAllArticleFilterCategorieAndNomArticle(request.getParameter("filtreNomArticle"), request.getParameter("filtreCategorie"));
+					model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+							request.getParameter("filtreNomArticle"), request.getParameter("filtreCategorie")));
+					System.out.println(model.getLstArticleVendus());
 				} catch (BLLException e) {
 					model.setMessage("Erreur !!!! : " + e.getMessage());
 				}
 			}
+
+			if (request.getParameter("filtreNomArticle") == null && request.getParameter("filtreCategorie") == null) {
+				try {
+					model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+					System.out.println(model.getLstArticleVendus());
+				} catch (BLLException e) {
+					model.setMessage("Erreur !!!! : " + e.getMessage());
+				}
+			}
+
 		}
+		System.out.println(model.getLstArticleVendus());
+		
+		
 
 		request.setAttribute("model", model);
-		request.getRequestDispatcher("/WEB-INF/indexServlet.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
 	/**
