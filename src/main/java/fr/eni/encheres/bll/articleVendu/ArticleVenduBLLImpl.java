@@ -166,5 +166,6 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			throw new BLLException("La date de fin de l'enchère doit être postérieure à la date de début !");
 		}
 	}
+}
 
 

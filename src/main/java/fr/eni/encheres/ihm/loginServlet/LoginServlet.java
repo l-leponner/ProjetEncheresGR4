@@ -2,11 +2,13 @@ package fr.eni.encheres.ihm.loginServlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
@@ -26,7 +28,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,6 +37,15 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		LoginModel model = new LoginModel();
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+		
+		if(request.getParameter("BT_CONNEXION") != null) {
+			String identifiant = request.getParameter("identifiant");
+			String MDP = request.getParameter("MDP");
+			
+			
+		}
 		
 	}
 		
@@ -100,7 +110,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 }

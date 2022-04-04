@@ -9,26 +9,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LoginUtilisateur</title>
+<title>Login Utilisateur</title>
 </head>
 <body>
 <h2><strong>ENI_ENCHERES</strong></h2>
-	<form action="LoginServlet" method="get">
+	<form action="LoginServlet" method="POST">
 	
 	<div>
-		Identifiant:<input type="texte" name="identifiant"
-			value="${model.identifiant}" /><br> 
-		Mot de passe:<input type="hidden" name="MDP" value="${model.motDePasse}" /><br> 
+		<label for="identifiant">Identifiant : </label>
+		<input type="text" name="identifiant" id="identifiant" required/><br> 
+		<label for="MDP">Mot de passe:</label>
+		<input type="password" name="MDP" id="MDP" required/><br> 
 	</div>
 	<div>
-		<input type="submit" name="BT_CONNEXION" value="connexion" />
+		<input type="submit" name="BT_CONNEXION" value="Connexion" />
 	<aside>
-		<input type="checkbox" name="BT_SE_SOUVENIR_DE_MOI" value="se souvenir de moi" /> Se souvenir de moi
-		<a href="http://localhost:8080/Encheres/LoginServlet">Mot de passe oublié</a>
+		<input type="checkbox" name="BT_SE_SOUVENIR_DE_MOI" id="BT_SE_SOUVENIR_DE_MOI"/> 
+		<label for="BT_SE_SOUVENIR_DE_MOI">Se souvenir de moi</label>
+		<a href="mailto:${model.current.motDePasse}">Mot de passe oublié</a>
 	</aside>
 	</div>
 	<div>
-		<input type="submit" name="BT_CREER_UN_COMPTE" value="créer un compte" width= "300px"/>
+		<input type="submit" name="BT_CREER_UN_COMPTE" value="Créer un compte"/>
 	</div>
 
 

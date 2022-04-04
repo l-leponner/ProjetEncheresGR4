@@ -64,6 +64,9 @@ public class ModificationVenteServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
+		ArticleVendu current = (ArticleVendu) session.getAttribute("articleCurrent");
+		model.setCurrent(current);
+		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String nom = request.getParameter("nom");
 			String description = request.getParameter("description");
@@ -89,7 +92,7 @@ public class ModificationVenteServlet extends HttpServlet {
 				retrait.setVille(request.getParameter("ville"));
 			}
 			
-			ArticleVendu article = new ArticleVendu();
+			ArticleVendu article = null;
 			article.setNomArticle(nom);
 			article.setDescription(description);
 			article.setCategorie(categorie);
