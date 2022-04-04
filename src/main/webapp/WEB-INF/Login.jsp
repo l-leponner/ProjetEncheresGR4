@@ -26,16 +26,17 @@
 	<aside>
 		<input type="checkbox" name="BT_SE_SOUVENIR_DE_MOI" id="BT_SE_SOUVENIR_DE_MOI"/> 
 		<label for="BT_SE_SOUVENIR_DE_MOI">Se souvenir de moi</label>
-		<a href="mailto:${model.current.motDePasse}">Mot de passe oublié</a>
+		<a href="#" data-name="oubli">Mot de passe oublié</a>
 	</aside>
 	</div>
+	</form>
+	<form action="LoginServlet" method="POST">
 	<div>
 		<input type="submit" name="BT_CREER_UN_COMPTE" value="Créer un compte"/>
 	</div>
-
-
-
 	</form>
+	
+	<p>${error}</p>
 
 </body>
 </html>

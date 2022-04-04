@@ -46,7 +46,7 @@ public class ModificationProfilServlet extends HttpServlet {
 		Utilisateur utilisateur = null;
 		
 		try {
-			utilisateur = uManager.getByIdentifiant(sessionPseudo, sessionEmail);
+			utilisateur = uManager.getByIdentifiantMDP(sessionPseudo, sessionEmail);
 			model.setCurrent(utilisateur);
 		} catch (BLLException e) {
 			e.printStackTrace();

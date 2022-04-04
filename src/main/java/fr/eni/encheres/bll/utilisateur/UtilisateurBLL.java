@@ -26,7 +26,9 @@ public interface UtilisateurBLL {
 	
 	public Utilisateur getByIDUtilisateur(Integer idUtilisateur) throws BLLException;
 	
-	public Utilisateur getByIdentifiant(String sessionPseudo, String sessionEmail) throws BLLException;
+	public Utilisateur getByIdentifiantMDP(String sessionPseudo, String sessionEmail) throws BLLException;
+	
+	public Utilisateur getByIdentifiant (String identifiant) throws BLLException;
 	
 	public void removeUtilisateur (Utilisateur utilisateur) throws BLLException;
 	
@@ -38,5 +40,5 @@ public interface UtilisateurBLL {
 	
 	public void controlNouveauMDP (String actuelMDP, String nouveauMDP) throws BLLException;
 	
-	public void controlUtilisateurExistant (String pseudo, String email, String motDePasse) throws BLLException;
+	public void controlUtilisateurExistant (String identifiant, String motDePasse) throws BLLException;
 }

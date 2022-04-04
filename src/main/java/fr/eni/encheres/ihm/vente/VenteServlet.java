@@ -50,6 +50,7 @@ public class VenteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
+		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		VenteModel model = new VenteModel();
 		try {
 			model.setLstCategories(cManager.getALLCategorie());
@@ -57,11 +58,7 @@ public class VenteServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 		Utilisateur utilisateur = null;
-		try {
-			utilisateur = uManager.getByIdentifiant((String) session.getAttribute("pseudo"), (String) session.getAttribute("email"));
-		} catch (BLLException e1) {
-			e1.printStackTrace();
-		}
+		utilisateur = utilisateurConnecte;
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String nom = request.getParameter("nom");

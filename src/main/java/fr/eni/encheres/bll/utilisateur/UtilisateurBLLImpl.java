@@ -166,13 +166,13 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	 * @throws BLLException 
 	*/
 	@Override
-	public Utilisateur getByIdentifiant(String sessionPseudo, String sessionEmail) throws BLLException {
+	public Utilisateur getByIdentifiantMDP(String sessionPseudo, String sessionEmail) throws BLLException {
 		List<Utilisateur> lstUtilisateurs;
 		Utilisateur utilisateur = null;
 		try {
 			lstUtilisateurs = uDAO.selectAllUtilisateur();
 		} catch (DALException e) {
-			throw new BLLException("Erreur dans la méthode getByIdentifiant : " +e.getMessage());
+			throw new BLLException("Erreur dans la méthode getByIdentifiantMDP : " +e.getMessage());
 		}
 		for (Utilisateur u : lstUtilisateurs) {
 			if(u.getPseudo().equals(sessionPseudo) || u.getEmail().equals(sessionEmail)) {
@@ -187,23 +187,45 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	 * @throws BLLException 
 	*/
 	@Override
-	public void controlUtilisateurExistant(String pseudo, String email, String motDePasse) throws BLLException {
+	public void controlUtilisateurExistant(String identifiant, String motDePasse) throws BLLException {
 
 		List<Utilisateur> lstUtilisateurs;
-		Utilisateur utilisateur = null;
 		try {
 			lstUtilisateurs = uDAO.selectAllUtilisateur();
 		} catch (DALException e) {
 			throw new BLLException("Erreur dans la méthode controlUtilisateurExistant : " +e.getMessage());
 		}
 		for (Utilisateur u : lstUtilisateurs) {
-			if((!u.getPseudo().equals(pseudo) || !u.getEmail().equals(email))) {
+			if((!u.getPseudo().equals(identifiant) || !u.getEmail().equals(identifiant))) {
 				throw new BLLException("Identifiant inconnu");
 			}
 			if(!u.getMotDePasse().equals(motDePasse)) {
 				throw new BLLException("Mot de passe inconnu");
 			}
 		}
+	}
+
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public Utilisateur getByIdentifiant(String identifiant) throws BLLException {
+		List<Utilisateur> lstUtilisateurs;
+		Utilisateur utilisateur = null;
+		try {
+			lstUtilisateurs = uDAO.selectAllUtilisateur();
+		} catch (DALException e) {
+			throw new BLLException("Erreur dans la méthode getByIdentifiant : " +e.getMessage());
+		}
+		for (Utilisateur u : lstUtilisateurs) {
+			if(u.getPseudo().equals(identifiant) || u.getEmail().equals(identifiant)) {
+				utilisateur = u;
+			} else {
+				throw new BLLException("Identifiant inconnu");
+			}
+		}
+		return utilisateur;
 	}
 	
 	

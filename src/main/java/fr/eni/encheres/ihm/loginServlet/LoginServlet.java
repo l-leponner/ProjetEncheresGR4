@@ -44,9 +44,31 @@ public class LoginServlet extends HttpServlet {
 			String identifiant = request.getParameter("identifiant");
 			String MDP = request.getParameter("MDP");
 			
+			try {
+				manager.controlUtilisateurExistant(identifiant, MDP);
+				model.setCurrent(manager.getByIdentifiantMDP(identifiant, MDP));
+				session.setAttribute("utilisateurConnecte", model.getCurrent());
+				request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+			} catch (BLLException e) {
+				request.setAttribute("error", e.getMessage());
+			}
 			
 		}
+		//Mot de passe oublié
+//		if(request.getParameter("oubli") != null) {
+//			if (!request.getParameter("identifiant").isBlank()) {
+//				try {
+//					model.setCurrent(manager.getByIdentifiant("identifiant"));
+//				} catch (BLLException e) {
+//					request.setAttribute("error", e.getMessage());
+//				}
+//			}
+//		}
+		if(request.getParameter("BT_CREER_UN_COMPTE") != null) {
+			request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
+		}
 		
+		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
 	}
 		
 		

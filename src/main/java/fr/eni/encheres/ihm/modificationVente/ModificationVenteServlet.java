@@ -51,18 +51,16 @@ public class ModificationVenteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
+		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		
 		ModificationVenteModel model = new ModificationVenteModel();
 		try {
 			model.setLstCategories(cManager.getALLCategorie());
 		} catch (BLLException e1) {
 			e1.printStackTrace();
 		}
-		Utilisateur utilisateur = null;
-		try {
-			utilisateur = uManager.getByIdentifiant((String) session.getAttribute("pseudo"), (String) session.getAttribute("email"));
-		} catch (BLLException e1) {
-			e1.printStackTrace();
-		}
+		Utilisateur utilisateur = utilisateurConnecte;
+		
 		
 		ArticleVendu current = (ArticleVendu) session.getAttribute("articleCurrent");
 		model.setCurrent(current);
@@ -92,7 +90,7 @@ public class ModificationVenteServlet extends HttpServlet {
 				retrait.setVille(request.getParameter("ville"));
 			}
 			
-			ArticleVendu article = null;
+			ArticleVendu article = current;
 			article.setNomArticle(nom);
 			article.setDescription(description);
 			article.setCategorie(categorie);
@@ -127,10 +125,14 @@ public class ModificationVenteServlet extends HttpServlet {
 //		}
 		
 		if(request.getParameter("BTN_SUPPRIMER") != null) {
-			
+			try {
+				aManager.removeArticleVendu(current);
+			} catch (BLLException e) {
+				e.printStackTrace();
+			}
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/modificationVente.jsp").forward(request, response);
 	
 	}
 
