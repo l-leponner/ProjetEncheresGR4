@@ -170,6 +170,30 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 		}
 		return utilisateur;
 	}
+
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public void controlUtilisateurExistant(String pseudo, String email, String motDePasse) throws BLLException {
+
+		List<Utilisateur> lstUtilisateurs;
+		Utilisateur utilisateur = null;
+		try {
+			lstUtilisateurs = uDAO.selectAllUtilisateur();
+		} catch (DALException e) {
+			throw new BLLException("Erreur dans la méthode controlUtilisateurExistant : " +e.getMessage());
+		}
+		for (Utilisateur u : lstUtilisateurs) {
+			if((!u.getPseudo().equals(pseudo) || !u.getEmail().equals(email))) {
+				throw new BLLException("Identifiant inconnu");
+			}
+			if(!u.getMotDePasse().equals(motDePasse)) {
+				throw new BLLException("Mot de passe inconnu");
+			}
+		}
+	}
 	
 	
 

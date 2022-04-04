@@ -3,6 +3,7 @@
  */
 package fr.eni.encheres.bll.articleVendu;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public void addArticleVendu(ArticleVendu articlevendu) throws BLLException {
 		try {
+			articlevendu.setEtatVente("En cours");
 			dao.insertArticleVendu(articlevendu);
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode addArticleVendu" + e.getMessage());
@@ -141,6 +143,17 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			return lstArticleVendus;
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode getAllArticleFilterCategorieAndNomArticle" + e.getMessage());
+		}
+	}
+
+	/**
+	*{@inheritedDoc}
+	*/
+	@Override
+	public void controlDateEnchere(LocalDateTime dateDebut, LocalDateTime dateFin) {
+
+		//if(dateFin.) {
+			
 		}
 	}
 

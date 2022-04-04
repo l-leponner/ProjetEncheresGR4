@@ -91,7 +91,7 @@ public class IndexServlet extends HttpServlet {
 		System.out.println(request.getParameter("filtreNomArticle"));
 
 		request.setAttribute("model", model);
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/indexServlet.jsp").forward(request, response);
 	}
 
 	/**

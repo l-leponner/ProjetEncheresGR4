@@ -37,4 +37,6 @@ public interface UtilisateurBLL {
 	public void controlUnicite(String pseudo, String email, String motDePasse) throws BLLException;
 	
 	public void controlNouveauMDP (String actuelMDP, String nouveauMDP) throws BLLException;
+	
+	public void controlUtilisateurExistant (String pseudo, String email, String motDePasse) throws BLLException;
 }

@@ -97,4 +97,26 @@ public class CategorieManagerImpl implements CategoriesManager {
 
 	}
 
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public Categorie getByLibelleCategorie(String libelle) throws BLLException {
+		List<Categorie> lstCategories = null;
+		Categorie categorie = null;
+		try {
+			lstCategories = getALLCategorie();			
+		} catch (BLLException e) {
+			throw new BLLException("Erreur dans la méthode getByLibelleCategorie" + e.getMessage());
+		}
+		
+		for (Categorie c : lstCategories) {
+			if(c.getLibelle().equals(libelle)) {
+				categorie = c;
+			}
+		}
+		return categorie;
+	}
+
 }

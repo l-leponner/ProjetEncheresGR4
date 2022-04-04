@@ -3,6 +3,7 @@
  */
 package fr.eni.encheres.bll.articleVendu;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
@@ -33,5 +34,7 @@ public interface ArticleVenduBLLManager {
 	public void removeArticleVendu(ArticleVendu articlevendu) throws BLLException;
 
 	public void updateArticleVendu(ArticleVendu articlevendu) throws BLLException;
+	
+	public void controlDateEnchere (LocalDateTime dateDebut, LocalDateTime dateFin);
 
 }

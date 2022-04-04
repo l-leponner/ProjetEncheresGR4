@@ -25,5 +25,7 @@ public interface CategoriesManager {
 	
 	public Categorie getByIDCategorie(Integer idCategorie) throws BLLException;
 	
+	public Categorie getByLibelleCategorie(String libelle) throws BLLException;
+	
 	
 }
