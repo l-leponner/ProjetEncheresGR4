@@ -38,9 +38,16 @@ public class UtilisateurServlet extends HttpServlet {
 
 
 		UtilisateurModel model = new UtilisateurModel();
-		if (request.getParameter("BT_MODIFIER") == null) {
+		try {
+			model.setCurrent(manager.getByIDUtilisateur((Integer) request.getSession().getAttribute("idUtilisateur")));
+		} catch (BLLException e1) {
+			model.setMessage("Erreur dans l'affichage utilisateur: " + e1.getMessage());
+		}
+		
+		
+		if (request.getParameter("BT_MODIFIER") != null) {
 				try {
-					model.setCurrent(manager.getByIDUtilisateur((Integer) request.getSession().getAttribute("idUtilsateur")));
+					model.setCurrent(manager.getByIDUtilisateur((Integer) request.getSession().getAttribute("idUtilisateur")));
 				} catch (BLLException e) {
 					model.setMessage("Erreur dans l'affichage utilisateur: " + e.getMessage());
 				}

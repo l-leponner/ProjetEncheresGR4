@@ -37,40 +37,62 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		LoginModel model = new LoginModel();
 		
-	
-		request.setAttribute("model", model);
-
-		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-		;
+	}
 		
-	
-		String email = request.getParameter("email");
-		String pseudo = request.getParameter("pseudo");
-		String motDePasse = request.getParameter("motDePasse");
 		
+//		//appelle methode pour loginer
+//		
+//		if (request.getParameter("BT_CONNEXION") != null){
+//			
+//			String identifiant = request.getParameter("identifiant");
+//			String mDP = request.getParameter("motDePasse");
+//			
+//			try { manager.connexionUtilisateur (identifiant, mDP);
+//			
+//			if (connecte = true) {	
+//			try {
+//				 request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+//			} catch (BLLException e) {
+//				model.setMessage("Erreur dans le login : " + e.getMessage());
+//			
+//			}
+//						
+//			else {
+//				try {
+//					System.out.println("Username or Password incorrect");
+//				  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+//				} catch (BLLException e) {
+//					model.setMessage("Erreur dans le login : " + e.getMessage());
+//				}
+//		
+//			
+//		request.setAttribute("model", model);
+//
+//		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+//	
+//			}
+//			}
+//	}
 
-//		for (Utilisateur utilisateur : manager.getAllUtilisateur()) 
-//		if (email equals(utilisateur.getEmail) || pseudo equals(utilisateur.getPseudo) && motDePasse equals(utilisateur.getMotDePasse)) 
+//		public static Boolean ConnexionUtilisateur (String identifiant, String motDePasse) throw BLLException {
+//			bolean connecte = false;
+//		for (Utilisateur utilisateur : manager.getAllUtilisateur()) {
+//			if(identifiant.equals((utilisateur.getEmail()) || (identifiant.equals(utilisateur.getPseudo())) && (mDP.equals(utilisateur.getMotDePasse())) { 
+//			return connecte = true;	}
 //		try {
 //			 request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 //		} catch (BLLException e) {
 //			model.setMessage("Erreur dans le login : " + e.getMessage());
 //		}	
-//		
+//					
 //		else {
-//			  println("Username or Password incorrect");
+//			try {
+//				System.out.println("Username or Password incorrect");
 //			  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-//		}
-		}
-
-//		for (Utilisateur utilisateur : manager.getAllUtilisateur) {
-//		if(email.equals((utilisateur.email) || pseudo.equals(utilisateur.pseudo) && motDePasse.equals(utilisateur.motDePasse) {
-//		}
-//		else {
-//			  println("Username or Password incorrect");
-//			  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-	//	}
-		
+//			} catch (BLLException e) {
+//				model.setMessage("Erreur dans le login : " + e.getMessage());
+//			}
+//		}}}}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

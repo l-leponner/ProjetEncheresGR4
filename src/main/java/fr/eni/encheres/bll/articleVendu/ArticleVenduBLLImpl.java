@@ -157,4 +157,4 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		}
 	}
 
-}
+
