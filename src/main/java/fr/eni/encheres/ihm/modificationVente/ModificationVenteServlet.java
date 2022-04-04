@@ -1,4 +1,4 @@
-package fr.eni.encheres.ihm.vente;
+package fr.eni.encheres.ihm.modificationVente;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -24,22 +24,23 @@ import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.ihm.vente.VenteModel;
 
 /**
- * Servlet implementation class VenteServlet
+ * Servlet implementation class ModificationVenteServlet
  */
-@WebServlet("/VenteServlet")
-public class VenteServlet extends HttpServlet {
+@WebServlet("/ModificationVenteServlet")
+public class ModificationVenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static CategoriesManager cManager = CategorieManagerSing.getInstance();
 	private static ArticleVenduBLLManager aManager = ArticleVenduBLLSing.getInstance();
 	private static UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private static RetraitManager rManager = RetraitManagerSing.getInstance();
-       
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VenteServlet() {
+    public ModificationVenteServlet() {
         super();
     }
 
@@ -50,7 +51,7 @@ public class VenteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
-		VenteModel model = new VenteModel();
+		ModificationVenteModel model = new ModificationVenteModel();
 		try {
 			model.setLstCategories(cManager.getALLCategorie());
 		} catch (BLLException e1) {
@@ -103,8 +104,8 @@ public class VenteServlet extends HttpServlet {
 			article.setLieuRetrait(retrait);
 			article.setUtilisateur(utilisateur);
 			try {
-				aManager.addArticleVendu(article);
-				rManager.addRetrait(retrait, article);
+				aManager.updateArticleVendu(article);
+				rManager.updateRetrait(retrait);
 				
 			} catch (BLLException e) {
 				e.printStackTrace();
@@ -122,7 +123,12 @@ public class VenteServlet extends HttpServlet {
 //			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 //		}
 		
+		if(request.getParameter("BTN_SUPPRIMER") != null) {
+			
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
+	
 	}
 
 	/**
