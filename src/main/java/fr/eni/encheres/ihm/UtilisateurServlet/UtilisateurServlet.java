@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
 import fr.eni.encheres.bo.Utilisateur;
@@ -34,34 +35,24 @@ public class UtilisateurServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		if (User == log) {
-		UtilisateurModel model = new UtilisateurModel();
-		if (request.getParameter("BT_MODIFIER")!=null) {
-			Utilisateur utilisateur = new Utilisateur();
-			utilisateur.setPseudo(request.getParameter("pseudo")); 
-			utilisateur.setNom(request.getParameter("nom")); 
-			utilisateur.setPrenom(request.getParameter("prenom")); 
-			utilisateur.setEmail(request.getParameter("email")); 
-			utilisateur.setTelephone(request.getParameter("telephone")); 
-			utilisateur.setRue(request.getParameter("rue")); 
-			utilisateur.setCodePostal(request.getParameter("codePostal")); 
-			utilisateur.setVille(request.getParameter("ville")); 
-		
-			model.setCurrent(utilisateur);
-			
-		}
-		model.setCurrent(manager.updateUtilisateur());
-		}
-		else {
-		
-			
-		}
-		
-		request.setAttribute("model", model);
 
-		request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
-		;
+		UtilisateurModel model = new UtilisateurModel();
+		if (request.getParameter("BT_MODIFIER") == null) {
+				try {
+					model.setCurrent(manager.getByIDUtilisateur((Integer) request.getSession().getAttribute("idUtilsateur")));
+				} catch (BLLException e) {
+					model.setMessage("Erreur dans l'affichage utilisateur: " + e.getMessage());
+				}
+
+			request.setAttribute("model", model);
+
+			request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
+		}
+
+		else {
+			request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
+
+		}
 	}
 
 	/**
