@@ -148,12 +148,13 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 	/**
 	*{@inheritedDoc}
+	 * @throws BLLException 
 	*/
 	@Override
-	public void controlDateEnchere(LocalDateTime dateDebut, LocalDateTime dateFin) {
+	public void controlDateEnchere(LocalDateTime dateDebut, LocalDateTime dateFin) throws BLLException {
 
-		//if(dateFin.) {
-			
+		if(dateFin.isBefore(dateDebut)) {
+			throw new BLLException("La date de fin de l'enchère doit être postérieure à la date de début !");
 		}
 	}
 
