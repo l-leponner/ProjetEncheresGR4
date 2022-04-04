@@ -136,6 +136,15 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 		} catch (BLLException e) {
 			throw new BLLException("Erreur dans la méthode controlUnicite : " +e.getMessage());
 		}		
-	}
+	}}
 
-}
+	// test login gabriel
+	
+//	public static Boolean ConnexionUtilisateur (String identifiant, String motDePasse) throws BLLException {
+//		boolean connecte = false;
+//	for (Utilisateur utilisateur : manager.getAllUtilisateur()) {
+//		if(identifiant.equals((utilisateur.getEmail()) || (identifiant.equals(utilisateur.getPseudo())) && (mDP.equals(utilisateur.getMotDePasse()) { 
+//		return connecte = true;	
+//	}}
+//	}}
+

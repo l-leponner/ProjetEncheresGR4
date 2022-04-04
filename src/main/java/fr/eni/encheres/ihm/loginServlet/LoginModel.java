@@ -16,9 +16,27 @@ import fr.eni.encheres.bo.Utilisateur;
  */
 public class LoginModel {
 
+	
+
+	private String message;
+	private String identifiant;
+	
 	private Utilisateur current;
-	
-	
+	public String getIdentifiant() {
+		return identifiant;
+	}
+
+	public void setIdentifiant(String identifiant) {
+		this.identifiant = identifiant;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public LoginModel() {
 		super();
