@@ -17,6 +17,7 @@ import fr.eni.encheres.bo.Utilisateur;
 public class UtilisateurModel {
 
 	private Utilisateur current;
+	private String message;
 
 
 	public UtilisateurModel() {
@@ -36,7 +37,14 @@ public class UtilisateurModel {
 		this.current = current;
 	}
 	
-	
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	@Override
 	public String toString() {
