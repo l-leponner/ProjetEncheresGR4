@@ -17,13 +17,13 @@
 <form action="UtilisateurDeconnecteServlet" method="post">
 	
 	Pseudo:<p>${model.current.pseudo}</p><br>
-	Nom:<p type="text" name="nom" value="${model.current.nom}"/><br>
-	Prenom:<p type="text" name="Prenom" value="${model.current.prenom}"/><br>
-	Email:<p type="text" name="Email" value="${model.current.email}"/><br>
-	Telephone:<p type="text" name="Telephone" value="${model.current.telephone}"/><br>
-	Rue:<p type="text" name="Rue" value="${model.current.rue}"/><br>
-	Code postal:<p type="text" name="Code postal" value="${model.current.codePostal}"/><br>
-	Ville:<p type="text" name="Ville" value="${model.current.ville}"/><br>
+	Nom:<p>${model.current.nom}</p><br>
+	Prenom:<p>${model.current.prenom}</p><br>
+	Email:<p>${model.current.email}</p><br>
+	Telephone:<p>${model.current.telephone}</p><br>
+	Rue:<p>${model.current.rue}<br>
+	Code postal:<p>${model.current.codePostal}</p><br>
+	Ville:<p>${model.current.ville}</p><br>
 
 
 </form>
