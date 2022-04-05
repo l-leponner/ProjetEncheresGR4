@@ -8,6 +8,7 @@ import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Classe en charge de
@@ -19,7 +20,8 @@ import fr.eni.encheres.bo.Categorie;
  */
 public class VenteModel {
 
-	private ArticleVendu current;
+	private ArticleVendu currentArticle;
+	private Utilisateur currentUtilisateur;
 	private List<Categorie> lstCategories = new ArrayList<Categorie>();
 
 	/**
@@ -30,28 +32,46 @@ public class VenteModel {
 
 	/**
 	 * Constructeur.
-	 * @param current
+	 * @param currentArticle
+	 * @param currentUtilisateur
 	 * @param lstCategories
 	 */
-	public VenteModel(ArticleVendu current, List<Categorie> lstCategories) {
-		this.current = current;
+	public VenteModel(ArticleVendu currentArticle, Utilisateur currentUtilisateur, List<Categorie> lstCategories) {
+		this.currentArticle = currentArticle;
+		this.currentUtilisateur = currentUtilisateur;
 		this.lstCategories = lstCategories;
 	}
 
 	/**
-	 * Getter pour current.
-	 * @return the current
+	 * Getter pour currentArticle.
+	 * @return the currentArticle
 	 */
-	public ArticleVendu getCurrent() {
-		return current;
+	public ArticleVendu getCurrentArticle() {
+		return currentArticle;
 	}
 
 	/**
-	 * Setter pour current.
-	 * @param current the current to set
+	 * Setter pour currentArticle.
+	 * @param currentArticle the currentArticle to set
 	 */
-	public void setCurrent(ArticleVendu current) {
-		this.current = current;
+	public void setCurrentArticle(ArticleVendu currentArticle) {
+		this.currentArticle = currentArticle;
+	}
+
+	/**
+	 * Getter pour currentUtilisateur.
+	 * @return the currentUtilisateur
+	 */
+	public Utilisateur getCurrentUtilisateur() {
+		return currentUtilisateur;
+	}
+
+	/**
+	 * Setter pour currentUtilisateur.
+	 * @param currentUtilisateur the currentUtilisateur to set
+	 */
+	public void setCurrentUtilisateur(Utilisateur currentUtilisateur) {
+		this.currentUtilisateur = currentUtilisateur;
 	}
 
 	/**
@@ -77,9 +97,14 @@ public class VenteModel {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("VenteModel [");
-		if (current != null) {
-			builder.append("current=");
-			builder.append(current);
+		if (currentArticle != null) {
+			builder.append("currentArticle=");
+			builder.append(currentArticle);
+			builder.append(", ");
+		}
+		if (currentUtilisateur != null) {
+			builder.append("currentUtilisateur=");
+			builder.append(currentUtilisateur);
 			builder.append(", ");
 		}
 		if (lstCategories != null) {

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JRadioButton;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLManager;
@@ -52,13 +53,14 @@ public class VenteServlet extends HttpServlet {
 		
 		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		VenteModel model = new VenteModel();
+		request.setAttribute("model", model);
 		try {
 			model.setLstCategories(cManager.getALLCategorie());
 		} catch (BLLException e1) {
 			e1.printStackTrace();
 		}
-		Utilisateur utilisateur = null;
-		utilisateur = utilisateurConnecte;
+		Utilisateur utilisateur = utilisateurConnecte;
+		model.setCurrentUtilisateur(utilisateur);
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String nom = request.getParameter("nom");
@@ -107,17 +109,17 @@ public class VenteServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			model.setCurrent(article);
+			model.setCurrentArticle(article);
 			
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			
 		}
 		
 		
 		
-//		if(request.getParameter("BTN_ANNULER") != null) {
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-//		}
+		if(request.getParameter("BTN_ANNULER") != null) {
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
 	}
