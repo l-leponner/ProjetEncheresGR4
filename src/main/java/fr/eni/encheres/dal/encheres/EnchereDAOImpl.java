@@ -192,13 +192,13 @@ public class EnchereDAOImpl implements EnchereDAO {
 		Integer noArticle = rs.getInt("no_article");
 		Integer noUtilisateur = rs.getInt("no_utilisateur");
 		
-		String nomArticle = rs.getString("nom_article");
-		String description = rs.getString("description");
+		String nomArticle = rs.getString("nom_article").trim();
+		String description = rs.getString("description").trim();
 		LocalDateTime dateDebutEncheres = rs.getTimestamp("date_debut_enchere").toLocalDateTime();
 		LocalDateTime dateFinEncheres = rs.getTimestamp("date_fin_enchere").toLocalDateTime();
 		Integer miseAPrix = rs.getInt("prix_initial");
 		Integer prixVente = rs.getInt("prix_vente");
-		String etatVente = rs.getString("etat_vente");
+		String etatVente = rs.getString("etat_vente").trim();
 
 		Enchere enchere = new Enchere();
 		enchere.setNoEnchere(noEnchere);

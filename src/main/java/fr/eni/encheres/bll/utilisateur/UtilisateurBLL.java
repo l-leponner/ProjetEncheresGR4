@@ -26,7 +26,7 @@ public interface UtilisateurBLL {
 	
 	public Utilisateur getByIDUtilisateur(Integer idUtilisateur) throws BLLException;
 	
-	public Utilisateur getByIdentifiantMDP(String sessionPseudo, String sessionEmail) throws BLLException;
+	public Utilisateur getByIdentifiantMDP(String identifiant, String MDP) throws BLLException;
 	
 	public Utilisateur getByIdentifiant (String identifiant) throws BLLException;
 	

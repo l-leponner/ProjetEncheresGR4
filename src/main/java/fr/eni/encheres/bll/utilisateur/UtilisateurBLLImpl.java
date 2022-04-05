@@ -166,19 +166,15 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	 * @throws BLLException 
 	*/
 	@Override
-	public Utilisateur getByIdentifiantMDP(String sessionPseudo, String sessionEmail) throws BLLException {
-		List<Utilisateur> lstUtilisateurs;
+	public Utilisateur getByIdentifiantMDP(String identifiant, String MDP) throws BLLException {
 		Utilisateur utilisateur = null;
+		
 		try {
-			lstUtilisateurs = uDAO.selectAllUtilisateur();
+			utilisateur = uDAO.selectByIdentifiantMDPUtilisateur(identifiant, MDP);
 		} catch (DALException e) {
-			throw new BLLException("Erreur dans la méthode getByIdentifiantMDP : " +e.getMessage());
+			throw new BLLException("Identifiant inconnu ou mot de passe inconnu");
 		}
-		for (Utilisateur u : lstUtilisateurs) {
-			if(u.getPseudo().equals(sessionPseudo) || u.getEmail().equals(sessionEmail)) {
-				utilisateur = u;
-			}
-		}
+		
 		return utilisateur;
 	}
 
@@ -196,10 +192,10 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 			throw new BLLException("Erreur dans la méthode controlUtilisateurExistant : " +e.getMessage());
 		}
 		for (Utilisateur u : lstUtilisateurs) {
-			if((!u.getPseudo().equals(identifiant) || !u.getEmail().equals(identifiant))) {
+			if((!identifiant.equals(u.getPseudo()) || !identifiant.equals(u.getEmail()))) {
 				throw new BLLException("Identifiant inconnu");
 			}
-			if(!u.getMotDePasse().equals(motDePasse)) {
+			if(!motDePasse.equals(u.getMotDePasse())) {
 				throw new BLLException("Mot de passe inconnu");
 			}
 		}

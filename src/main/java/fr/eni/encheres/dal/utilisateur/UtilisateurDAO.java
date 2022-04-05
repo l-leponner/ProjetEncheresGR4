@@ -26,6 +26,8 @@ public interface UtilisateurDAO {
 	
 	public Utilisateur selectByIDUtilisateur(Integer idUtilisateur) throws DALException;
 	
+	public Utilisateur selectByIdentifiantMDPUtilisateur (String identifiant, String motDePasse) throws DALException;
+	
 	public void deleteUtilisateur (Utilisateur utilisateur) throws DALException;
 	
 }

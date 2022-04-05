@@ -26,7 +26,7 @@
 	<aside>
 		<input type="checkbox" name="BT_SE_SOUVENIR_DE_MOI" id="BT_SE_SOUVENIR_DE_MOI"/> 
 		<label for="BT_SE_SOUVENIR_DE_MOI">Se souvenir de moi</label>
-		<a href="#" data-name="oubli">Mot de passe oublié</a>
+		<a href="#" data-name="">Mot de passe oublié</a>
 	</aside>
 	</div>
 	</form>

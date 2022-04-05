@@ -117,9 +117,9 @@ public class RetraitDAOImpl implements RetraitDAO {
 		ArticleVenduDAO dao = DAOFactory.getArticleVenduDAO();
 		
 		Integer noArticle = rs.getInt("no_article");
-		String rue = rs.getString("rue");
-		String code_postal = rs.getString("code_postal");
-		String ville = rs.getString("ville");
+		String rue = rs.getString("rue").trim();
+		String code_postal = rs.getString("code_postal").trim();
+		String ville = rs.getString("ville").trim();
 
 		
 		Retrait retrait = new Retrait(rue, code_postal, ville);

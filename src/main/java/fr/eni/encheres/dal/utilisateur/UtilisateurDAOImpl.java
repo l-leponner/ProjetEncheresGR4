@@ -134,7 +134,29 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		}
 		return result;
 	}
+	/**
+	*{@inheritedDoc}
+	 * @throws DALException 
+	*/
+	@Override
+	public Utilisateur selectByIdentifiantMDPUtilisateur(String identifiant, String motDePasse) throws DALException {
+		Utilisateur result = null;
+		try (Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement stmt = con.prepareStatement(
+					"SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?");
+			stmt.setString(1, identifiant);
+			stmt.setString(2, identifiant);
+			stmt.setString(3, motDePasse);
+			ResultSet rs = stmt.executeQuery();
 
+			if (rs.next()) {
+				result = itemBuilder(rs);
+			}
+		} catch (SQLException e) {
+			throw new DALException("Erreur dans la fonction selectByIdentifiantMDPUtilisateur : " + e.getMessage());
+		}
+		return result;
+	}
 	/**
 	 * {@inheritedDoc}
 	 * 
@@ -154,15 +176,15 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private Utilisateur itemBuilder(ResultSet rs) throws SQLException {
 
 		Integer noUtilisateur = rs.getInt("no_utilisateur");
-		String pseudo = rs.getString("pseudo");
-		String nom = rs.getString("nom");
-		String prenom = rs.getString("prenom");
-		String email = rs.getString("email");
-		String telephone = rs.getString("telephone");
-		String rue = rs.getString("rue");
-		String codePostal = rs.getString("code_postal");
-		String ville = rs.getString("ville");
-		String motDePasse = rs.getString("mot_de_passe");
+		String pseudo = rs.getString("pseudo").trim();
+		String nom = rs.getString("nom").trim();
+		String prenom = rs.getString("prenom").trim();
+		String email = rs.getString("email").trim();
+		String telephone = rs.getString("telephone").trim();
+		String rue = rs.getString("rue").trim();
+		String codePostal = rs.getString("code_postal").trim();
+		String ville = rs.getString("ville").trim();
+		String motDePasse = rs.getString("mot_de_passe").trim();
 		Integer credit = rs.getInt("credit");
 		boolean administrateur = rs.getBoolean("administrateur");
 
@@ -181,4 +203,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		utilisateur.setAdministrateur(administrateur);
 		return utilisateur;
 	}
+
+	
 }
