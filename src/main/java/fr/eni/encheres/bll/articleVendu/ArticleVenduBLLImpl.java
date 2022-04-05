@@ -5,10 +5,12 @@ package fr.eni.encheres.bll.articleVendu;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
@@ -207,6 +209,16 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		}
 		
 		return returnlstArticleVendus;
+	}
+
+	/**
+	*{@inheritedDoc}
+	*/
+	@Override
+	public Enchere getMeilleureEnchere(List<Enchere> lstEncheres) {
+		Enchere result = lstEncheres.get(lstEncheres.size() -1);
+		
+		return result;
 	}
 }
 

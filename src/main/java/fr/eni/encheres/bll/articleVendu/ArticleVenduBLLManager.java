@@ -8,6 +8,7 @@ import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Enchere;
 
 /**
  * Classe en charge de
@@ -42,5 +43,7 @@ public interface ArticleVenduBLLManager {
 	public void updateArticleVendu(ArticleVendu articlevendu) throws BLLException;
 	
 	public void controlDateEnchere (LocalDateTime dateDebut, LocalDateTime dateFin) throws BLLException;
+	
+	public Enchere getMeilleureEnchere(List<Enchere> lstEnchere);
 
 }

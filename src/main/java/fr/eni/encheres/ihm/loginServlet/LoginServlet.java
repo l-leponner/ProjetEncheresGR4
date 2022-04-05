@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 				
 				model.setCurrent(manager.getByIdentifiantMDP(identifiant, MDP));
 				session.setAttribute("utilisateurConnecte", model.getCurrent());
-				request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			} catch (BLLException e) {
 				request.setAttribute("error", e.getMessage());
 			}
