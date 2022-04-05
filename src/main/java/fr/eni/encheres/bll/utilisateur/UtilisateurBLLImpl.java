@@ -223,6 +223,18 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 		}
 		return utilisateur;
 	}
+
+	/**
+	*{@inheritedDoc}
+	 * @throws BLLException 
+	*/
+	@Override
+	public void peutEncherir(Integer creditUtilisateur, Integer montantEnchere) throws BLLException {
+		if(montantEnchere > creditUtilisateur) {
+			throw new BLLException("Crédits insuffisants !");
+		}
+		
+	}
 	
 	
 
