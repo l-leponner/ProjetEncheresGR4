@@ -165,6 +165,49 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			throw new BLLException("La date de fin de l'enchère doit être postérieure à la date de début !");
 		}
 	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleFilterNomArticle(String nomArticle, List<ArticleVendu> lstArticleVendus) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		for (ArticleVendu i : lstArticleVendus) {
+			if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+				returnlstArticleVendus.add(i);
+			}
+		}
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleFilterCategorie(String categorie, List<ArticleVendu> lstArticleVendus)
+			throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		for (ArticleVendu i : lstArticleVendus) {
+			if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie)) {
+				returnlstArticleVendus.add(i);
+			}
+		}
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie,List<ArticleVendu> lstArticleVendus) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		if (categorie.equalsIgnoreCase("toutes")) {
+			for (ArticleVendu i : lstArticleVendus) {
+				if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+					returnlstArticleVendus.add(i);
+				}
+			}
+		}else {
+			for (ArticleVendu i : lstArticleVendus) {
+				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie) && i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+					returnlstArticleVendus.add(i);
+				}
+			}
+		}
+		
+		return returnlstArticleVendus;
+	}
 }
 
 
