@@ -114,7 +114,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 	private Categorie itemBuilder(ResultSet rs) throws SQLException {
 
 		int noCategorie = rs.getInt("no_categorie");
-		String libelle = rs.getString("libelle");
+		String libelle = rs.getString("libelle").trim();
 
 		Categorie categorie = new Categorie(libelle);
 		categorie.setNoCategorie(noCategorie);
