@@ -9,6 +9,7 @@ import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
@@ -204,6 +205,57 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 					returnlstArticleVendus.add(i);
 				}
 			}
+		}
+		
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleEncheresOuvertes() throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleEncheresOuvertes" + e.getMessage());
+		}
+		
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleMesEncheres" + e.getMessage());
+		}
+		
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleMesEncheresRemportees" + e.getMessage());
 		}
 		
 		return returnlstArticleVendus;

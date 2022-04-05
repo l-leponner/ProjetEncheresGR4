@@ -8,6 +8,7 @@ import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Classe en charge de
@@ -36,6 +37,12 @@ public interface ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterCategorie(String categorie, List<ArticleVendu> lstArticleVendus) throws BLLException;
 	
 	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie, List<ArticleVendu> lstArticleVendus) throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleEncheresOuvertes() throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException;
 	
 	public void removeArticleVendu(ArticleVendu articlevendu) throws BLLException;
 

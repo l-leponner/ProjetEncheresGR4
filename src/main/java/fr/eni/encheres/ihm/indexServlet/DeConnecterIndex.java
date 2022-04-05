@@ -17,7 +17,7 @@ import fr.eni.encheres.bll.categories.CategoriesManager;
 /**
  * Servlet implementation class IndexServlet
  */
-@WebServlet("/IndexServlet")
+@WebServlet("/DeConnecterIndex")
 public class DeConnecterIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleVenduBLLManager managerArticle = ArticleVenduBLLSing.getInstance();

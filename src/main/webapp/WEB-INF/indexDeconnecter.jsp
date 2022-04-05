@@ -23,13 +23,13 @@
 
 	<h2>Liste des enchères</h2>
 	<p style="color: red">${model.message}</p>
-	<form action="IndexServlet" method="post">
+	<form action="DeConnecterIndex" method="post">
 		<div>
 			<h2>Filtres :</h2>
 			<input type="search" id="filtres" name="filtreNomArticle"
 				placeholder="Le nom de l'article contient">
 
-			<h2>Catégorie :</h2>
+			<label for="categorie">Catégorie :</label> 
 			<select name="filtreCategorie" id="categorie">
 				<option selected>Toutes</option>
 				<c:forEach items="${model.lstCategories}" var="categorie">
