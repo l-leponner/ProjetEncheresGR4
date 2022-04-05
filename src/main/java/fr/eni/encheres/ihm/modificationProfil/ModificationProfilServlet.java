@@ -40,13 +40,11 @@ public class ModificationProfilServlet extends HttpServlet {
 		
 		InscriptionModel model = new InscriptionModel();
 		
-		String sessionPseudo = (String) session.getAttribute("pseudo");
-		String sessionEmail = (String) session.getAttribute("email");
+		request.setAttribute("model", model);
 		
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		
 		model.setCurrent(utilisateur);
-		session.setAttribute("credit", utilisateur.getCredit());
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String pseudo = request.getParameter("pseudo");
@@ -67,9 +65,18 @@ public class ModificationProfilServlet extends HttpServlet {
 				request.setAttribute("error", e1.getMessage());
 			}
 			
-			utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, nouveauMDP);
+			utilisateur.setPseudo(pseudo);
+			utilisateur.setNom(nom);
+			utilisateur.setPrenom(prenom);
+			utilisateur.setEmail(email);
+			utilisateur.setTelephone(telephone);
+			utilisateur.setRue(rue);
+			utilisateur.setCodePostal(codePostal);
+			utilisateur.setVille(ville);
+			utilisateur.setMotDePasse(nouveauMDP);
 			try {
 				uManager.controlMDP(nouveauMDP, confirmationMDP);
+				
 			} catch (BLLException e1) {
 				request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
 				model.setMessage("Mot de passe et confirmation de mot de passe différents svp");
@@ -80,9 +87,9 @@ public class ModificationProfilServlet extends HttpServlet {
 			} catch (BLLException e) {
 				request.setAttribute("error", e.getMessage());
 			}
-			session.setAttribute("current", utilisateur);
+			session.setAttribute("utilisateurConnecte", utilisateur);
 			// Retour sur index
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			
 			
 		}
@@ -91,8 +98,9 @@ public class ModificationProfilServlet extends HttpServlet {
 			
 			try {
 				uManager.removeUtilisateur(utilisateur);
+				session.invalidate();
 				// Retour sur index
-//				request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}

@@ -54,16 +54,17 @@ public class ModificationVenteServlet extends HttpServlet {
 		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		
 		ModificationVenteModel model = new ModificationVenteModel();
+		request.setAttribute("model", model);
 		try {
 			model.setLstCategories(cManager.getALLCategorie());
 		} catch (BLLException e1) {
 			e1.printStackTrace();
 		}
 		Utilisateur utilisateur = utilisateurConnecte;
+		model.setCurrentUtilisateur(utilisateur);
 		
-		
-		ArticleVendu current = (ArticleVendu) session.getAttribute("articleCurrent");
-		model.setCurrent(current);
+		ArticleVendu current = (ArticleVendu) session.getAttribute("articleClique");
+		model.setCurrentArticle(current);
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String nom = request.getParameter("nom");
@@ -112,17 +113,17 @@ public class ModificationVenteServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			model.setCurrent(article);
+			model.setCurrentArticle(article);
 			
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			
 		}
 		
 		
 		
-//		if(request.getParameter("BTN_ANNULER") != null) {
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-//		}
+		if(request.getParameter("BTN_ANNULER") != null) {
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+		}
 		
 		if(request.getParameter("BTN_SUPPRIMER") != null) {
 			try {

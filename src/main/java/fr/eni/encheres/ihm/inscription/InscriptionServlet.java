@@ -38,7 +38,7 @@ public class InscriptionServlet extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		
 		InscriptionModel model = new InscriptionModel();
-		
+		request.setAttribute("model", model);
 		
 		if(request.getParameter("BTN_CREER") != null) {
 			String pseudo = request.getParameter("pseudo");
@@ -61,13 +61,14 @@ public class InscriptionServlet extends HttpServlet {
 			}
 			model.setCurrent(utilisateur);
 			session.setAttribute("current", utilisateur);
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			session.setAttribute("utilisateurConnecte", utilisateur);
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			
 		}
 		
-//		if(request.getParameter("BTN_ANNULER") != null) {
-//			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-//		}
+		if(request.getParameter("BTN_ANNULER") != null) {
+			request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
 	}
