@@ -36,32 +36,12 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		LoginModel model = new LoginModel();
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
-		LoginModel model = new LoginModel();
-	
-	
-	
-	if (request.getParameter("BT_CONNEXION") != null){
-		
-		String identifiant = request.getParameter("identifiant");
-		String motDePasse = request.getParameter("motDePasse");
-		
-		try { manager.controlUtilisateurExistant (identifiant, motDePasse);
-		
-	
-		
-		Utilisateur utilisateur = null;
-		try {
-			utilisateur = manager.getByIdentifiantMDP((String) session.getAttribute("pseudo"), (String) session.getAttribute("email"));
-		} catch (BLLException e) {
-			e.printStackTrace();
-		}
-		
-		
 		if(request.getParameter("BT_CONNEXION") != null) {
-			 identifiant = request.getParameter("identifiant");
+			String identifiant = request.getParameter("identifiant");
 			String MDP = request.getParameter("MDP");
 			
 			try {
@@ -89,17 +69,9 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-	
 	}
-	}
-	
 		
 		
-		request.setAttribute("model", model);
-
-		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-		
-	}
 //		//appelle methode pour loginer
 //		
 //		if (request.getParameter("BT_CONNEXION") != null){
