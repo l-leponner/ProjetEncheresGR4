@@ -35,6 +35,6 @@ public interface ArticleVenduBLLManager {
 
 	public void updateArticleVendu(ArticleVendu articlevendu) throws BLLException;
 	
-	public void controlDateEnchere (LocalDateTime dateDebut, LocalDateTime dateFin);
+	public void controlDateEnchere (LocalDateTime dateDebut, LocalDateTime dateFin) throws BLLException;
 
 }

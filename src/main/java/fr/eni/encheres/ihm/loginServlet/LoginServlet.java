@@ -28,7 +28,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -55,17 +54,50 @@ public class LoginServlet extends HttpServlet {
 		
 		Utilisateur utilisateur = null;
 		try {
-			utilisateur = manager.getByIdentifiant((String) session.getAttribute("pseudo"), (String) session.getAttribute("email"));
+			utilisateur = manager.getByIdentifiantMDP((String) session.getAttribute("pseudo"), (String) session.getAttribute("email"));
 		} catch (BLLException e) {
 			e.printStackTrace();
 		}
+		
+		
+		if(request.getParameter("BT_CONNEXION") != null) {
+			 identifiant = request.getParameter("identifiant");
+			String MDP = request.getParameter("MDP");
+			
+			try {
+				manager.controlUtilisateurExistant(identifiant, MDP);
+				model.setCurrent(manager.getByIdentifiantMDP(identifiant, MDP));
+				session.setAttribute("utilisateurConnecte", model.getCurrent());
+				request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+			} catch (BLLException e) {
+				request.setAttribute("error", e.getMessage());
+			}
+			
+		}
+		//Mot de passe oublié
+//		if(request.getParameter("oubli") != null) {
+//			if (!request.getParameter("identifiant").isBlank()) {
+//				try {
+//					model.setCurrent(manager.getByIdentifiant("identifiant"));
+//				} catch (BLLException e) {
+//					request.setAttribute("error", e.getMessage());
+//				}
+//			}
+//		}
+		if(request.getParameter("BT_CREER_UN_COMPTE") != null) {
+			request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+	}
+	}
 		
 		
 		request.setAttribute("model", model);
 
 		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
 		
-	}}
+	}
 //		//appelle methode pour loginer
 //		
 //		if (request.getParameter("BT_CONNEXION") != null){
@@ -126,7 +158,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 }

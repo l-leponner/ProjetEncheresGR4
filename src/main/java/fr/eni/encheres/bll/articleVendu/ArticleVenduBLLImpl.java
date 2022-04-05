@@ -135,11 +135,20 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie) throws BLLException {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
-			for (ArticleVendu i : dao.selectAllArticleVendu()) {
-				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie) && i.getNomArticle().equalsIgnoreCase(nomArticle)) {
-					lstArticleVendus.add(i);
+			if (categorie.equalsIgnoreCase("toutes")) {
+				for (ArticleVendu i : dao.selectAllArticleVendu()) {
+					if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+						lstArticleVendus.add(i);
+					}
+				}
+			}else {
+				for (ArticleVendu i : dao.selectAllArticleVendu()) {
+					if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie) && i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+						lstArticleVendus.add(i);
+					}
 				}
 			}
+			
 			return lstArticleVendus;
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode getAllArticleFilterCategorieAndNomArticle" + e.getMessage());
@@ -148,13 +157,15 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 	/**
 	*{@inheritedDoc}
+	 * @throws BLLException 
 	*/
 	@Override
-	public void controlDateEnchere(LocalDateTime dateDebut, LocalDateTime dateFin) {
+	public void controlDateEnchere(LocalDateTime dateDebut, LocalDateTime dateFin) throws BLLException {
 
-		//if(dateFin.) {
-			
+		if(dateFin.isBefore(dateDebut)) {
+			throw new BLLException("La date de fin de l'enchère doit être postérieure à la date de début !");
 		}
 	}
+}
 
 
