@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
-import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class LoginServlet

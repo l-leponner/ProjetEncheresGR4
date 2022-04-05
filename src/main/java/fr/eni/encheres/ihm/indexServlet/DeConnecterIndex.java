@@ -37,8 +37,7 @@ public class DeConnecterIndex extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		DeConnecterIndexModel model = new DeConnecterIndexModel();
-		
-		
+
 		try {
 			model.setLstCategories(managerCategorie.getALLCategorie());
 		} catch (BLLException e1) {
@@ -77,95 +76,23 @@ public class DeConnecterIndex extends HttpServlet {
 
 				break;
 
-			case "Informatique":
-
-				if (!model.getFilterArticle().isBlank()) {
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-								model.getFilterArticle(), model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						model.setLstArticleVendus(
-								managerArticle.getAllArticleFilterCategorie(model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				System.out.println("Informatique");
-
-				break;
-
-			case "Ameublement":
-
-				if (!model.getFilterArticle().isBlank()) {
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-								model.getFilterArticle(), model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						model.setLstArticleVendus(
-								managerArticle.getAllArticleFilterCategorie(model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				System.out.println("Ameublement");
-
-				break;
-
-			case "VÃªtement":
-
-				if (!model.getFilterArticle().isBlank()) {
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-								model.getFilterArticle(), model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						model.setLstArticleVendus(
-								managerArticle.getAllArticleFilterCategorie(model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				System.out.println("Vêtement");
-
-				break;
-
-			case "Sport&Loisirs":
-
-				if (!model.getFilterArticle().isBlank()) {
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-								model.getFilterArticle(), model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						model.setLstArticleVendus(
-								managerArticle.getAllArticleFilterCategorie(model.getFiltreCategorie()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				System.out.println("Sport&Loisirs");
-
-				break;
-
 			default:
+
+				if (!model.getFilterArticle().isBlank()) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+								model.getFilterArticle(), model.getFiltreCategorie()));
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						model.setLstArticleVendus(
+								managerArticle.getAllArticleFilterCategorie(model.getFiltreCategorie()));
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
 
 				break;
 			}
@@ -181,8 +108,6 @@ public class DeConnecterIndex extends HttpServlet {
 				model.setMessage("Erreur !!!! : " + e.getMessage());
 			}
 		}
-		
-
 
 		request.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);

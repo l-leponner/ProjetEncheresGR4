@@ -21,7 +21,7 @@
 	<ul>
 		<li><a href="http://localhost:8080/Encheres/LoginServlet">Enchères</a></li>
 		<li><a href="http://localhost:8080/Encheres/VenteServlet">Vendre un article</a></li>
-		<li><a href="http://localhost:8080/Encheres/ModificationProfilServlet">Mon profil</a></li>
+		<li><a href="http://localhost:8080/Encheres/UtilisateurServlet">Mon profil</a></li>
 		<li><a href="http://localhost:8080/Encheres/DeConnecterIndex" data-name="deconnexion">Déconnexion</a></li>
 	</ul>
 
@@ -45,10 +45,10 @@
 
 		<div>
 			<label for="achats">Achats :</label> 
-			<input type="radio" id="achats"	name="radio" value="Achats"> 
+			<input type="radio" id="achats"	name="radio" value="Achats" checked> 
 			
 			<label for="encheresOuvertes">Enchères ouvertes :</label> 
-			<input type="checkbox" id="encheresOuvertes" name="checkbox" value="EncheresOuvertes">
+			<input type="checkbox" id="encheresOuvertes" name="checkbox" value="EncheresOuvertes" checked>
 			 
 			<label for="mesEnchères">Mes enchères :</label>
 			<input type="checkbox" id="mesEnchères" name="checkbox" value="MesEncheres">
