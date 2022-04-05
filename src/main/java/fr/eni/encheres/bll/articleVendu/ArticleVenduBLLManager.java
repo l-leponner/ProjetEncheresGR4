@@ -45,6 +45,8 @@ public interface ArticleVenduBLLManager {
 	
 	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException;
 	
+	
+	
 	public void removeArticleVendu(ArticleVendu articlevendu) throws BLLException;
 
 	public void updateArticleVendu(ArticleVendu articlevendu) throws BLLException;
