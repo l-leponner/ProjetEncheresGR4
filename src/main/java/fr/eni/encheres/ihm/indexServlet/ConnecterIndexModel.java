@@ -21,6 +21,8 @@ public class ConnecterIndexModel {
 	private String message;
 	private String filterArticle;
 	private String filtreCategorie;
+	private String filtreRadio;
+	private String filtreCheckbox;
 	private Utilisateur currentUser;
 	private Utilisateur vendeur;
 	private List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
@@ -30,12 +32,15 @@ public class ConnecterIndexModel {
 		super();
 	}
 
-	public ConnecterIndexModel(String message, String filterArticle, String filtreCategorie, Utilisateur currentUser,
-			Utilisateur vendeur, List<ArticleVendu> lstArticleVendus, List<Categorie> lstCategories) {
+	public ConnecterIndexModel(String message, String filterArticle, String filtreCategorie, String filtreRadio,
+			String filtreCheckbox, Utilisateur currentUser, Utilisateur vendeur, List<ArticleVendu> lstArticleVendus,
+			List<Categorie> lstCategories) {
 		super();
 		this.message = message;
 		this.filterArticle = filterArticle;
 		this.filtreCategorie = filtreCategorie;
+		this.filtreRadio = filtreRadio;
+		this.filtreCheckbox = filtreCheckbox;
 		this.currentUser = currentUser;
 		this.vendeur = vendeur;
 		this.lstArticleVendus = lstArticleVendus;
@@ -94,6 +99,42 @@ public class ConnecterIndexModel {
 	 */
 	public void setFiltreCategorie(String filtreCategorie) {
 		this.filtreCategorie = filtreCategorie;
+	}
+
+	/**
+	 * Getter pour filtreRadio
+	 * 
+	 * @return the filtreRadio
+	 */
+	public String getFiltreRadio() {
+		return filtreRadio;
+	}
+
+	/**
+	 * Setter pour filtreRadio
+	 * 
+	 * @param filtreRadio the filtreRadio to set
+	 */
+	public void setFiltreRadio(String filtreRadio) {
+		this.filtreRadio = filtreRadio;
+	}
+
+	/**
+	 * Getter pour filtreCheckbox
+	 * 
+	 * @return the filtreCheckbox
+	 */
+	public String getFiltreCheckbox() {
+		return filtreCheckbox;
+	}
+
+	/**
+	 * Setter pour filtreCheckbox
+	 * 
+	 * @param filtreCheckbox the filtreCheckbox to set
+	 */
+	public void setFiltreCheckbox(String filtreCheckbox) {
+		this.filtreCheckbox = filtreCheckbox;
 	}
 
 	/**
@@ -185,6 +226,16 @@ public class ConnecterIndexModel {
 		if (filtreCategorie != null) {
 			builder.append("filtreCategorie=");
 			builder.append(filtreCategorie);
+			builder.append(", ");
+		}
+		if (filtreRadio != null) {
+			builder.append("filtreRadio=");
+			builder.append(filtreRadio);
+			builder.append(", ");
+		}
+		if (filtreCheckbox != null) {
+			builder.append("filtreCheckbox=");
+			builder.append(filtreCheckbox);
 			builder.append(", ");
 		}
 		if (currentUser != null) {
