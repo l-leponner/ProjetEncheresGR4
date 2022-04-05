@@ -43,7 +43,12 @@
 		</div>
 	</form>
 
-
+<div>
+	Achats : <input type="radio" id="achats" name="radioAchats">
+	Enchères ouvertes : <input type="checkbox" id="encheresOuvertes" name="checkboxEncheresOuvertes">
+	Mes enchères : <input type="checkbox" id="mesEnchères" name="checkboxMesEncheres">
+	Mes enchères remportées : <input type="checkbox" id="mesEncheresRemportees" name="checkboxmesEncheresRemportees">
+</div>
 
 	<c:forEach items="${model.lstArticleVendus}" var="article">
 		<ul>

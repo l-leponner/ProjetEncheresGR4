@@ -31,6 +31,12 @@ public interface ArticleVenduBLLManager {
 	
 	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie) throws BLLException;
 
+	public List<ArticleVendu> getAllArticleFilterNomArticle(String nomArticle, List<ArticleVendu> lstArticleVendus) throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleFilterCategorie(String categorie, List<ArticleVendu> lstArticleVendus) throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie, List<ArticleVendu> lstArticleVendus) throws BLLException;
+	
 	public void removeArticleVendu(ArticleVendu articlevendu) throws BLLException;
 
 	public void updateArticleVendu(ArticleVendu articlevendu) throws BLLException;
