@@ -2,11 +2,13 @@ package fr.eni.encheres.ihm.UtilisateurServlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
@@ -35,62 +37,27 @@ public class UtilisateurServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+//////////////////////
+		
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+		
+	Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		
 
 		UtilisateurModel model = new UtilisateurModel();
-		try {
-			model.setCurrent(manager.getByIDUtilisateur((Integer) request.getSession().getAttribute("idUtilisateur")));
-		} catch (BLLException e1) {
-			model.setMessage("Erreur dans l'affichage utilisateur: " + e1.getMessage());
-		}
+		model.setCurrent(utilisateur);
 		
 		
 		if (request.getParameter("BT_MODIFIER") != null) {
-				try {
-					model.setCurrent(manager.getByIDUtilisateur((Integer) request.getSession().getAttribute("idUtilisateur")));
-				} catch (BLLException e) {
-					model.setMessage("Erreur dans l'affichage utilisateur: " + e.getMessage());
-				}
+				request.getRequestDispatcher("/WEB-INF/modificationProfil.jsp").forward(request, response);
+
+
+
+		}
 
 			request.setAttribute("model", model);
-
 			request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
-		}
-
-		else {
-			request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
-
-		}
-
-		
-//		if (User == log) {
-//		UtilisateurModel model = new UtilisateurModel();
-//		if (request.getParameter("BT_MODIFIER")!=null) {
-//			Utilisateur utilisateur = new Utilisateur();
-//			utilisateur.setPseudo(request.getParameter("pseudo")); 
-//			utilisateur.setNom(request.getParameter("nom")); 
-//			utilisateur.setPrenom(request.getParameter("prenom")); 
-//			utilisateur.setEmail(request.getParameter("email")); 
-//			utilisateur.setTelephone(request.getParameter("telephone")); 
-//			utilisateur.setRue(request.getParameter("rue")); 
-//			utilisateur.setCodePostal(request.getParameter("codePostal")); 
-//			utilisateur.setVille(request.getParameter("ville")); 
-//		
-//			model.setCurrent(utilisateur);
-//			
-//		}
-//		model.setCurrent(manager.updateUtilisateur());
-//		}
-//		else {
-//		
-//			
-//		}
-//		
-//		request.setAttribute("model", model);
-//
-//		request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
-//		;
-
 	}
 
 	/**
