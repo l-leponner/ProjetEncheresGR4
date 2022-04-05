@@ -45,7 +45,7 @@
 
 	<c:forEach items="${model.lstArticleVendus}" var="article">
 		<p>${article.nomArticle}Prix:${article.miseAPrix} Fin de l'enchère
-			: ${article.dateFinEncheres} Vendeur : ${article.utilisateur.pseudo}</p>
+			: ${article.dateFinEncheres} Vendeur : <a href="https://example.com">${article.utilisateur.pseudo}</a> </p>
 	</c:forEach>
 
 
