@@ -2,11 +2,13 @@ package fr.eni.encheres.ihm.loginServlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
@@ -35,11 +37,35 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+		
 		LoginModel model = new LoginModel();
+	
+	
+	
+	if (request.getParameter("BT_CONNEXION") != null){
 		
-	}
+		String identifiant = request.getParameter("identifiant");
+		String motDePasse = request.getParameter("motDePasse");
+		
+		try { manager.controlUtilisateurExistant (identifiant, motDePasse);
+		
+	
+		
+		Utilisateur utilisateur = null;
+		try {
+			utilisateur = manager.getByIdentifiant((String) session.getAttribute("pseudo"), (String) session.getAttribute("email"));
+		} catch (BLLException e) {
+			e.printStackTrace();
+		}
 		
 		
+		request.setAttribute("model", model);
+
+		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+		
+	}}
 //		//appelle methode pour loginer
 //		
 //		if (request.getParameter("BT_CONNEXION") != null){
