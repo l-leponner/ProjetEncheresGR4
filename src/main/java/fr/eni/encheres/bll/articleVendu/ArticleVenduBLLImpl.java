@@ -220,6 +220,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
 					returnlstArticleVendus.add(articleVendu);
+					articleVendu.setEtatVente("En cours");
 				}
 			}
 		} catch (DALException e) {
@@ -254,6 +255,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 				if (articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
 					returnlstArticleVendus.add(articleVendu);
+					articleVendu.setEtatVente("Enchères terminées");
 				}
 			}
 		} catch (DALException e) {
