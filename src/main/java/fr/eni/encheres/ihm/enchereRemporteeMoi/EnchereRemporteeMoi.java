@@ -55,7 +55,8 @@ public class EnchereRemporteeMoi extends HttpServlet {
 		request.setAttribute("model", model);
 		
 		model.setCurrentArticle(articleClique);
-		model.setAcheteur(aManager.getMeilleureEnchere(articleClique.getLstEncheres()).getUtilisateur());
+		model.setAcheteur(utilisateurConnecte);
+		model.setVendeur(articleClique.getUtilisateur());
 		model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
 		
 		if(request.getParameter("BTN_RETOUR") != null) {
