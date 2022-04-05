@@ -43,14 +43,9 @@ public class ModificationProfilServlet extends HttpServlet {
 		String sessionPseudo = (String) session.getAttribute("pseudo");
 		String sessionEmail = (String) session.getAttribute("email");
 		
-		Utilisateur utilisateur = null;
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		
-		try {
-			utilisateur = uManager.getByIdentifiantMDP(sessionPseudo, sessionEmail);
-			model.setCurrent(utilisateur);
-		} catch (BLLException e) {
-			e.printStackTrace();
-		}
+		model.setCurrent(utilisateur);
 		session.setAttribute("credit", utilisateur.getCredit());
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
