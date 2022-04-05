@@ -13,10 +13,6 @@ import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLManager;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLSing;
 import fr.eni.encheres.bll.categories.CategorieManagerSing;
 import fr.eni.encheres.bll.categories.CategoriesManager;
-import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
-import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
-import fr.eni.encheres.bo.ArticleVendu;
-import fr.eni.encheres.bo.Categorie;
 
 /**
  * Servlet implementation class IndexServlet
@@ -41,6 +37,8 @@ public class DeConnecterIndex extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		DeConnecterIndexModel model = new DeConnecterIndexModel();
+		
+		
 		try {
 			model.setLstCategories(managerCategorie.getALLCategorie());
 		} catch (BLLException e1) {
@@ -183,6 +181,8 @@ public class DeConnecterIndex extends HttpServlet {
 				model.setMessage("Erreur !!!! : " + e.getMessage());
 			}
 		}
+		
+
 
 		request.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);

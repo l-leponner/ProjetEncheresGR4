@@ -13,34 +13,39 @@
 
 	<p>${FilterArticle}</p>
 	<p>${FilterCategorie}</p>
-	
+
 
 	<h1>ENI-Encheres</h1>
 	<ul>
-		<li><a href="https://example.com">S'inscrire - Se connecter</a></li>
+		<li><a href="http://localhost:8080/Encheres/LoginServlet">S'inscrire
+				- Se connecter</a></li>
 	</ul>
 
 	<h2>Liste des enchères</h2>
 	<p style="color: red">${model.message}</p>
 	<form action="IndexServlet" method="post">
 		<div>
-			<h2>Filtres :</h2> 
-			<input type="search" id="filtres" name="filtreNomArticle" placeholder="Le nom de l'article contient">
+			<h2>Filtres :</h2>
+			<input type="search" id="filtres" name="filtreNomArticle"
+				placeholder="Le nom de l'article contient">
 
-			<h2>Catégorie : </h2> 
+			<h2>Catégorie :</h2>
 			<select name="filtreCategorie" id="categorie">
 				<option selected>Toutes</option>
 				<c:forEach items="${model.lstCategories}" var="categorie">
 					<option>${categorie.libelle}</option>
 				</c:forEach>
-			</select>
-			<input type="submit" name="BT_RECHERCHER" value="Rechercher"/>
+			</select> <input type="submit" name="BT_RECHERCHER" value="Rechercher" />
 		</div>
 	</form>
 
 	<c:forEach items="${model.lstArticleVendus}" var="article">
-		<p>${article.nomArticle}Prix:${article.miseAPrix} Fin de l'enchère
-			: ${article.dateFinEncheres} Vendeur : ${article.utilisateur.pseudo}</p>
+		<ul>
+			<li>${article.nomArticle}</li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : ${article.utilisateur.pseudo}</li>
+		</ul>
 	</c:forEach>
 
 </body>
