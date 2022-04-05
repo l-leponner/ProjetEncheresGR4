@@ -269,7 +269,11 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	*/
 	@Override
 	public Enchere getMeilleureEnchere(List<Enchere> lstEncheres) {
-		Enchere result = lstEncheres.get(lstEncheres.size() -1);
+		Enchere result = null;
+		if(lstEncheres != null && !lstEncheres.isEmpty()) {
+			result = lstEncheres.get(lstEncheres.size() -1);
+		}
+			
 		
 		return result;
 	}

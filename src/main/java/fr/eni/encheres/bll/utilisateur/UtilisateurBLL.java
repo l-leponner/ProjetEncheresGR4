@@ -41,4 +41,6 @@ public interface UtilisateurBLL {
 	public void controlNouveauMDP (String actuelMDP, String nouveauMDP) throws BLLException;
 	
 	public void controlUtilisateurExistant (String identifiant, String motDePasse) throws BLLException;
+	
+	public void peutEncherir (Integer creditUtilisateur, Integer montantEnchere) throws BLLException;
 }
