@@ -6,12 +6,8 @@ package fr.eni.encheres.ihm.indexServlet;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.encheres.bll.BLLException;
-import fr.eni.encheres.bll.categories.CategorieManagerSing;
-import fr.eni.encheres.bll.categories.CategoriesManager;
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
-import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Class en charge de
@@ -31,8 +27,8 @@ public class DeConnecterIndexModel {
 		super();
 	}
 
-	public DeConnecterIndexModel(String message, Utilisateur currentUser, Utilisateur userVendeur, String filterArticle,
-			String filtreCategorie, List<ArticleVendu> lstArticleVendus, List<Categorie> lstCategories) {
+	public DeConnecterIndexModel(String message, String filterArticle, String filtreCategorie,
+			List<ArticleVendu> lstArticleVendus, List<Categorie> lstCategories) {
 		super();
 		this.message = message;
 		this.filterArticle = filterArticle;
@@ -134,7 +130,7 @@ public class DeConnecterIndexModel {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ModelIndexServlet [");
+		builder.append("DeConnecterIndexModel [");
 		if (message != null) {
 			builder.append("message=");
 			builder.append(message);

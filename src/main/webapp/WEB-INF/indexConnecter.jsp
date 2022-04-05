@@ -19,9 +19,9 @@
 
 	<h1>ENI-Encheres</h1>
 	<ul>
-		<li><a href="https://example.com">Enchères</a></li>
-		<li><a href="https://example.com">Vendre un article</a></li>
-		<li><a href="https://example.com">Mon profil</a></li>
+		<li><a href="http://localhost:8080/Encheres/LoginServlet">Enchères</a></li> 
+		<li><a href="http://localhost:8080/Encheres/VenteServlet">Vendre un article</a></li>
+		<li><a href="http://localhost:8080/Encheres/ModificationProfilServlet">Mon profil</a></li>
 		<li><a href="https://example.com">Déconnexion</a></li>
 	</ul>
 
@@ -43,9 +43,15 @@
 		</div>
 	</form>
 
+
+
 	<c:forEach items="${model.lstArticleVendus}" var="article">
-		<p>${article.nomArticle}Prix:${article.miseAPrix} Fin de l'enchère
-			: ${article.dateFinEncheres} Vendeur : <a href="https://example.com">${article.utilisateur.pseudo}</a> </p>
+		<ul>
+			<li>${article.nomArticle}</li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : <a href="http://localhost:8080/Encheres/LoginServlet" data-name = "vendeur"> ${article.utilisateur.pseudo}</a></li>
+		</ul>
 	</c:forEach>
 
 
