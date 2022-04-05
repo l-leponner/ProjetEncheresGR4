@@ -72,6 +72,17 @@ public class ConnecterIndex extends HttpServlet {
 			}
 		}
 		
+		//Récupération de l'article en session
+		if (request.getParameter("article") != null) {
+			try {
+				session.setAttribute("articleClique", managerArticle.getByIdArticleVendu(Integer.parseInt(request.getParameter("noArticle"))));
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (BLLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		// Gestion de la déconnexion
 				if (request.getParameter("deconnexion") != null) {
 					session.invalidate();
@@ -126,6 +137,10 @@ public class ConnecterIndex extends HttpServlet {
 				default:
 					break;
 				}
+			}
+			
+			if (model.getFiltreRadio().equals("MesVentes") && model.getFiltreCheckbox() != null) {
+			
 			}
 
 		}

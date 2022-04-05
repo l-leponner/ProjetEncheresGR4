@@ -36,7 +36,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public void addArticleVendu(ArticleVendu articlevendu) throws BLLException {
 		try {
-			articlevendu.setEtatVente("En cours");
+			
+			articlevendu.setEtatVente("Créé");
 			dao.insertArticleVendu(articlevendu);
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode addArticleVendu" + e.getMessage());
@@ -220,6 +221,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
 					returnlstArticleVendus.add(articleVendu);
+					articleVendu.setEtatVente("En cours");
 				}
 			}
 		} catch (DALException e) {
@@ -254,6 +256,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 				if (articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
 					returnlstArticleVendus.add(articleVendu);
+					articleVendu.setEtatVente("Enchères terminées");
 				}
 			}
 		} catch (DALException e) {
