@@ -1,6 +1,7 @@
 package fr.eni.encheres.ihm.encherir;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,15 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLManager;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLSing;
 import fr.eni.encheres.bll.categories.CategorieManagerSing;
 import fr.eni.encheres.bll.categories.CategoriesManager;
+import fr.eni.encheres.bll.enchere.EnchereBLL;
+import fr.eni.encheres.bll.enchere.EnchereBLLSing;
 import fr.eni.encheres.bll.retraits.RetraitManager;
 import fr.eni.encheres.bll.retraits.RetraitManagerSing;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 
 /**
@@ -31,6 +36,7 @@ public class EncherirServlet extends HttpServlet {
 	private static ArticleVenduBLLManager aManager = ArticleVenduBLLSing.getInstance();
 	private static UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private static RetraitManager rManager = RetraitManagerSing.getInstance();
+	private static EnchereBLL eManager = EnchereBLLSing.getInstance();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -61,6 +67,14 @@ public class EncherirServlet extends HttpServlet {
 		
 		if(request.getParameter("BTN_ENCHERIR") != null) {
 			Integer montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
+			
+			Enchere enchere = new Enchere(LocalDateTime.now(), montantEnchere, model.getCurrentArticle(), model.getAcheteur());
+			try {
+				eManager.addEnchere(enchere);
+			} catch (BLLException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 

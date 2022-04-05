@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.Utilisateur;
 
 /**
@@ -39,14 +40,17 @@ public class UtilisateurDeconnecteServlet extends HttpServlet {
 		
 
 		UtilisateurModel model = new UtilisateurModel();
-		model.setCurrent(utilisateur);
+	
+		model.setCurrent(utilisateur);	
 		
-		request.setAttribute("model", model);
-
+		session.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/UtilisateurDeconnecte.jsp").forward(request, response);
 		
+	
+	
+		
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
