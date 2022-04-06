@@ -36,7 +36,7 @@ public interface UtilisateurBLL {
 	
 	public void inscriptionUtilisateur(Utilisateur utilisateur, String confirmationMDP) throws BLLException;
 	
-	public void controlUnicite(String pseudo, String email, String motDePasse) throws BLLException;
+	public void controlUnicite(String pseudo, String email) throws BLLException;
 	
 	public void controlNouveauMDP (String actuelMDP, String nouveauMDP) throws BLLException;
 	

@@ -266,12 +266,15 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	}
 	/**
 	*{@inheritedDoc}
+	 * @throws BLLException 
 	*/
 	@Override
-	public Enchere getMeilleureEnchere(List<Enchere> lstEncheres) {
+	public Enchere getMeilleureEnchere(List<Enchere> lstEncheres) throws BLLException {
 		Enchere result = null;
 		if(lstEncheres != null && !lstEncheres.isEmpty()) {
 			result = lstEncheres.get(lstEncheres.size() -1);
+		} else {
+			throw new BLLException("Il n'y a pas d'enchères pour cette recherche.");
 		}
 			
 		

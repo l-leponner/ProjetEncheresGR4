@@ -57,6 +57,6 @@ public interface ArticleVenduBLLManager {
 	
 	public void controlDateEnchere (LocalDateTime dateDebut, LocalDateTime dateFin) throws BLLException;
 	
-	public Enchere getMeilleureEnchere(List<Enchere> lstEnchere);
+	public Enchere getMeilleureEnchere(List<Enchere> lstEnchere) throws BLLException;
 
 }
