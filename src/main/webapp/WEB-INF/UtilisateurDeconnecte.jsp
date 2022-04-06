@@ -10,13 +10,14 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<title>UtilisateurDeconnecte</title>
+<link rel="stylesheet" href="style.css" />
+<title>Page de ${model.current.pseudo}</title>
+
 </head>
 <body>
 <h2><strong>ENI_ENCHERES</strong></h2>
 
-<form action="UtilisateurDeconnecteServlet" method="post">
-	
+
 	<ul>
 		<li>Pseudo: ${model.current.pseudo}</li>
 		<li>Nom: ${model.current.nom}</li>
@@ -27,9 +28,6 @@
 		<li>Code postal: ${model.current.codePostal}</li>
 		<li>Ville: ${model.current.ville}</li>
 	</ul>
-
-
-</form>
 
 </body>
 </html>

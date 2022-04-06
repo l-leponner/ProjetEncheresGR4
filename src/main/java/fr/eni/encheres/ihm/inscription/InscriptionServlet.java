@@ -53,17 +53,23 @@ public class InscriptionServlet extends HttpServlet {
 			String confirmationMDP = request.getParameter("confirmationMDP");
 			
 			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, MDP);
-			try {
-				uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
-			} catch (BLLException e1) {
-				request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
-				model.setMessage("Mot de passe et confirmation de mot de passe différents svp");
-			}
-			model.setCurrent(utilisateur);
-			session.setAttribute("current", utilisateur);
-			session.setAttribute("utilisateurConnecte", utilisateur);
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			
+			if(MDP.equals(confirmationMDP)) {
+				try {
+					uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
+				} catch (BLLException e1) {
+					request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
+					model.setMessage("Mot de passe et confirmation de mot de passe différents svp");
+				}
+				model.setCurrent(utilisateur);
+				session.setAttribute("current", utilisateur);
+				session.setAttribute("utilisateurConnecte", utilisateur);
+				
+			} else {
+				request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
+			}
+			
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 		}
 		
 		if(request.getParameter("BTN_ANNULER") != null) {
