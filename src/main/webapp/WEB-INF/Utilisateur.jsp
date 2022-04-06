@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,21 +11,24 @@
 <title>Utilisateur</title>
 </head>
 <body>
-<h2><strong>ENI_ENCHERES</strong></h2>
+	<h2>
+		<strong>ENI_ENCHERES</strong>
+	</h2>
 
-<form action="UtilisateurServlet" method="post">
-	
-	Pseudo:<p>${model.current.pseudo}</p><br>
-	Nom:<p>${model.current.nom}</p><br>
-	Prenom:<p>${model.current.prenom}</p><br>
-	Email:<p>${model.current.email}</p><br>
-	Telephone:<p>${model.current.telephone}</p><br>
-	Rue:<p>${model.current.rue}<br>
-	Code postal:<p>${model.current.codePostal}</p><br>
-	Ville:<p>${model.current.ville}</p><br>
+	<ul>
+		<li>Pseudo: ${model.current.pseudo}</li>
+		<li>Nom: ${model.current.nom}</li>
+		<li>Prenom: ${model.current.prenom}</li>
+		<li>Email: ${model.current.email}</li>
+		<li>Telephone:${model.current.telephone}</li>
+		<li>Rue: ${model.current.rue}</li>
+		<li>Code postal: ${model.current.codePostal}</li>
+		<li>Ville: ${model.current.ville}</li>
+	</ul>
 
-	<input type="submit" name="BT_MODIFIER" value="Modifier"/>
-</form>
+	<form action="UtilisateurServlet" method="post">
+		<input type="submit" name="BT_MODIFIER" value="Modifier" />
+	</form>
 
 </body>
 </html>

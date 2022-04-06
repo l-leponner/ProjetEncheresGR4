@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
 import fr.eni.encheres.bo.Utilisateur;
@@ -38,26 +37,24 @@ public class UtilisateurServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 //////////////////////
-		
+
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
-		
-	Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
-		
+
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
 
 		UtilisateurModel model = new UtilisateurModel();
 		model.setCurrent(utilisateur);
-		
-		
-		if (request.getParameter("BT_MODIFIER") != null) {
-				request.getRequestDispatcher("/WEB-INF/modificationProfil.jsp").forward(request, response);
 
-
+		if (request.getParameter("BT_MODIFIER") != null) {	
+			request.getSession().setAttribute("model", model);
+			request.getRequestDispatcher("/WEB-INF/modificationProfil.jsp").forward(request, response);
+		
 
 		}
+		request.setAttribute("model", model);
 
-			request.setAttribute("model", model);
-			request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
 	}
 
 	/**

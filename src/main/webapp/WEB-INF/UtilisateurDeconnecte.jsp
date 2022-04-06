@@ -3,12 +3,13 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.utilisateur.deconnecte.css" /> 
+   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="style.css" />
+
 <title>UtilisateurDeconnecte</title>
 </head>
 <body>
@@ -16,14 +17,16 @@
 
 <form action="UtilisateurDeconnecteServlet" method="post">
 	
-	Pseudo:<p>${model.current.pseudo}</p><br>
-	Nom:<p>${model.current.nom}</p><br>
-	Prenom:<p>${model.current.prenom}</p><br>
-	Email:<p>${model.current.email}</p><br>
-	Telephone:<p>${model.current.telephone}</p><br>
-	Rue:<p>${model.current.rue}<br>
-	Code postal:<p>${model.current.codePostal}</p><br>
-	Ville:<p>${model.current.ville}</p><br>
+	<ul>
+		<li>Pseudo: ${model.current.pseudo}</li>
+		<li>Nom: ${model.current.nom}</li>
+		<li>Prenom: ${model.current.prenom}</li>
+		<li>Email: ${model.current.email}</li>
+		<li>Telephone:${model.current.telephone}</li>
+		<li>Rue: ${model.current.rue}</li>
+		<li>Code postal: ${model.current.codePostal}</li>
+		<li>Ville: ${model.current.ville}</li>
+	</ul>
 
 
 </form>

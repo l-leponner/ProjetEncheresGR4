@@ -33,17 +33,17 @@ public class UtilisateurDeconnecteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+	
 		ServletContext context = request.getServletContext();
 		
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		Utilisateur utilisateur = new Utilisateur();
 		
 
 		UtilisateurModel model = new UtilisateurModel();
 	
 		model.setCurrent(utilisateur);	
 		
-		session.setAttribute("model", model);
+		request.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/UtilisateurDeconnecte.jsp").forward(request, response);
 		
 	
