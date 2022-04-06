@@ -108,7 +108,7 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	public void inscriptionUtilisateur(Utilisateur utilisateur, String confirmationMDP) throws BLLException {
 		try {
 			controlMDP(utilisateur.getMotDePasse(), confirmationMDP);
-			controlUnicite(utilisateur.getPseudo(), utilisateur.getEmail(), utilisateur.getMotDePasse());
+			controlUnicite(utilisateur.getPseudo(), utilisateur.getEmail());
 			addUtilisateur(utilisateur);
 		} catch (BLLException e) {
 			throw new BLLException(e.getMessage());
@@ -120,7 +120,7 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	 * @throws BLLException 
 	*/
 	@Override
-	public void controlUnicite(String pseudo, String email, String motDePasse) throws BLLException {
+	public void controlUnicite(String pseudo, String email) throws BLLException {
 		try {
 			for (Utilisateur u : getAllUtilisateur()) {
 				if(pseudo.equalsIgnoreCase(u.getPseudo())){
@@ -129,9 +129,7 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 				if(email.equalsIgnoreCase(u.getEmail())) {
 					throw new BLLException("Erreur : Email déjà existant");
 				}
-				if(motDePasse.equalsIgnoreCase(u.getMotDePasse())) {
-					throw new BLLException("Erreur : Mot de passe déjà existant");
-				}
+				
 			}
 		} catch (BLLException e) {
 			throw new BLLException("Erreur dans la méthode controlUnicite : " +e.getMessage());
@@ -185,20 +183,14 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	@Override
 	public void controlUtilisateurExistant(String identifiant, String motDePasse) throws BLLException {
 
-		List<Utilisateur> lstUtilisateurs;
-		try {
-			lstUtilisateurs = uDAO.selectAllUtilisateur();
-		} catch (DALException e) {
-			throw new BLLException("Erreur dans la méthode controlUtilisateurExistant : " +e.getMessage());
+		Utilisateur utilisateur = null;
+		utilisateur = getByIdentifiantMDP(identifiant, motDePasse);
+		
+		if(utilisateur == null) {
+			throw new BLLException("Compte inconnu");
 		}
-		for (Utilisateur u : lstUtilisateurs) {
-			if((!identifiant.equals(u.getPseudo()) || !identifiant.equals(u.getEmail()))) {
-				throw new BLLException("Identifiant inconnu");
-			}
-			if(!motDePasse.equals(u.getMotDePasse())) {
-				throw new BLLException("Mot de passe inconnu");
-			}
-		}
+		
+		
 	}
 
 	/**
