@@ -45,7 +45,11 @@ public interface ArticleVenduBLLManager {
 	
 	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException;
 	
+	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException;
+
+	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException;
 	
+	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException;
 	
 	public void removeArticleVendu(ArticleVendu articlevendu) throws BLLException;
 
@@ -53,6 +57,6 @@ public interface ArticleVenduBLLManager {
 	
 	public void controlDateEnchere (LocalDateTime dateDebut, LocalDateTime dateFin) throws BLLException;
 	
-	public Enchere getMeilleureEnchere(List<Enchere> lstEnchere);
+	public Enchere getMeilleureEnchere(List<Enchere> lstEnchere) throws BLLException;
 
 }

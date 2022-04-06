@@ -37,51 +37,80 @@ public class EncherirServlet extends HttpServlet {
 	private static UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private static RetraitManager rManager = RetraitManagerSing.getInstance();
 	private static EnchereBLL eManager = EnchereBLLSing.getInstance();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EncherirServlet() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public EncherirServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
-		
+
 		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		ArticleVendu articleClique = (ArticleVendu) session.getAttribute("articleClique");
 		EncherirModel model = new EncherirModel();
 		request.setAttribute("model", model);
-		
+
 		model.setAcheteur(utilisateurConnecte);
 		model.setCurrentArticle(articleClique);
 		model.setVendeur(articleClique.getUtilisateur());
+
 		model.setLstEncheres(articleClique.getLstEncheres());
-		model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
 		
-		request.setAttribute("meilleureEnchere", model.getMeillereEnchere());
+		try {
+			model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
+		} catch (BLLException e2) {
+			request.setAttribute("error", e2.getMessage());
+		}
+
+		if(model.getMeillereEnchere() == null) {
+			request.setAttribute("meilleureEnchere", model.getCurrentArticle().getMiseAPrix());
+		} else {
+			request.setAttribute("meilleureEnchere", model.getMeillereEnchere().getMontantEnchere());
+		}
 		
-		if(request.getParameter("BTN_ENCHERIR") != null) {
+
+		if (request.getParameter("BTN_ENCHERIR") != null) {
 			Integer montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
-			
-			Enchere enchere = new Enchere(LocalDateTime.now(), montantEnchere, model.getCurrentArticle(), model.getAcheteur());
+
+			Enchere enchere = new Enchere(LocalDateTime.now(), montantEnchere, model.getCurrentArticle(),
+					model.getAcheteur());
 			try {
-				eManager.addEnchere(enchere);
-			} catch (BLLException e) {
-				e.printStackTrace();
+				uManager.peutEncherir(utilisateurConnecte.getCredit(), montantEnchere);
+				utilisateurConnecte.setCredit(utilisateurConnecte.getCredit() - montantEnchere);
+				uManager.updateUtilisateur(utilisateurConnecte);
+				try {
+					// Tester si doublon
+					eManager.addEnchere(enchere);
+					articleClique.getLstEncheres().add(enchere);
+					aManager.updateArticleVendu(articleClique);
+				} catch (BLLException e) {
+					e.printStackTrace();
+				}
+			} catch (BLLException e1) {
+				request.setAttribute("error", e1.getMessage());
 			}
 			
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+
 		}
+		request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

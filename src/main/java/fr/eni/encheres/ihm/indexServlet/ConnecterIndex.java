@@ -71,31 +71,31 @@ public class ConnecterIndex extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		//Récupération de l'article en session
+
+		// Récupération de l'article en session
 		if (request.getParameter("article") != null) {
 			try {
-				session.setAttribute("articleClique", managerArticle.getByIdArticleVendu(Integer.parseInt(request.getParameter("noArticle"))));
+				session.setAttribute("articleClique",
+						managerArticle.getByIdArticleVendu(Integer.parseInt(request.getParameter("noArticle"))));
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		// Gestion de la déconnexion
-				if (request.getParameter("deconnexion") != null) {
-					session.invalidate();
-					model.setCurrentUser(null);
-					request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);
-				}
-		
+		if (request.getParameter("deconnexion") != null) {
+			session.invalidate();
+			model.setCurrentUser(null);
+			request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);
+		}
 
 		// Affichage standard (première affichage)
 		if (model.getFilterArticle() == null && model.getFiltreCategorie() == null && model.getFiltreRadio() == null
 				&& model.getFiltreCheckbox() == null) {
 			try {
-				model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+				model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
 			} catch (BLLException e) {
 				model.setMessage("Erreur : " + e.getMessage());
 			}
@@ -103,8 +103,7 @@ public class ConnecterIndex extends HttpServlet {
 
 		// Affichage conditionné Achats
 		if (request.getParameter("BT_RECHERCHER") != null) {
-			System.out.println(request.getParameter("radio"));
-			if (model.getFiltreRadio().equals("Achats") && model.getFiltreCheckbox() != null) {
+			if ("Achats".equals(model.getFiltreRadio()) && model.getFiltreCheckbox() != null) {
 				switch (model.getFiltreCheckbox()) {
 				case "EncheresOuvertes":
 					try {
@@ -138,9 +137,88 @@ public class ConnecterIndex extends HttpServlet {
 					break;
 				}
 			}
-			
-			if (model.getFiltreRadio().equals("MesVentes") && model.getFiltreCheckbox() != null) {
-			
+
+			if ("MesVentes".equals(model.getFiltreRadio()) && model.getFiltreCheckbox() != null) {
+				switch (model.getFiltreCheckbox()) {
+				case "MesVentesEnCours":
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleMesVentesEnCours(utilisateur));
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+					System.out.println("MesVentesEnCours");
+					break;
+
+				case "VentesNonDebutees":
+
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleVentesNonDebutees(utilisateur));
+						System.out.println("VentesNonDebutees");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "VentesTerminees":
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleVentesTerminees(utilisateur));
+						System.out.println("VentesTerminees");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+
+					break;
+
+				default:
+					break;
+				}
+			}
+
+			// Filtre nom Article et filtre catègorie
+			switch (model.getFiltreCategorie()) {
+			case "Toutes":
+
+				if (!model.getFilterArticle().isBlank()) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
+						System.out.println("Je passe par la Toutes");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
+						System.out.println("Je suis la Toutes");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+
+				break;
+
+			default:
+
+				if (!model.getFilterArticle().isBlank()) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
+						System.out.println("Je passe par la etc");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						model.setLstArticleVendus(managerArticle
+								.getAllArticleFilterCategorie(model.getFiltreCategorie(), model.getLstArticleVendus()));
+						System.out.println("Je suis la etc");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+
+				break;
 			}
 
 		}

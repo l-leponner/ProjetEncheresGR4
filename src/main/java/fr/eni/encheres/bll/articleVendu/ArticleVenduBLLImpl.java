@@ -5,13 +5,12 @@ package fr.eni.encheres.bll.articleVendu;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bo.ArticleVendu;
-import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.bo.Enchere;
+import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.articlevendu.ArticleVenduDAO;
@@ -237,7 +236,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) && articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
@@ -254,7 +253,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
+				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) && articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
 					returnlstArticleVendus.add(articleVendu);
 					articleVendu.setEtatVente("Enchères terminées");
 				}
@@ -267,12 +266,72 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	}
 	/**
 	*{@inheritedDoc}
+	 * @throws BLLException 
 	*/
 	@Override
-	public Enchere getMeilleureEnchere(List<Enchere> lstEncheres) {
-		Enchere result = lstEncheres.get(lstEncheres.size() -1);
+	public Enchere getMeilleureEnchere(List<Enchere> lstEncheres) throws BLLException {
+		Enchere result = null;
+		if(lstEncheres != null && !lstEncheres.isEmpty()) {
+			result = lstEncheres.get(lstEncheres.size() -1);
+		} else {
+			throw new BLLException("Il n'y a pas d'enchères pour cette recherche.");
+		}
+			
 		
 		return result;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres()) && articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+					returnlstArticleVendus.add(articleVendu);
+					articleVendu.setEtatVente("En cours");
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleMesVentesEnCours" + e.getMessage());
+		}
+		
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now()) && articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) ) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleVentesNonDebutees" + e.getMessage());
+		}
+		
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres()) && articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+					returnlstArticleVendus.add(articleVendu);
+					articleVendu.setEtatVente("Enchères terminées");
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleVentesTerminees" + e.getMessage());
+		}
+		
+		return returnlstArticleVendus;
 	}
 }
 

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLL;
 import fr.eni.encheres.bll.utilisateur.UtilisateurBLLSing;
-import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class LoginServlet
@@ -21,7 +20,7 @@ import fr.eni.encheres.bo.Utilisateur;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurBLL manager = UtilisateurBLLSing.getInstance();
+	private UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,8 +44,8 @@ public class LoginServlet extends HttpServlet {
 			String MDP = request.getParameter("MDP");
 			
 			try {
-				
-				model.setCurrent(manager.getByIdentifiantMDP(identifiant, MDP));
+				uManager.controlUtilisateurExistant(identifiant, MDP);
+				model.setCurrent(uManager.getByIdentifiantMDP(identifiant, MDP));
 				session.setAttribute("utilisateurConnecte", model.getCurrent());
 				request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			} catch (BLLException e) {
