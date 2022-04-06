@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+* {
+	color: #000000;
+}
+
+body {
+	background-color: #f8dfcd;
+}
+
+principale {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
+	
+}
+
+div {
+	min-height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
+	display: flex;
+}
+
+ul {
+	list-style: none;
+}
