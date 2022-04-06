@@ -189,7 +189,7 @@ public class ConnecterIndex extends HttpServlet {
 					}
 				} else {
 					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
 						System.out.println("Je suis la Toutes");
 					} catch (BLLException e) {
 						e.printStackTrace();
