@@ -43,16 +43,17 @@ public class UtilisateurServlet extends HttpServlet {
 
 		UtilisateurModel model = new UtilisateurModel();
 		model.setCurrent(utilisateur);
+		String page = "/WEB-INF/Utilisateur.jsp";
 
 		if (request.getParameter("BT_MODIFIER") != null) {	
 			request.getSession().setAttribute("model", model);
-			request.getRequestDispatcher("/WEB-INF/modificationProfil.jsp").forward(request, response);
+			page = "/WEB-INF/modificationProfil.jsp";
 		
 
 		}
 		request.setAttribute("model", model);
 
-		request.getRequestDispatcher("/WEB-INF/Utilisateur.jsp").forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

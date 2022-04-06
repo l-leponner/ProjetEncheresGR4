@@ -34,7 +34,9 @@
 <input type="password" id="confirmationMDP" name="confirmationMDP" required placeholder="Confirmation de votre mot de passe"><br>
 <br>
 <input type="submit" name="BTN_CREER" value="Créer">
-<input type="reset" name="BTN_ANNULER" value="Annuler">
+</form>
+<form action="DeConnecterIndex" method="POST">
+<input type="submit" name="BTN_ANNULER" value="Annuler">
 </form>
 
 <p style="color:red">${error}</p>
