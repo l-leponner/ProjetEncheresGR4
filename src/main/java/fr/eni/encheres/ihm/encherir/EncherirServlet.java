@@ -65,7 +65,11 @@ public class EncherirServlet extends HttpServlet {
 
 		model.setLstEncheres(articleClique.getLstEncheres());
 		
-		model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
+		try {
+			model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
+		} catch (BLLException e2) {
+			request.setAttribute("error", e2.getMessage());
+		}
 
 		if(model.getMeillereEnchere() == null) {
 			request.setAttribute("meilleureEnchere", model.getCurrentArticle().getMiseAPrix());

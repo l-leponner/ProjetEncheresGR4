@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLManager;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLSing;
 import fr.eni.encheres.bll.categories.CategorieManagerSing;
@@ -57,7 +58,11 @@ public class EnchereRemporteeMoi extends HttpServlet {
 		model.setCurrentArticle(articleClique);
 		model.setAcheteur(utilisateurConnecte);
 		model.setVendeur(articleClique.getUtilisateur());
-		model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
+		try {
+			model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+		}
 		
 		if(request.getParameter("BTN_RETOUR") != null) {
 			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);

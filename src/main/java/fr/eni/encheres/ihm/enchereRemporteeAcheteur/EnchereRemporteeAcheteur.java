@@ -53,8 +53,16 @@ public class EnchereRemporteeAcheteur extends HttpServlet {
 		request.setAttribute("model", model);
 		
 		model.setCurrentArticle(articleClique);
-		model.setAcheteur(aManager.getMeilleureEnchere(articleClique.getLstEncheres()).getUtilisateur());
-		model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
+		try {
+			model.setAcheteur(aManager.getMeilleureEnchere(articleClique.getLstEncheres()).getUtilisateur());
+		} catch (BLLException e1) {
+			request.setAttribute("error", e1.getMessage());
+		}
+		try {
+			model.setMeillereEnchere(aManager.getMeilleureEnchere(articleClique.getLstEncheres()));
+		} catch (BLLException e1) {
+			request.setAttribute("error", e1.getMessage());
+		}
 		
 		if(request.getParameter("BTN_RETRAIT") != null) {
 			utilisateurConnecte.setCredit(utilisateurConnecte.getCredit() + model.getMeillereEnchere().getMontantEnchere());
