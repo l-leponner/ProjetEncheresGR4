@@ -40,17 +40,18 @@ public interface ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie, List<ArticleVendu> lstArticleVendus) throws BLLException;
 	
 	public List<ArticleVendu> getAllArticleEncheresOuvertes() throws BLLException;
+//	
+//	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException;
+//	
+//	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException;
+//	
+//	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException;
+//
+//	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException;
+//	
+//	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException;
 	
-	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException;
-	
-	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException;
-	
-	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException;
-
-	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException;
-	
-	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException;
-	
+	// méthode pour radio Achats
 	public List<ArticleVendu> getAllArticleEOuvertesMesEMesERemportees(Utilisateur user) throws BLLException;
 	
 	public List<ArticleVendu> getAllArticleEOuvertesMesE(Utilisateur user) throws BLLException;
@@ -58,6 +59,15 @@ public interface ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleEOuvertesMesERemportees(Utilisateur user) throws BLLException;
 	
 	public List<ArticleVendu> getAllArticleMesEMesERemportees(Utilisateur user) throws BLLException;
+	
+	// méthode pour radio Mes Ventes
+	public List<ArticleVendu> getAllArticleMesVEnCoursVNonDebuteesVTerminees(Utilisateur user) throws BLLException;
+
+	public List<ArticleVendu> getAllArticleMesVEnCoursVNonDebutees(Utilisateur user) throws BLLException;
+
+	public List<ArticleVendu> getAllArticleMesVEnCoursVTerminees(Utilisateur user) throws BLLException;
+	
+	public List<ArticleVendu> getAllArticleVNonDebuteesVTerminees(Utilisateur user) throws BLLException;
 	
 	public void removeArticleVendu(ArticleVendu articlevendu) throws BLLException;
 

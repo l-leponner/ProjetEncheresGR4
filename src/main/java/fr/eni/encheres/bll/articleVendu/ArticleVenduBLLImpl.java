@@ -236,45 +236,45 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 		return returnlstArticleVendus;
 	}
-
-	@Override
-	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException {
-		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-
-		try {
-			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
-						.equals(user.getNoUtilisateur())
-						&& articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
-					returnlstArticleVendus.add(articleVendu);
-				}
-			}
-		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getAllArticleMesEncheres" + e.getMessage());
-		}
-
-		return returnlstArticleVendus;
-	}
-
-	@Override
-	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException {
-		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-
-		try {
-			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
-						.equals(user.getNoUtilisateur())
-						&& articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
-					returnlstArticleVendus.add(articleVendu);
-					articleVendu.setEtatVente("Enchères terminées");
-				}
-			}
-		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getAllArticleMesEncheresRemportees" + e.getMessage());
-		}
-
-		return returnlstArticleVendus;
-	}
+//
+//	@Override
+//	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException {
+//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+//
+//		try {
+//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+//				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+//						.equals(user.getNoUtilisateur())
+//						&& articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
+//					returnlstArticleVendus.add(articleVendu);
+//				}
+//			}
+//		} catch (DALException e) {
+//			throw new BLLException("Problème dans la méthode getAllArticleMesEncheres" + e.getMessage());
+//		}
+//
+//		return returnlstArticleVendus;
+//	}
+//
+//	@Override
+//	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException {
+//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+//
+//		try {
+//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+//				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+//						.equals(user.getNoUtilisateur())
+//						&& articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
+//					returnlstArticleVendus.add(articleVendu);
+//					articleVendu.setEtatVente("Enchères terminées");
+//				}
+//			}
+//		} catch (DALException e) {
+//			throw new BLLException("Problème dans la méthode getAllArticleMesEncheresRemportees" + e.getMessage());
+//		}
+//
+//		return returnlstArticleVendus;
+//	}
 
 	/**
 	 * {@inheritedDoc}
@@ -293,61 +293,61 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		return result;
 	}
 
-	@Override
-	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException {
-		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-
-		try {
-			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())
-						&& articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
-					returnlstArticleVendus.add(articleVendu);
-					articleVendu.setEtatVente("En cours");
-				}
-			}
-		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getAllArticleMesVentesEnCours" + e.getMessage());
-		}
-
-		return returnlstArticleVendus;
-	}
-
-	@Override
-	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException {
-		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-
-		try {
-			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())
-						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
-					returnlstArticleVendus.add(articleVendu);
-				}
-			}
-		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getAllArticleVentesNonDebutees" + e.getMessage());
-		}
-
-		return returnlstArticleVendus;
-	}
-
-	@Override
-	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException {
-		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-
-		try {
-			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())
-						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
-					returnlstArticleVendus.add(articleVendu);
-					articleVendu.setEtatVente("Enchères terminées");
-				}
-			}
-		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getAllArticleVentesTerminees" + e.getMessage());
-		}
-
-		return returnlstArticleVendus;
-	}
+//	@Override
+//	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException {
+//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+//
+//		try {
+//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+//				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())
+//						&& articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+//					returnlstArticleVendus.add(articleVendu);
+//					articleVendu.setEtatVente("En cours");
+//				}
+//			}
+//		} catch (DALException e) {
+//			throw new BLLException("Problème dans la méthode getAllArticleMesVentesEnCours" + e.getMessage());
+//		}
+//
+//		return returnlstArticleVendus;
+//	}
+//
+//	@Override
+//	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException {
+//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+//
+//		try {
+//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+//				if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())
+//						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+//					returnlstArticleVendus.add(articleVendu);
+//				}
+//			}
+//		} catch (DALException e) {
+//			throw new BLLException("Problème dans la méthode getAllArticleVentesNonDebutees" + e.getMessage());
+//		}
+//
+//		return returnlstArticleVendus;
+//	}
+//
+//	@Override
+//	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException {
+//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+//
+//		try {
+//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+//				if (articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())
+//						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+//					returnlstArticleVendus.add(articleVendu);
+//					articleVendu.setEtatVente("Enchères terminées");
+//				}
+//			}
+//		} catch (DALException e) {
+//			throw new BLLException("Problème dans la méthode getAllArticleVentesTerminees" + e.getMessage());
+//		}
+//
+//		return returnlstArticleVendus;
+//	}
 
 	// Méthode utiliser dans IndexServlet pour radio Achats checked et all checkbox
 	// checked
@@ -446,6 +446,100 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			}
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode getAllArticleEOuvertesMesERemportees" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesVEnCoursVNonDebuteesVTerminees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				
+				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) ;
+				
+				Boolean VNonDebutees = LocalDateTime.now().isBefore(articleVendu.getDateDebutEncheres());
+				
+				Boolean testVTerminees = LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres());
+				
+				if (testMesVEnCours || VNonDebutees || testVTerminees) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException(
+					"Problème dans la méthode getAllArticleMesVEnCoursVNonDebuteesVTerminees" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesVEnCoursVNonDebutees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				
+				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) ;
+				
+				Boolean VNonDebutees = LocalDateTime.now().isBefore(articleVendu.getDateDebutEncheres());
+				
+				if (testMesVEnCours || VNonDebutees) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException(
+					"Problème dans la méthode getAllArticleMesVEnCoursVNonDebutees" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesVEnCoursVTerminees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				
+				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) ;
+				
+				Boolean testVTerminees = LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres());
+				
+				if (testMesVEnCours || testVTerminees ) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException(
+					"Problème dans la méthode getAllArticleMesVEnCoursVTerminees" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleVNonDebuteesVTerminees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				
+				Boolean VNonDebutees = LocalDateTime.now().isBefore(articleVendu.getDateDebutEncheres());
+				
+				Boolean testVTerminees = LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres());
+				
+				if (VNonDebutees || testVTerminees ) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException(
+					"Problème dans la méthode getAllArticleVNonDebuteesVTerminees" + e.getMessage());
 		}
 
 		return returnlstArticleVendus;
