@@ -21,6 +21,7 @@ import fr.eni.encheres.bo.Utilisateur;
 public class UtilisateurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UtilisateurBLL manager = UtilisateurBLLSing.getInstance();
+	String page;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -43,14 +44,9 @@ public class UtilisateurServlet extends HttpServlet {
 
 		UtilisateurModel model = new UtilisateurModel();
 		model.setCurrent(utilisateur);
-		String page = "/WEB-INF/Utilisateur.jsp";
+		page = "/WEB-INF/Utilisateur.jsp";
 
-		if (request.getParameter("BT_MODIFIER") != null) {	
-			request.getSession().setAttribute("model", model);
-			page = "/WEB-INF/modificationProfil.jsp";
 		
-
-		}
 		request.setAttribute("model", model);
 
 		request.getRequestDispatcher(page).forward(request, response);
@@ -62,7 +58,13 @@ public class UtilisateurServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+		
+		if(request.getParameter("BT_MODIFIER") != null) {
+			page = "/ModificationProfilServlet";
+		}
+			response.sendRedirect(request.getContextPath() + page);
 	}
 
 }

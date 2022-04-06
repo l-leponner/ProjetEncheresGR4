@@ -25,6 +25,7 @@ import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.ihm.loginServlet.LoginModel;
 
 /**
  * Servlet implementation class VenteServlet
@@ -36,6 +37,9 @@ public class VenteServlet extends HttpServlet {
 	private static ArticleVenduBLLManager aManager = ArticleVenduBLLSing.getInstance();
 	private static UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private static RetraitManager rManager = RetraitManagerSing.getInstance();
+	private VenteModel model = new VenteModel();
+	
+	String page;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,16 +55,32 @@ public class VenteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
-		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
-		VenteModel model = new VenteModel();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		
 		request.setAttribute("model", model);
 		try {
 			model.setLstCategories(cManager.getALLCategorie());
 		} catch (BLLException e1) {
 			e1.printStackTrace();
 		}
-		Utilisateur utilisateur = utilisateurConnecte;
+		
 		model.setCurrentUtilisateur(utilisateur);
+		
+		page = "/WEB-INF/vente.jsp";
+		
+		request.getRequestDispatcher(page).forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+		
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		
+		page = "/ConnecterIndex";
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String nom = request.getParameter("nom");
@@ -70,21 +90,21 @@ public class VenteServlet extends HttpServlet {
 			try {
 				categorie = cManager.getByLibelleCategorie(categorieLibelle);
 			} catch (BLLException e1) {
-				e1.printStackTrace();
+				request.setAttribute("error", e1.getMessage());
 			}
 			Integer miseAPrix = Integer.parseInt(request.getParameter("miseAPrix"));
 			LocalDateTime dateDebut = LocalDateTime.parse(request.getParameter("dateDebut"));
 			LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("dateFin"));
 			
 			Retrait retrait = new Retrait();
-			if(request.getParameter("rue").isBlank() && request.getParameter("codePostal").isBlank() && request.getParameter("ville").isBlank()) {
-				retrait.setRue(utilisateur.getRue());
-				retrait.setCode_postal(utilisateur.getCodePostal());
-				retrait.setVille(utilisateur.getVille());
-			} else {
+			if(request.getParameter("rue") != null || request.getParameter("codePostal") != null || request.getParameter("ville") != null) {
 				retrait.setRue(request.getParameter("rue"));
 				retrait.setCode_postal(request.getParameter("codePostal"));
 				retrait.setVille(request.getParameter("ville"));
+			} else {
+				retrait.setRue(utilisateur.getRue());
+				retrait.setCode_postal(utilisateur.getCodePostal());
+				retrait.setVille(utilisateur.getVille());
 			}
 			
 			ArticleVendu article = new ArticleVendu();
@@ -106,29 +126,23 @@ public class VenteServlet extends HttpServlet {
 				rManager.addRetrait(retrait, article);
 				
 			} catch (BLLException e) {
-				e.printStackTrace();
+				request.setAttribute("error", e.getMessage());
 			}
 			
-			model.setCurrentArticle(article);
+			System.out.println(utilisateur.toString());
+			System.out.println(article.toString());
+			System.out.println(retrait.toString());
 			
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+			page = "/ConnecterIndex";
 			
 		}
-		
-		
 		
 		if(request.getParameter("BTN_ANNULER") != null) {
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+			page = "/ConnecterIndex";
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		response.sendRedirect(request.getContextPath() + page);
+		//request.getRequestDispatcher(page).forward(request, response);
 	}
 
 }

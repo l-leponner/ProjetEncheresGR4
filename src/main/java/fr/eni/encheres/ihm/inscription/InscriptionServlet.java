@@ -53,37 +53,45 @@ public class InscriptionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
-		String pseudo = request.getParameter("pseudo");
-		String nom = request.getParameter("nom");
-		String prenom = request.getParameter("prenom");
-		String email = request.getParameter("email");
-		String telephone = request.getParameter("telephone");
-		String rue = request.getParameter("rue");
-		String codePostal = request.getParameter("codePostal");
-		String ville = request.getParameter("ville");
-		String MDP = request.getParameter("MDP");
-		String confirmationMDP = request.getParameter("confirmationMDP");
+		if(request.getParameter("BTN_CREER") != null) {
 		
-		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, MDP);
-		
-		if(MDP.equals(confirmationMDP)) {
-			try {
-				uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
-			} catch (BLLException e1) {
+			String pseudo = request.getParameter("pseudo");
+			String nom = request.getParameter("nom");
+			String prenom = request.getParameter("prenom");
+			String email = request.getParameter("email");
+			String telephone = request.getParameter("telephone");
+			String rue = request.getParameter("rue");
+			String codePostal = request.getParameter("codePostal");
+			String ville = request.getParameter("ville");
+			String MDP = request.getParameter("MDP");
+			String confirmationMDP = request.getParameter("confirmationMDP");
+			
+			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, MDP);
+			
+			if(MDP.equals(confirmationMDP)) {
+				try {
+					uManager.inscriptionUtilisateur(utilisateur, confirmationMDP);
+				} catch (BLLException e1) {
+					request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
+					inscriptionModel.setMessage("Mot de passe et confirmation de mot de passe différents svp");
+				}
+				inscriptionModel.setCurrent(utilisateur);
+				
+				session.setAttribute("utilisateurConnecte", utilisateur);
+				
+			} else {
 				request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
-				inscriptionModel.setMessage("Mot de passe et confirmation de mot de passe différents svp");
 			}
-			inscriptionModel.setCurrent(utilisateur);
-			
-			session.setAttribute("utilisateurConnecte", utilisateur);
-			
-		} else {
-			request.setAttribute("error", "Mot de passe et confirmation de mot de passe différents svp");
-		}
-		request.removeAttribute("model");
-		page = "/WEB-INF/indexConnecter.jsp";
+			request.removeAttribute("model");
+			page = "/ConnecterIndex";
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		}
+		
+		if(request.getParameter("BTN_ANNULER") != null) {
+			page = "/DeConnecterIndex";
+		}
+		
+		response.sendRedirect(request.getContextPath() + page);
 	}
 
 }

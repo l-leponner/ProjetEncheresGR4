@@ -23,6 +23,8 @@ import fr.eni.encheres.ihm.inscription.InscriptionModel;
 public class ModificationProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UtilisateurBLL uManager= UtilisateurBLLSing.getInstance();
+	ModificationProfilModel model = new ModificationProfilModel();
+	String page;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,13 +40,28 @@ public class ModificationProfilServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
-		InscriptionModel model = new InscriptionModel();
-		
 		request.setAttribute("model", model);
 		
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		
 		model.setCurrent(utilisateur);
+		
+		page = "/WEB-INF/modificationProfil.jsp";
+		
+		
+		request.getRequestDispatcher(page).forward(request, response);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+		
+		
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
 			String pseudo = request.getParameter("pseudo");
@@ -89,34 +106,22 @@ public class ModificationProfilServlet extends HttpServlet {
 			}
 			session.setAttribute("utilisateurConnecte", utilisateur);
 			// Retour sur index
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
-			
+			page = "/ConnecterIndex";
 			
 		}
 		if(request.getParameter("BTN_SUPPRIMER") != null){
 			
-			
 			try {
 				uManager.removeUtilisateur(utilisateur);
-				session.invalidate();
+				
 				// Retour sur index
-				request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);
+				
 			} catch (BLLException e) {
-				e.printStackTrace();
+				request.setAttribute("error", e.getMessage());
 			}
-			
-			
+			page = "/DeConnecterIndex";
 		}
-		
-		request.getRequestDispatcher("/WEB-INF/modificationProfil.jsp").forward(request, response);
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		response.sendRedirect(request.getContextPath() + page);
 	}
 
 }

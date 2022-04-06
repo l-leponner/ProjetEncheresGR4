@@ -24,6 +24,7 @@
 		<li>Rue: ${model.current.rue}</li>
 		<li>Code postal: ${model.current.codePostal}</li>
 		<li>Ville: ${model.current.ville}</li>
+		<li>Crédits : ${model.current.credit}</li>
 	</ul>
 
 	<form action="UtilisateurServlet" method="post">

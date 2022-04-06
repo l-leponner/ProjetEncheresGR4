@@ -11,7 +11,7 @@
 <body>
 <h1>Mon Profil</h1>
 
-<form action="InscriptionServlet" method="POST">
+<form action="ModificationProfilServlet" method="POST">
 <label for="pseudo">Pseudo : </label>
 <input type="text" id="pseudo" name="pseudo" required pattern="[A-Za-z0-9]{1,30}$" value="${model.current.pseudo}"><br>
 <label for="nom">Nom : </label>
@@ -34,10 +34,13 @@
 <input type="password" id="nouveauMDP" name="nouveauMDP" required><br>
 <label for="confirmationMDP">Confirmation : </label>
 <input type="password" id="confirmationMDP" name="confirmationMDP" required><br>
-<p>Crédit : ${model.current.credit}</p>
+<p>Crédit : ${model.current.credit} points</p>
+<p>Id : ${model.current.noUtilisateur}
 <br>
 <input type="submit" name="BTN_ENREGISTRER" value="Enregistrer">
-<input type="reset" name="BTN_SUPPRIMER" value="Supprimer mon compte">
+</form>
+<form action="ModificationProfilServlet" method="POST">
+<input type="submit" name="BTN_SUPPRIMER" value="Supprimer mon compte">
 </form>
 
 <p style="color:red">${error}</p>

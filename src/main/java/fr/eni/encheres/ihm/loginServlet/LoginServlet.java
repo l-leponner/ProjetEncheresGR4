@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
 	private UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private LoginModel model = new LoginModel();
 	
-	String page = "/WEB-INF/Login.jsp";
+	String page;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		
 		
-		
+		page = "/WEB-INF/Login.jsp";
 		
 		request.getRequestDispatcher(page).forward(request, response);
 	}
@@ -58,6 +58,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
+		if(request.getParameter("BT_CONNEXION") != null) {
 		
 			String identifiant = request.getParameter("identifiant");
 			String MDP = request.getParameter("MDP");
@@ -71,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 				}
 				session.setAttribute("utilisateurConnecte", model.getCurrent());
 
-				page = "/WEB-INF/indexConnecter.jsp";
+				page = "/ConnecterIndex";
 				
 			} catch (BLLException e) {
 				request.setAttribute("error", e.getMessage());
@@ -88,8 +89,12 @@ public class LoginServlet extends HttpServlet {
 //				}
 //			}
 //		}
+			
+		}
 		
-		
-		request.getRequestDispatcher(page).forward(request, response);
+		if(request.getParameter("BT_CREER_UN_COMPTE") != null) {
+			page = "/InscriptionServlet";
+		}
+			response.sendRedirect(request.getContextPath() + page);
 	}
 }
