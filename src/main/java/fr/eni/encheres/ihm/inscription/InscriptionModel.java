@@ -3,6 +3,11 @@
  */
 package fr.eni.encheres.ihm.inscription;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 
 /**
@@ -17,6 +22,8 @@ public class InscriptionModel {
 
 	private Utilisateur current;
 	private String message;
+	private List<Categorie> lstCategories = new ArrayList<Categorie>();
+	private List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 	
 	/**
 	 * Constructeur.
@@ -59,6 +66,34 @@ public class InscriptionModel {
 		this.message = message;
 	}
 	/**
+	 * Getter pour lstCategories.
+	 * @return the lstCategories
+	 */
+	public List<Categorie> getLstCategories() {
+		return lstCategories;
+	}
+	/**
+	 * Setter pour lstCategories.
+	 * @param lstCategories the lstCategories to set
+	 */
+	public void setLstCategories(List<Categorie> lstCategories) {
+		this.lstCategories = lstCategories;
+	}
+	/**
+	 * Getter pour lstArticleVendus.
+	 * @return the lstArticleVendus
+	 */
+	public List<ArticleVendu> getLstArticleVendus() {
+		return lstArticleVendus;
+	}
+	/**
+	 * Setter pour lstArticleVendus.
+	 * @param lstArticleVendus the lstArticleVendus to set
+	 */
+	public void setLstArticleVendus(List<ArticleVendu> lstArticleVendus) {
+		this.lstArticleVendus = lstArticleVendus;
+	}
+	/**
 	*{@inheritedDoc}
 	*/
 	@Override
@@ -73,6 +108,16 @@ public class InscriptionModel {
 		if (message != null) {
 			builder.append("message=");
 			builder.append(message);
+			builder.append(", ");
+		}
+		if (lstCategories != null) {
+			builder.append("lstCategories=");
+			builder.append(lstCategories);
+			builder.append(", ");
+		}
+		if (lstArticleVendus != null) {
+			builder.append("lstArticleVendus=");
+			builder.append(lstArticleVendus);
 		}
 		builder.append("]");
 		return builder.toString();

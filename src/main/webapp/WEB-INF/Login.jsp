@@ -22,15 +22,17 @@
 		<input type="password" name="MDP" id="MDP" required/><br> 
 	</div>
 	<div>
-		<input type="submit" name="BT_CONNEXION" value="Connexion" />
-	<aside>
+		<a href="/DeConnecterIndex">
+			<input type="submit" name="BT_CONNEXION" value="Connexion" />
+		</a>
+	
 		<input type="checkbox" name="BT_SE_SOUVENIR_DE_MOI" id="BT_SE_SOUVENIR_DE_MOI"/> 
 		<label for="BT_SE_SOUVENIR_DE_MOI">Se souvenir de moi</label>
 		<a href="#" data-name="">Mot de passe oublié</a>
-	</aside>
+	
 	</div>
 	</form>
-	<form action="LoginServlet" method="POST">
+	<form action="InscriptionServlet" method="POST">
 	<div>
 		<input type="submit" name="BT_CREER_UN_COMPTE" value="Créer un compte"/>
 	</div>
