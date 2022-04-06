@@ -44,13 +44,13 @@
 			<input type="radio" id="achats"	name="radio" value="Achats" checked> 
 			
 			<label for="encheresOuvertes">Enchères ouvertes :</label> 
-			<input type="checkbox" id="encheresOuvertes" name="checkbox" value="EncheresOuvertes" checked>
+			<input type="checkbox" id="encheresOuvertes" name="checkboxEncheresOuvertes" value="EncheresOuvertes" checked>
 			 
 			<label for="mesEnchères">Mes enchères :</label>
-			<input type="checkbox" id="mesEnchères" name="checkbox" value="MesEncheres">
+			<input type="checkbox" id="mesEnchères" name="checkboxMesEncheres" value="MesEncheres">
 			
 			<label for="mesEncheresRemportees">Mes enchères remportées :</label>
-			<input type="checkbox" id="mesEncheresRemportees" name="checkbox" value="MesEncheresRemportees">
+			<input type="checkbox" id="mesEncheresRemportees" name="checkboxMesEncheresRemportees" value="MesEncheresRemportees">
 		</div>
 
 		<div>
@@ -58,13 +58,13 @@
 			<input type="radio" id="mesVentes" name="radio" value="MesVentes"> 
 			
 			<label for="mesVentesEnCours">Mes ventes en cours :</label> 
-			<input type="checkbox" id="mesVentesEnCours" name="checkbox" value="MesVentesEnCours"> 
+			<input type="checkbox" id="mesVentesEnCours" name="checkboxMesVentesEnCours" value="MesVentesEnCours"> 
 			
 			<label for="ventesNonDebutees">Ventes non débutées :</label>
-			<input type="checkbox" id="ventesNonDebutees" name="checkbox" value="VentesNonDebutees"> 
+			<input type="checkbox" id="ventesNonDebutees" name="checkboxVentesNonDebutees" value="VentesNonDebutees"> 
 			
 			<label for="ventesTerminees">Ventes terminées :</label>
-			<input type="checkbox" id="ventesTerminees" name="checkbox"	value="VentesTerminees">
+			<input type="checkbox" id="ventesTerminees" name="checkboxVentesTerminees"	value="VentesTerminees">
 		</div>
 	</form>
 	<c:forEach items="${model.lstArticleVendus}" var="article">

@@ -2,14 +2,12 @@ package fr.eni.encheres.ihm.indexServlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JRadioButton;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLManager;
@@ -49,7 +47,6 @@ public class ConnecterIndex extends HttpServlet {
 		model.setFilterArticle(request.getParameter("filtreNomArticle"));
 		model.setFiltreCategorie(request.getParameter("filtreCategorie"));
 		model.setFiltreRadio(request.getParameter("radio"));
-		model.setFiltreCheckbox(request.getParameter("checkbox"));
 
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
@@ -104,75 +101,163 @@ public class ConnecterIndex extends HttpServlet {
 		// Affichage conditionné Achats
 		if (request.getParameter("BT_RECHERCHER") != null) {
 			if ("Achats".equals(model.getFiltreRadio()) && model.getFiltreCheckbox() != null) {
-				switch (model.getFiltreCheckbox()) {
-				case "EncheresOuvertes":
+
+				System.out.println(request.getParameter("EncheresOuvertes"));
+				System.out.println(request.getParameter("checkboxMesEncheres"));
+				
+				
+				// If Check enchères ouvertes + mes enchères + mes enchères remportées
+				if (request.getParameter("checkboxEncheresOuvertes") != null && request.getParameter("checkboxMesEncheres") != null && request.getParameter("checkboxMesEncheresRemportees") != null) {
 					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
-						System.out.println("EncheresOuvertes");
+						model.setLstArticleVendus(managerArticle.getAllArticleEOuvertesMesEMesERemportees(utilisateur));
+						System.out.println("Check enchères ouvertes + mes enchères + mes enchères remportées");
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}
-					break;
-
-				case "MesEncheres":
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleMesEncheres(utilisateur));
-						System.out.println("MesEncheres");
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-					break;
-
-				case "MesEncheresRemportees":
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleMesEncheresRemportees(utilisateur));
-						System.out.println("MesEncheresRemportees");
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-
-					break;
-
-				default:
-					break;
 				}
+				
+				// If Check enchères ouvertes + mes enchères
+				if (request.getParameter("checkboxEncheresOuvertes") != null && request.getParameter("checkboxMesEncheres") != null ) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleEOuvertesMesE(utilisateur));
+						System.out.println("Check enchères ouvertes + mes enchères");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
+				// If Check enchères ouvertes + mes enchères remportées
+				if (request.getParameter("checkboxEncheresOuvertes") != null && request.getParameter("checkboxMesEncheresRemportees") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleEOuvertesMesERemportees(utilisateur));
+						System.out.println("Check enchères ouvertes + mes enchères remportées");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				// If Check mes enchères + mes enchères remportées
+				if (request.getParameter("checkboxMesEncheres") != null && request.getParameter("checkboxMesEncheresRemportees") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleMesEMesERemportees(utilisateur));
+						System.out.println("Check mes enchères + mes enchères remportées");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				
+//				switch (model.getFiltreCheckbox()) {
+//				case "EncheresOuvertes":
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
+//						System.out.println("EncheresOuvertes");
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//					break;
+//
+//				case "MesEncheres":
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleMesEncheres(utilisateur));
+//						System.out.println("MesEncheres");
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//					break;
+//
+//				case "MesEncheresRemportees":
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleMesEncheresRemportees(utilisateur));
+//						System.out.println("MesEncheresRemportees");
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//
+//					break;
+//
+//				default:
+//					break;
+//				}
 			}
 
 			if ("MesVentes".equals(model.getFiltreRadio()) && model.getFiltreCheckbox() != null) {
-				switch (model.getFiltreCheckbox()) {
-				case "MesVentesEnCours":
+
+				// If Check Mes ventes en cours + Ventes non débutées + Ventes terminées
+				if (request.getParameter("checkboxMesVentesEnCours") != null && request.getParameter("checkboxVentesNonDebutees") != null && request.getParameter("checkboxVentesTerminees") != null) {
 					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleMesVentesEnCours(utilisateur));
+						model.setLstArticleVendus(managerArticle.getAllArticleMesVEnCoursVNonDebuteesVTerminees(utilisateur));
+						System.out.println("Check Mes ventes en cours + Ventes non débutées + Ventes terminées");
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}
-					System.out.println("MesVentesEnCours");
-					break;
-
-				case "VentesNonDebutees":
-
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleVentesNonDebutees(utilisateur));
-						System.out.println("VentesNonDebutees");
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-
-					break;
-
-				case "VentesTerminees":
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleVentesTerminees(utilisateur));
-						System.out.println("VentesTerminees");
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-
-					break;
-
-				default:
-					break;
 				}
+				
+				// If Check Mes ventes en cours + Ventes non débutées
+				if (request.getParameter("checkboxMesVentesEnCours") != null && request.getParameter("checkboxVentesNonDebutees") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleMesVEnCoursVNonDebutees(utilisateur));
+						System.out.println("Check Mes ventes en cours + Ventes non débutées");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				// If Check Mes ventes en cours + Ventes terminées
+				if (request.getParameter("checkboxMesVentesEnCours") != null && request.getParameter("checkboxVentesTerminees") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleMesVEnCoursVTerminees(utilisateur));
+						System.out.println("Check Mes ventes en cours + Ventes terminées");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				// If Check Ventes non débutées + Ventes terminées
+				if (request.getParameter("checkboxVentesNonDebutees") != null && request.getParameter("checkboxVentesTerminees") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleVNonDebuteesVTerminees(utilisateur));
+						System.out.println("Check Ventes non débutées + Ventes terminées");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				//				switch (model.getFiltreCheckbox()) {
+//				case "MesVentesEnCours":
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleMesVentesEnCours(utilisateur));
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//					System.out.println("MesVentesEnCours");
+//					break;
+//
+//				case "VentesNonDebutees":
+//
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleVentesNonDebutees(utilisateur));
+//						System.out.println("VentesNonDebutees");
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//
+//					break;
+//
+//				case "VentesTerminees":
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleVentesTerminees(utilisateur));
+//						System.out.println("VentesTerminees");
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//
+//					break;
+//
+//				default:
+//					break;
+//				}
 			}
 
 			// Filtre nom Article et filtre catègorie
@@ -183,14 +268,12 @@ public class ConnecterIndex extends HttpServlet {
 					try {
 						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
 								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
-						System.out.println("Je passe par la Toutes");
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}
 				} else {
 					try {
 						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
-						System.out.println("Je suis la Toutes");
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}
@@ -204,7 +287,6 @@ public class ConnecterIndex extends HttpServlet {
 					try {
 						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
 								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
-						System.out.println("Je passe par la etc");
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}
@@ -212,7 +294,6 @@ public class ConnecterIndex extends HttpServlet {
 					try {
 						model.setLstArticleVendus(managerArticle
 								.getAllArticleFilterCategorie(model.getFiltreCategorie(), model.getLstArticleVendus()));
-						System.out.println("Je suis la etc");
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}
