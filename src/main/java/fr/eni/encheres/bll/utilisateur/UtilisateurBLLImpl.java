@@ -107,8 +107,17 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 	@Override
 	public void inscriptionUtilisateur(Utilisateur utilisateur, String confirmationMDP) throws BLLException {
 		try {
-			controlMDP(utilisateur.getMotDePasse(), confirmationMDP);
+			controlMDP(utilisateur.getMotDePasse(), confirmationMDP);	
+		} catch (BLLException e) {
+			throw new BLLException(e.getMessage());
+		}
+		try {
 			controlUnicite(utilisateur.getPseudo(), utilisateur.getEmail());
+		} catch (BLLException e) {
+			throw new BLLException(e.getMessage());
+		}
+		try {
+			utilisateur.setCredit(100);
 			addUtilisateur(utilisateur);
 		} catch (BLLException e) {
 			throw new BLLException(e.getMessage());
@@ -135,16 +144,6 @@ public class UtilisateurBLLImpl implements UtilisateurBLL{
 			throw new BLLException("Erreur dans la méthode controlUnicite : " +e.getMessage());
 		}		
 	}
-
-	// test login gabriel
-	
-//	public static Boolean ConnexionUtilisateur (String identifiant, String motDePasse) throws BLLException {
-//		boolean connecte = false;
-//	for (Utilisateur utilisateur : manager.getAllUtilisateur()) {
-//		if(identifiant.equals((utilisateur.getEmail()) || (identifiant.equals(utilisateur.getPseudo())) && (mDP.equals(utilisateur.getMotDePasse()) { 
-//		return connecte = true;	
-//	}}
-//	}}
 
 
 	/**

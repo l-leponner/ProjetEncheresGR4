@@ -45,12 +45,17 @@ public class LoginServlet extends HttpServlet {
 			
 			try {
 				uManager.controlUtilisateurExistant(identifiant, MDP);
-				model.setCurrent(uManager.getByIdentifiantMDP(identifiant, MDP));
+				try {
+					model.setCurrent(uManager.getByIdentifiantMDP(identifiant, MDP));
+				} catch (BLLException e) {
+					request.setAttribute("error", e.getMessage());
+				}
 				session.setAttribute("utilisateurConnecte", model.getCurrent());
-				request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+				
 			} catch (BLLException e) {
 				request.setAttribute("error", e.getMessage());
 			}
+			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
 			
 		}
 		//Mot de passe oublié
@@ -70,61 +75,6 @@ public class LoginServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
 	}
 		
-		
-//		//appelle methode pour loginer
-//		
-//		if (request.getParameter("BT_CONNEXION") != null){
-//			
-//			String identifiant = request.getParameter("identifiant");
-//			String mDP = request.getParameter("motDePasse");
-//			
-//			try { manager.connexionUtilisateur (identifiant, mDP);
-//			
-//			if (connecte = true) {	
-//			try {
-//				 request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-//			} catch (BLLException e) {
-//				model.setMessage("Erreur dans le login : " + e.getMessage());
-//			
-//			}
-//						
-//			else {
-//				try {
-//					System.out.println("Username or Password incorrect");
-//				  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-//				} catch (BLLException e) {
-//					model.setMessage("Erreur dans le login : " + e.getMessage());
-//				}
-//		
-//			
-//		request.setAttribute("model", model);
-//
-//		request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-//	
-//			}
-//			}
-//	}
-
-//		public static Boolean ConnexionUtilisateur (String identifiant, String motDePasse) throw BLLException {
-//			bolean connecte = false;
-//		for (Utilisateur utilisateur : manager.getAllUtilisateur()) {
-//			if(identifiant.equals((utilisateur.getEmail()) || (identifiant.equals(utilisateur.getPseudo())) && (mDP.equals(utilisateur.getMotDePasse())) { 
-//			return connecte = true;	}
-//		try {
-//			 request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-//		} catch (BLLException e) {
-//			model.setMessage("Erreur dans le login : " + e.getMessage());
-//		}	
-//					
-//		else {
-//			try {
-//				System.out.println("Username or Password incorrect");
-//			  request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-//			} catch (BLLException e) {
-//				model.setMessage("Erreur dans le login : " + e.getMessage());
-//			}
-//		}}}}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

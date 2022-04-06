@@ -25,7 +25,6 @@ public class UtilisateurDeconnecteServlet extends HttpServlet {
      */
     public UtilisateurDeconnecteServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,26 +35,22 @@ public class UtilisateurDeconnecteServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurClique");
 		
 
-		UtilisateurModel model = new UtilisateurModel();
+		UtilisateurDeconnecteModel model = new UtilisateurDeconnecteModel();
 	
 		model.setCurrent(utilisateur);	
 		
 		session.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/UtilisateurDeconnecte.jsp").forward(request, response);
-		
 	
-	
-		
 	}
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

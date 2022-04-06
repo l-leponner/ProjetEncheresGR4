@@ -143,7 +143,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		Utilisateur result = null;
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(
-					"SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?");
+					"SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE ((pseudo = ? OR email = ?) AND mot_de_passe = ?)");
 			stmt.setString(1, identifiant);
 			stmt.setString(2, identifiant);
 			stmt.setString(3, motDePasse);

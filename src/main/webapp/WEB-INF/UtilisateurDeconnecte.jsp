@@ -9,24 +9,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="style.css" />
-<title>UtilisateurDeconnecte</title>
+<title>Page de ${model.current.pseudo}</title>
 </head>
 <body>
 <h2><strong>ENI_ENCHERES</strong></h2>
 
-<form action="UtilisateurDeconnecteServlet" method="post">
-	
-	Pseudo:<p>${model.current.pseudo}</p><br>
-	Nom:<p>${model.current.nom}</p><br>
-	Prenom:<p>${model.current.prenom}</p><br>
-	Email:<p>${model.current.email}</p><br>
-	Telephone:<p>${model.current.telephone}</p><br>
-	Rue:<p>${model.current.rue}<br>
-	Code postal:<p>${model.current.codePostal}</p><br>
-	Ville:<p>${model.current.ville}</p><br>
-
-
-</form>
+	<p>Pseudo: ${model.current.pseudo}</p>
+	<p>Nom : ${model.current.nom}</p>
+	<p>Prenom : ${model.current.prenom}</p>
+	<p>Email : ${model.current.email}</p>
+	<p>Telephone : ${model.current.telephone}</p>
+	<p>Rue : ${model.current.rue}<br>
+	<p>Code postal :${model.current.codePostal}</p>
+	<p>Ville : ${model.current.ville}</p>
 
 </body>
 </html>
