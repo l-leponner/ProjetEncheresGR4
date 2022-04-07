@@ -65,7 +65,7 @@ public class DeConnecterIndex extends HttpServlet {
 					}
 				} else {
 					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
 						System.out.println("Je suis la ");
 					} catch (BLLException e) {
 						e.printStackTrace();
@@ -101,7 +101,7 @@ public class DeConnecterIndex extends HttpServlet {
 
 		if (model.getFilterArticle() == null && model.getFiltreCategorie() == null) {
 			try {
-				model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+				model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
 				System.out.println(
 						"Je suis passé dans le premier filtre filtreCategorie = null et filtreNomArticle = null");
 			} catch (BLLException e) {

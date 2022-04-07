@@ -185,7 +185,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
 		autoUpdateEtatArticle();
 		for (ArticleVendu i : lstArticleVendus) {
-			if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+			// si ca ne marche pas repasser en .equals
+			if (i.getNomArticle().toLowerCase().contains(nomArticle)) {
 				returnlstArticleVendus.add(i);
 			}
 		}
@@ -212,14 +213,14 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		autoUpdateEtatArticle();
 		if (categorie.equalsIgnoreCase("toutes")) {
 			for (ArticleVendu i : lstArticleVendus) {
-				if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+				if (i.getNomArticle().toLowerCase().contains(nomArticle)) {
 					returnlstArticleVendus.add(i);
 				}
 			}
 		} else {
 			for (ArticleVendu i : lstArticleVendus) {
 				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie)
-						&& i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+						&& i.getNomArticle().toLowerCase().contains(nomArticle)) {
 					returnlstArticleVendus.add(i);
 				}
 			}
