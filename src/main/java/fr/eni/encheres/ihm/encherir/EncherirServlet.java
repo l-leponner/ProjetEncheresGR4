@@ -37,6 +37,8 @@ public class EncherirServlet extends HttpServlet {
 	private static UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private static RetraitManager rManager = RetraitManagerSing.getInstance();
 	private static EnchereBLL eManager = EnchereBLLSing.getInstance();
+	EncherirModel model = new EncherirModel();
+	String page;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -56,7 +58,6 @@ public class EncherirServlet extends HttpServlet {
 
 		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		ArticleVendu articleClique = (ArticleVendu) session.getAttribute("articleClique");
-		EncherirModel model = new EncherirModel();
 		request.setAttribute("model", model);
 
 		model.setAcheteur(utilisateurConnecte);
@@ -77,7 +78,23 @@ public class EncherirServlet extends HttpServlet {
 			request.setAttribute("meilleureEnchere", model.getMeillereEnchere().getMontantEnchere());
 		}
 		
+		page = "/WEB-INF/encherir.jsp";
+		
+		request.getRequestDispatcher(page).forward(request, response);
+	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+
+		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		ArticleVendu articleClique = (ArticleVendu) session.getAttribute("articleClique");
+		
 		if (request.getParameter("BTN_ENCHERIR") != null) {
 			Integer montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
 
@@ -98,20 +115,10 @@ public class EncherirServlet extends HttpServlet {
 			} catch (BLLException e1) {
 				request.setAttribute("error", e1.getMessage());
 			}
-			
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+			page = "/ConnecterIndex";
 
 		}
-		request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
+		response.sendRedirect(request.getContextPath() + page);
 	}
 
 }

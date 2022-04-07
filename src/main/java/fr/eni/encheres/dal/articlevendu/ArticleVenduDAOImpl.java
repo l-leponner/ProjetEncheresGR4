@@ -175,7 +175,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 				String ville = rs.getString("ville");
 
 				result.setRue(rue);
-				result.setCode_postal(code_postal);
+				result.setCodePostal(code_postal);
 				result.setVille(ville);
 
 			}

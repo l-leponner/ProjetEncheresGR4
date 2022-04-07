@@ -20,8 +20,8 @@
 <label for="retrait">Retrait : </label><p id="retrait">${model.currentArticle.retrait.rue} ${model.currentArticle.retrait.codePostal} ${model.currentArticle.retrait.ville}</p>
 <label for="vendeur">Vendeur : </label><p id="vendeur">${model.vendeur.pseudo}</p>
 <form action="EncherirServlet" method="post">
-<label for="montantEnchere">Ma proposition : </label><input type="number" id="montantEnchere" name="montantEnchere" value="${model.meilleureEnchere}">
-<input type="submit" name="BTN_ENCHERIR" value="Enchérir">
+	<label for="montantEnchere">Ma proposition : </label><input type="number" id="montantEnchere" name="montantEnchere" value="${model.meilleureEnchere}">
+	<input type="submit" name="BTN_ENCHERIR" value="Enchérir">
 </form>
 
 <p style="color:red">${error}</p>

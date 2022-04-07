@@ -10,19 +10,18 @@
 </head>
 <body>
 <h1>Nouvelle vente</h1>
-<form action="VenteServlet" method="POST" enctype="multipart/form-data">
+<form action="VenteServlet" method="POST">
 	<label for="nom">Article : </label>
 		<input type="text" id="nom" name="nom" required><br>
 	<label for="description">Description : </label>
 		<textarea id="description" name="description" required maxlength="300" ></textarea><br>
 	<label for="categorie">Catégorie : </label>
-		<select name="filtreCategorie" id="categorie">
+		<select name="categorie" id="categorie">
 						<option selected>Toutes</option>
 						<c:forEach items="${model.lstCategories}" var="categorie">
 							<option>${categorie.libelle}</option>
-						</c:forEach></select>
-	<label for="image">Photo de l'article : </label>	
-		<input type="file" id="image" name="image" accept=".jpg, .jpeg, .png"><br>
+						</c:forEach></select><br>
+	
 	<label for="miseAPrix">Mise à prix : </label>
 		<input type="number" id="miseAPrix" name="miseAPrix" required><br>
 	<label for="dateDebut">Date de début de l'enchère : </label>
