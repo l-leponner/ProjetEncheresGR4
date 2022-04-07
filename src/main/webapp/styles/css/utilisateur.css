@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+* {
+	color: #000000;
+	font-family: Abadi, Arial;
+}
+
+header {
+	justify-content: flex-start;
+	padding: 20px;
+}
+
+a {
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	color: lime;
+	font-size: 20px;
+}
+
+.myform {
+	justify-content: center;
+}
+
+ul {
+	list-style: none;
+	line-height: 2.5;
+}
+
+.bouton {
+	margin: 0 auto;
+	border: 1px;
+}
