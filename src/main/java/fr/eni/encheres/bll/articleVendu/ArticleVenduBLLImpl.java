@@ -112,7 +112,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		try {
 			autoUpdateEtatArticle();
 			for (ArticleVendu i : dao.selectAllArticleVendu()) {
-				if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+				if (i.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())&& i.getEtatVente().equalsIgnoreCase("En cours")) {
 					lstArticleVendus.add(i);
 				}
 			}
@@ -128,7 +128,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		try {
 			autoUpdateEtatArticle();
 			for (ArticleVendu i : dao.selectAllArticleVendu()) {
-				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie)) {
+				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie) && i.getEtatVente().equalsIgnoreCase("En cours")) {
 					lstArticleVendus.add(i);
 				}
 			}
@@ -146,14 +146,14 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			autoUpdateEtatArticle();
 			if (categorie.equalsIgnoreCase("toutes")) {
 				for (ArticleVendu i : dao.selectAllArticleVendu()) {
-					if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+					if (i.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())&& i.getEtatVente().equalsIgnoreCase("En cours")) {
 						lstArticleVendus.add(i);
 					}
 				}
 			} else {
 				for (ArticleVendu i : dao.selectAllArticleVendu()) {
 					if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie)
-							&& i.getNomArticle().equalsIgnoreCase(nomArticle)) {
+							&& i.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase()) && i.getEtatVente().equalsIgnoreCase("En cours")) {
 						lstArticleVendus.add(i);
 					}
 				}
