@@ -11,10 +11,6 @@
 </head>
 <body>
 
-	<p>${FilterArticle}</p>
-	<p>${FilterCategorie}</p>
-
-
 	<h1>ENI-Encheres</h1>
 	<ul>
 		<li><a href="http://localhost:8080/Encheres/LoginServlet">S'inscrire

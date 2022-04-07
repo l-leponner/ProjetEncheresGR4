@@ -69,7 +69,7 @@ public class DeConnecterIndexModel {
 	 * 
 	 * @param filterArticle the filterArticle to set
 	 */
-	public void setFilterArticle(String filterArticle) {
+	public void setFiltreArticle(String filterArticle) {
 		this.filterArticle = filterArticle;
 	}
 
