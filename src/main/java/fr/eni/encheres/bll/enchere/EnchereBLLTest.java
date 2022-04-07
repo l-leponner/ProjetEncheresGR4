@@ -19,7 +19,6 @@ public class EnchereBLLTest {
 	 */
 	public static void main(String[] args) {
 
-		
 	}
 
 }

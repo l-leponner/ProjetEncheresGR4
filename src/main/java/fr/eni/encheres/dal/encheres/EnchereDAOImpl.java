@@ -40,7 +40,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private final String SELECTBYID = "SELECT no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES WHERE no_enchere = ?";
 	private final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=?";
 	private final String SELECT_BY_NOARTICLE = "SELECT no_enchere, date_enchere, montant_enchere, "
-			+ "a.no_article, a.no_utilisateur, a.nom_article, a.description, a.date_debut_enchere, a.date_fin_enchere, a.prix_initial, a.prix_vente, a.no_categorie, a.etat_vente "
+			+ "a.no_article, e.no_utilisateur, a.nom_article, a.description, a.date_debut_enchere, a.date_fin_enchere, a.prix_initial, a.prix_vente, a.no_categorie, a.etat_vente "
 			+ "FROM ENCHERES AS e "
 			+ "INNER JOIN ARTICLES_VENDUS AS a ON e.no_article = a.no_article "
 			+ "WHERE a.no_article = ?";
@@ -210,6 +210,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 //		article.setMiseAPrix(miseAPrix);
 //		article.setNomArticle(nomArticle);
 		enchere.setNoArticleVendu(noArticle);
+
 		try {
 			enchere.setUtilisateur(uDAO.selectByIDUtilisateur(noUtilisateur));
 		} catch (DALException e) {

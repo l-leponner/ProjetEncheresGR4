@@ -100,11 +100,37 @@ public class ConnecterIndex extends HttpServlet {
 
 		// Affichage conditionné Achats
 		if (request.getParameter("BT_RECHERCHER") != null) {
-			if ("Achats".equals(model.getFiltreRadio()) && model.getFiltreCheckbox() != null) {
+			if ("Achats".equals(model.getFiltreRadio())) {
 
-				System.out.println(request.getParameter("EncheresOuvertes"));
-				System.out.println(request.getParameter("checkboxMesEncheres"));
+				// If Check enchères ouvertes
+				if (request.getParameter("checkboxEncheresOuvertes") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
+						System.out.println("Check enchères ouvertes");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
 				
+				// If Check Mes enchères
+				if (request.getParameter("checkboxMesEncheres") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleMesEncheres(utilisateur));
+						System.out.println("Check Mes enchères");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				// If Check Mes enchères remportées
+				if (request.getParameter("checkboxMesEncheresRemportees") != null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleMesEncheresRemportees(utilisateur));
+						System.out.println("Check Mes enchères remportées");
+					} catch (BLLException e) {
+						e.printStackTrace();
+					}
+				}
 				
 				// If Check enchères ouvertes + mes enchères + mes enchères remportées
 				if (request.getParameter("checkboxEncheresOuvertes") != null && request.getParameter("checkboxMesEncheres") != null && request.getParameter("checkboxMesEncheresRemportees") != null) {
@@ -261,46 +287,46 @@ public class ConnecterIndex extends HttpServlet {
 			}
 
 			// Filtre nom Article et filtre catègorie
-			switch (model.getFiltreCategorie()) {
-			case "Toutes":
-
-				if (!model.getFilterArticle().isBlank()) {
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				break;
-
-			default:
-
-				if (!model.getFilterArticle().isBlank()) {
-					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						model.setLstArticleVendus(managerArticle
-								.getAllArticleFilterCategorie(model.getFiltreCategorie(), model.getLstArticleVendus()));
-					} catch (BLLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				break;
-			}
+//			switch (model.getFiltreCategorie()) {
+//			case "Toutes":
+//
+//				if (!model.getFilterArticle().isBlank()) {
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+//								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//				} else {
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//
+//				break;
+//
+//			default:
+//
+//				if (!model.getFilterArticle().isBlank()) {
+//					try {
+//						model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+//								model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//				} else {
+//					try {
+//						model.setLstArticleVendus(managerArticle
+//								.getAllArticleFilterCategorie(model.getFiltreCategorie(), model.getLstArticleVendus()));
+//					} catch (BLLException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//
+//				break;
+//			}
 
 		}
 

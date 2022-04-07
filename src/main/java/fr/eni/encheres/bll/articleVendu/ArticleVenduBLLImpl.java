@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bll.enchere.EnchereBLL;
+import fr.eni.encheres.bll.enchere.EnchereBLLSing;
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
@@ -41,7 +43,6 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode addArticleVendu" + e.getMessage());
 		}
-
 	}
 
 	/**
@@ -50,6 +51,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public ArticleVendu getByIdArticleVendu(Integer IDArticleVendu) throws BLLException {
 		try {
+			autoUpdateEtatArticle();
 			return dao.selectByIdArticleVendu(IDArticleVendu);
 
 		} catch (DALException e) {
@@ -66,6 +68,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleVendu() throws BLLException {
 
 		try {
+			autoUpdateEtatArticle();
 			return dao.selectAllArticleVendu();
 
 		} catch (DALException e) {
@@ -107,6 +110,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterNomArticle(String nomArticle) throws BLLException {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
+			autoUpdateEtatArticle();
 			for (ArticleVendu i : dao.selectAllArticleVendu()) {
 				if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
 					lstArticleVendus.add(i);
@@ -122,6 +126,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterCategorie(String categorie) throws BLLException {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
+			autoUpdateEtatArticle();
 			for (ArticleVendu i : dao.selectAllArticleVendu()) {
 				if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie)) {
 					lstArticleVendus.add(i);
@@ -138,6 +143,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			throws BLLException {
 		List<ArticleVendu> lstArticleVendus = new ArrayList<ArticleVendu>();
 		try {
+			autoUpdateEtatArticle();
 			if (categorie.equalsIgnoreCase("toutes")) {
 				for (ArticleVendu i : dao.selectAllArticleVendu()) {
 					if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
@@ -177,6 +183,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterNomArticle(String nomArticle, List<ArticleVendu> lstArticleVendus)
 			throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 		for (ArticleVendu i : lstArticleVendus) {
 			if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
 				returnlstArticleVendus.add(i);
@@ -189,6 +196,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterCategorie(String categorie, List<ArticleVendu> lstArticleVendus)
 			throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 		for (ArticleVendu i : lstArticleVendus) {
 			if (i.getCategorie().getLibelle().equalsIgnoreCase(categorie)) {
 				returnlstArticleVendus.add(i);
@@ -201,6 +209,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public List<ArticleVendu> getAllArticleFilterCategorieAndNomArticle(String nomArticle, String categorie,
 			List<ArticleVendu> lstArticleVendus) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 		if (categorie.equalsIgnoreCase("toutes")) {
 			for (ArticleVendu i : lstArticleVendus) {
 				if (i.getNomArticle().equalsIgnoreCase(nomArticle)) {
@@ -222,12 +231,12 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleEncheresOuvertes() throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("En cours")) {
 					returnlstArticleVendus.add(articleVendu);
-					articleVendu.setEtatVente("En cours");
 				}
 			}
 		} catch (DALException e) {
@@ -236,45 +245,50 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 		return returnlstArticleVendus;
 	}
-//
-//	@Override
-//	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException {
-//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-//
-//		try {
-//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-//				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
-//						.equals(user.getNoUtilisateur())
-//						&& articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())) {
-//					returnlstArticleVendus.add(articleVendu);
-//				}
-//			}
-//		} catch (DALException e) {
-//			throw new BLLException("Problème dans la méthode getAllArticleMesEncheres" + e.getMessage());
-//		}
-//
-//		return returnlstArticleVendus;
-//	}
-//
-//	@Override
-//	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException {
-//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-//
-//		try {
-//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-//				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
-//						.equals(user.getNoUtilisateur())
-//						&& articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())) {
-//					returnlstArticleVendus.add(articleVendu);
-//					articleVendu.setEtatVente("Enchères terminées");
-//				}
-//			}
-//		} catch (DALException e) {
-//			throw new BLLException("Problème dans la méthode getAllArticleMesEncheresRemportees" + e.getMessage());
-//		}
-//
-//		return returnlstArticleVendus;
-//	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesEncheres(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours")) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleMesEncheres" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleMesEncheresRemportees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")) {
+
+					if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+							.equals(user.getNoUtilisateur())) {
+
+						System.out.println(articleVendu.getLstEncheres());
+
+						returnlstArticleVendus.add(articleVendu);
+					}
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleMesEncheresRemportees" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
 
 	/**
 	 * {@inheritedDoc}
@@ -293,81 +307,84 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		return result;
 	}
 
-//	@Override
-//	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException {
-//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-//
-//		try {
-//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-//				if (articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres())
-//						&& articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
-//					returnlstArticleVendus.add(articleVendu);
-//					articleVendu.setEtatVente("En cours");
-//				}
-//			}
-//		} catch (DALException e) {
-//			throw new BLLException("Problème dans la méthode getAllArticleMesVentesEnCours" + e.getMessage());
-//		}
-//
-//		return returnlstArticleVendus;
-//	}
-//
-//	@Override
-//	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException {
-//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-//
-//		try {
-//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-//				if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())
-//						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
-//					returnlstArticleVendus.add(articleVendu);
-//				}
-//			}
-//		} catch (DALException e) {
-//			throw new BLLException("Problème dans la méthode getAllArticleVentesNonDebutees" + e.getMessage());
-//		}
-//
-//		return returnlstArticleVendus;
-//	}
-//
-//	@Override
-//	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException {
-//		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
-//
-//		try {
-//			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-//				if (articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres())
-//						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
-//					returnlstArticleVendus.add(articleVendu);
-//					articleVendu.setEtatVente("Enchères terminées");
-//				}
-//			}
-//		} catch (DALException e) {
-//			throw new BLLException("Problème dans la méthode getAllArticleVentesTerminees" + e.getMessage());
-//		}
-//
-//		return returnlstArticleVendus;
-//	}
+	@Override
+	public List<ArticleVendu> getAllArticleMesVentesEnCours(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("En cours")
+						&& articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleMesVentesEnCours" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleVentesNonDebutees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("Créée")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+					returnlstArticleVendus.add(articleVendu);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleVentesNonDebutees" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
+
+	@Override
+	public List<ArticleVendu> getAllArticleVentesTerminees(Utilisateur user) throws BLLException {
+		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
+
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+					returnlstArticleVendus.add(articleVendu);
+					articleVendu.setEtatVente("Enchères terminées");
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode getAllArticleVentesTerminees" + e.getMessage());
+		}
+
+		return returnlstArticleVendus;
+	}
 
 	// Méthode utiliser dans IndexServlet pour radio Achats checked et all checkbox
 	// checked
 	@Override
 	public List<ArticleVendu> getAllArticleEOuvertesMesEMesERemportees(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				
+
 				Boolean testMesE = getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
 						.getNoUtilisateur().equals(user.getNoUtilisateur());
-				
-				Boolean testEOuvertes = articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres());
-				
+
+				Boolean testEOuvertes = articleVendu.getEtatVente().equalsIgnoreCase("En cours");
+
 				Boolean testMesERemportees = (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
 						.getNoUtilisateur().equals(user.getNoUtilisateur())
-						&& articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres()));
-				
-				if (testMesE || testEOuvertes || testMesERemportees ) {
+						&& articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées"));
+
+				if (testMesE || testEOuvertes || testMesERemportees) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
@@ -382,15 +399,16 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleEOuvertesMesE(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				
+
 				Boolean testMesE = getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
 						.getNoUtilisateur().equals(user.getNoUtilisateur());
-				
-				Boolean testEOuvertes = articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres());
-				
+
+				Boolean testEOuvertes = articleVendu.getEtatVente().equalsIgnoreCase("En cours");
+
 				if (testMesE || testEOuvertes) {
 					returnlstArticleVendus.add(articleVendu);
 				}
@@ -405,6 +423,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleMesEMesERemportees(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
@@ -414,7 +433,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 				Boolean testMesERemportees = (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
 						.getNoUtilisateur().equals(user.getNoUtilisateur())
-						&& articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres()));
+						&& articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées"));
 
 				if (testMesE || testMesERemportees) {
 					returnlstArticleVendus.add(articleVendu);
@@ -430,15 +449,16 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleEOuvertesMesERemportees(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 
-				Boolean testEOuvertes = articleVendu.getDateDebutEncheres().isBefore(articleVendu.getDateFinEncheres());
+				Boolean testEOuvertes = articleVendu.getEtatVente().equalsIgnoreCase("En cours");
 
 				Boolean testMesERemportees = (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
 						.getNoUtilisateur().equals(user.getNoUtilisateur())
-						&& articleVendu.getDateDebutEncheres().isAfter(articleVendu.getDateFinEncheres()));
+						&& articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées"));
 
 				if (testEOuvertes || testMesERemportees) {
 					returnlstArticleVendus.add(articleVendu);
@@ -454,16 +474,18 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleMesVEnCoursVNonDebuteesVTerminees(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				
-				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) ;
-				
-				Boolean VNonDebutees = LocalDateTime.now().isBefore(articleVendu.getDateDebutEncheres());
-				
-				Boolean testVTerminees = LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres());
-				
+
+				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur()
+						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours");
+
+				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée");
+
+				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
+
 				if (testMesVEnCours || VNonDebutees || testVTerminees) {
 					returnlstArticleVendus.add(articleVendu);
 				}
@@ -479,21 +501,22 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleMesVEnCoursVNonDebutees(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				
-				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) ;
-				
-				Boolean VNonDebutees = LocalDateTime.now().isBefore(articleVendu.getDateDebutEncheres());
-				
+
+				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur()
+						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours");
+
+				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée");
+
 				if (testMesVEnCours || VNonDebutees) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
 		} catch (DALException e) {
-			throw new BLLException(
-					"Problème dans la méthode getAllArticleMesVEnCoursVNonDebutees" + e.getMessage());
+			throw new BLLException("Problème dans la méthode getAllArticleMesVEnCoursVNonDebutees" + e.getMessage());
 		}
 
 		return returnlstArticleVendus;
@@ -502,21 +525,22 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleMesVEnCoursVTerminees(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				
-				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur()) ;
-				
-				Boolean testVTerminees = LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres());
-				
-				if (testMesVEnCours || testVTerminees ) {
+
+				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur()
+						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours");
+
+				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
+
+				if (testMesVEnCours || testVTerminees) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
 		} catch (DALException e) {
-			throw new BLLException(
-					"Problème dans la méthode getAllArticleMesVEnCoursVTerminees" + e.getMessage());
+			throw new BLLException("Problème dans la méthode getAllArticleMesVEnCoursVTerminees" + e.getMessage());
 		}
 
 		return returnlstArticleVendus;
@@ -525,23 +549,59 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	@Override
 	public List<ArticleVendu> getAllArticleVNonDebuteesVTerminees(Utilisateur user) throws BLLException {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
+		autoUpdateEtatArticle();
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				
-				Boolean VNonDebutees = LocalDateTime.now().isBefore(articleVendu.getDateDebutEncheres());
-				
-				Boolean testVTerminees = LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres());
-				
-				if (VNonDebutees || testVTerminees ) {
+
+				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée");
+
+				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
+
+				if (VNonDebutees || testVTerminees) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
 		} catch (DALException e) {
-			throw new BLLException(
-					"Problème dans la méthode getAllArticleVNonDebuteesVTerminees" + e.getMessage());
+			throw new BLLException("Problème dans la méthode getAllArticleVNonDebuteesVTerminees" + e.getMessage());
 		}
 
 		return returnlstArticleVendus;
+	}
+
+	@Override
+	public void autoUpdateEtatArticle() throws BLLException {
+		try {
+			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+
+				if (LocalDateTime.now().isAfter(articleVendu.getDateDebutEncheres())) {
+					articleVendu.setEtatVente("En cours");
+				}
+
+				if (LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres())) {
+					articleVendu.setEtatVente("Enchères terminées");
+				}
+
+			}
+		} catch (DALException e) {
+			throw new BLLException("Problème dans la méthode autoUpdateEtatArticle" + e.getMessage());
+		}
+
+	}
+
+	@Override
+	public void setLstEncheres(ArticleVendu articlevendu) throws BLLException {
+		EnchereBLL managerE = EnchereBLLSing.getInstance();
+		List<Enchere> lstEncheres = new ArrayList<Enchere>();
+
+		for (ArticleVendu a : getAllArticleVendu()) {
+			for (Enchere e : managerE.getAllEnchere()) {
+				if (e.getNoArticleVendu().equals(a.getNoArticle())) {
+					lstEncheres.add(e);
+				}
+				a.setLstEncheres(lstEncheres);
+			}
+		}
+
 	}
 }
