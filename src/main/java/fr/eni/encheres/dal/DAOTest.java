@@ -50,36 +50,36 @@ public class DAOTest {
 //		ArticleVendu article3 = new ArticleVendu("Couteau", "Description", LocalDateTime.now(),LocalDateTime.of(1900, 7, 4, 7, 0), 100, "En cours");
 
 
-		// Test d'insertion
-		try {
-			daoUtilisateur.insertUtilisateur(utilisateur1);
-
-			//daoCategorie.insertCategorie(categorie1);
-
-			article1.setUtilisateur(utilisateur1);
-			article1.setCategorie(daoCategorie.selectByIdCategorie(1));
-
-			daoArticleVendu.insertArticleVendu(article1);
-			retrait1.setNoArticleVendu(article1.getNoArticle());
-			daoArticleVendu.insertArticleVendu(article2);
-			retrait1.setNoArticleVendu(article2.getNoArticle());
-			daoArticleVendu.insertArticleVendu(article3);
-			retrait1.setNoArticleVendu(article3.getNoArticle());
-
-			daoRetrait.insertRetrait(retrait1);
-			daoArticleVendu.insertArticleVendu(article2);
-			retrait1.setNoArticleVendu(article2.getNoArticle());
-			daoArticleVendu.insertArticleVendu(article3);
-			retrait1.setNoArticleVendu(article3.getNoArticle());
-			enchere1.setUtilisateur(utilisateur1);
-			enchere1.setArticleVendu(article1);
-			daoEnchere.insertEnchere(enchere1);
+//		// Test d'insertion
+//		try {
+//			daoUtilisateur.insertUtilisateur(utilisateur1);
+//
+//			//daoCategorie.insertCategorie(categorie1);
+//
+//			article1.setUtilisateur(utilisateur1);
+//			article1.setCategorie(daoCategorie.selectByIdCategorie(1));
+//
+//			daoArticleVendu.insertArticleVendu(article1);
+//			retrait1.setNoArticleVendu(article1.getNoArticle());
+//			daoArticleVendu.insertArticleVendu(article2);
+//			retrait1.setNoArticleVendu(article2.getNoArticle());
+//			daoArticleVendu.insertArticleVendu(article3);
+//			retrait1.setNoArticleVendu(article3.getNoArticle());
+//
+//			daoRetrait.insertRetrait(retrait1);
+//			daoArticleVendu.insertArticleVendu(article2);
+//			retrait1.setNoArticleVendu(article2.getNoArticle());
+//			daoArticleVendu.insertArticleVendu(article3);
+//			retrait1.setNoArticleVendu(article3.getNoArticle());
+//			enchere1.setUtilisateur(utilisateur1);
+//			enchere1.setArticleVendu(article1);
+//			daoEnchere.insertEnchere(enchere1);
 //			daoEnchere.insertEnchere(enchere2);
 //			daoEnchere.insertEnchere(enchere3);
-
-		} catch (DALException e) {
-			throw new DALException("Erreur" + e.getMessage());
-		}
+//
+//		} catch (DALException e) {
+//			throw new DALException("Erreur" + e.getMessage());
+//		}
 
 		// Test SELECTALL
 
@@ -87,7 +87,7 @@ public class DAOTest {
 //
 //			daoUtilisateur.selectAllUtilisateur().stream().forEach(System.out::println);
 //			daoCategorie.selectALLCategorie().stream().forEach(System.out::println);
-			daoArticleVendu.selectAllArticleVendu().stream().forEach(System.out::println);
+//			daoArticleVendu.selectAllArticleVendu().stream().forEach(System.out::println);
 //			daoRetrait.selectALLRetrait().stream().forEach(System.out::println);
 //			daoEnchere.selectAllEnchere().stream().forEach(System.out::println);
 //
@@ -126,15 +126,15 @@ public class DAOTest {
 //		}
 		
 			// Test SELECTBYID
-//			System.out.println(daoUtilisateur.selectByIDUtilisateur(5));
+//			System.out.println(daoUtilisateur.selectByIDUtilisateur(29));
 //			System.out.println(daoCategorie.selectByIdCategorie(1));
-//			System.out.println(daoArticleVendu.selectByIdArticleVendu(5));
+//			System.out.println(daoArticleVendu.selectByIdArticleVendu(29));
 //			System.out.println("selectRetraitByID");
 //			System.out.println(daoArticleVendu.selectRetraitByIDArticleVendu(5));
 //			System.out.println("selectByIdRetrait");
 //			System.out.println(daoRetrait.selectByIdRetrait(2));
 //			System.out.println("selectByIDEnchere");
-//			System.out.println(daoEnchere.selectByIDEnchere(1));
+//			System.out.println(daoEnchere.selectByIDEnchere(23));
 //			System.out.println("selectAllEncheresByNoArticle");
 //			System.out.println(daoEnchere.selectAllEncheresByNoArticle(article1.getNoArticle()));
 		
