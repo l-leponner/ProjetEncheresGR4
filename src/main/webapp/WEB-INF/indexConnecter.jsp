@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Accueil;</title>
 </head>
 <body>
 
@@ -17,10 +17,10 @@
 	
 	
 		<ul>
-			<li><a href="http://localhost:8080/Encheres/EncherirServlet">Enchères</a></li>
-			<li><a href="http://localhost:8080/Encheres/VenteServlet">Vendre un article</a></li>
-			<li><a href="http://localhost:8080/Encheres/UtilisateurServlet">Mon profil</a></li>
-			<li><a href="http://localhost:8080/Encheres/DeConnecterIndex?deconnexion=${deconnexion}" data-name="deconnexion">Déconnexion</a></li>
+			<li><a href="<%=request.getContextPath()%>/ConnecterIndex">Enchères</a></li>
+			<li><a href="<%=request.getContextPath()%>/VenteServlet">Vendre un article</a></li>
+			<li><a href="<%=request.getContextPath()%>/UtilisateurServlet">Mon profil</a></li>
+			<li><a href="<%=request.getContextPath()%>/DeConnecterIndex?deconnexion=${deconnexion}" data-name="deconnexion">Déconnexion</a></li>
 		</ul>
 	
 	<h2>Liste des enchères</h2>
@@ -69,12 +69,72 @@
 			<input type="checkbox" id="ventesTerminees" name="checkboxVentesTerminees"	value="VentesTerminees">
 		</div>
 	</form>
-	<c:forEach items="${model.lstArticleVendus}" var="article">
+	<c:forEach items="${model.lstArticlesVendus}" var="article">
 		<ul>
-			<li><a href="http://localhost:8080/Encheres/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
+			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="http://localhost:8080/Encheres/LoginServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
+		</ul>
+	</c:forEach>
+	
+	<c:forEach items="${model.lstAchatsEnchOuvertes}" var="article">
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
+		</ul>
+	</c:forEach>
+	
+	<c:forEach items="${model.lstAchatsMesEnch}" var="article">
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
+		</ul>
+	</c:forEach>
+	
+	<c:forEach items="${model.lstAchatsMesEnchRemportees}" var="article">
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
+		</ul>
+	</c:forEach>
+	
+	<c:forEach items="${model.lstMesVentesTerminees}" var="article">
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
+		</ul>
+	</c:forEach>
+	
+	<c:forEach items="${model.lstMesVentesNonDebutees}" var="article">
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
+		</ul>
+	</c:forEach>
+	
+	<c:forEach items="${model.lstMesVentesEnCours}" var="article">
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
+			<li>Prix : ${article.miseAPrix}</li>
+			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
