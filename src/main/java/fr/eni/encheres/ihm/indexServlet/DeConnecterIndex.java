@@ -2,17 +2,20 @@ package fr.eni.encheres.ihm.indexServlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLManager;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLSing;
 import fr.eni.encheres.bll.categories.CategorieManagerSing;
 import fr.eni.encheres.bll.categories.CategoriesManager;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class IndexServlet
@@ -23,6 +26,8 @@ public class DeConnecterIndex extends HttpServlet {
 	private ArticleVenduBLLManager managerArticle = ArticleVenduBLLSing.getInstance();
 	private CategoriesManager managerCategorie = CategorieManagerSing.getInstance();
 
+	DeConnecterIndexModel model = new DeConnecterIndexModel();
+	String page;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -36,7 +41,12 @@ public class DeConnecterIndex extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		DeConnecterIndexModel model = new DeConnecterIndexModel();
+		
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+		
+		
+		request.setAttribute("model", model);
 
 		try {
 			model.setLstCategories(managerCategorie.getALLCategorie());
@@ -44,11 +54,21 @@ public class DeConnecterIndex extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		model.setFilterArticle(request.getParameter("filtreNomArticle"));
+		model.setFiltreArticle(request.getParameter("filtreNomArticle"));
 		model.setFiltreCategorie(request.getParameter("filtreCategorie"));
 
 		request.setAttribute("FilterArticle", request.getParameter("filtreNomArticle"));
 		request.setAttribute("FilterCategorie", request.getParameter("filtreCategorie"));
+		
+		if (model.getFilterArticle() == null && model.getFiltreCategorie() == null) {
+			try {
+				model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+				System.out.println(
+						"Je suis passé dans le premier filtre filtreCategorie = null et filtreNomArticle = null");
+			} catch (BLLException e) {
+				model.setMessage("Erreur !!!! : " + e.getMessage());
+			}
+		}
 
 		if (request.getParameter("BT_RECHERCHER") != null) {
 
@@ -98,19 +118,10 @@ public class DeConnecterIndex extends HttpServlet {
 			}
 
 		}
+		page = "/WEB-INF/indexDeconnecter.jsp";
 
-		if (model.getFilterArticle() == null && model.getFiltreCategorie() == null) {
-			try {
-				model.setLstArticleVendus(managerArticle.getAllArticleVendu());
-				System.out.println(
-						"Je suis passé dans le premier filtre filtreCategorie = null et filtreNomArticle = null");
-			} catch (BLLException e) {
-				model.setMessage("Erreur !!!! : " + e.getMessage());
-			}
-		}
 
-		request.setAttribute("model", model);
-		request.getRequestDispatcher("/WEB-INF/indexDeconnecter.jsp").forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

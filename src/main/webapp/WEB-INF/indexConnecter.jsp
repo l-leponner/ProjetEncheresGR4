@@ -14,13 +14,15 @@
 <body>
 
 	<h1>ENI-Encheres</h1>
-	<ul>
-		<li><a href="http://localhost:8080/Encheres/LoginServlet">Enchères</a></li>
-		<li><a href="http://localhost:8080/Encheres/VenteServlet">Vendre un article</a></li>
-		<li><a href="http://localhost:8080/Encheres/UtilisateurServlet">Mon profil</a></li>
-		<li><a href="http://localhost:8080/Encheres/DeConnecterIndex" data-name="deconnexion">Déconnexion</a></li>
-	</ul>
-
+	
+	
+		<ul>
+			<li><a href="http://localhost:8080/Encheres/EncherirServlet">Enchères</a></li>
+			<li><a href="http://localhost:8080/Encheres/VenteServlet">Vendre un article</a></li>
+			<li><a href="http://localhost:8080/Encheres/UtilisateurServlet">Mon profil</a></li>
+			<li><a href="http://localhost:8080/Encheres/DeConnecterIndex?deconnexion=${deconnexion}" data-name="deconnexion">Déconnexion</a></li>
+		</ul>
+	
 	<h2>Liste des enchères</h2>
 	<p style="color: red">${model.message}</p>
 	<form action="ConnecterIndex" method="post">
@@ -69,10 +71,10 @@
 	</form>
 	<c:forEach items="${model.lstArticleVendus}" var="article">
 		<ul>
-			<li><a href="http://localhost:8080/Encheres/EncherirServlet" data-name="article">${article.nomArticle}</a></li>
+			<li><a href="http://localhost:8080/Encheres/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="http://localhost:8080/Encheres/LoginServlet"	data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="http://localhost:8080/Encheres/LoginServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
