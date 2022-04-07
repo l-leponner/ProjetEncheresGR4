@@ -10,26 +10,27 @@ header {
 	padding: 20px;
 }
 
-a{
-	
+a {
 	font-size: 20px;
 	text-decoration: none;
 	color: black;
 }
-a:hover{
+
+a:hover {
 	color: lime;
 	font-size: 20px;
-} 
+}
 
-div {
-	height: 800px;
-	display: flex;
-	align-items: center;
+.myform {
 	justify-content: center;
-	
 }
 
 ul {
 	list-style: none;
 	line-height: 2.5;
+}
+
+.bouton {
+	margin: 0 auto;
+	border: 1px;
 }

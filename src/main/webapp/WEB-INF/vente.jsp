@@ -6,10 +6,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<!-- Bootstrap CSS -->
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/styles/css/vente.css" />
+
 <title>Vente</title>
 </head>
 <body>
-<h1>Nouvelle vente</h1>
+<div class="container">
+<div class="myform">
+<h4>Nouvelle vente</h4>
 <form action="VenteServlet" method="POST" enctype="multipart/form-data">
 	<label for="nom">Article : </label>
 		<input type="text" id="nom" name="nom" required><br>
@@ -31,7 +46,8 @@
 		<input type="datetime-local" id="dateFin" name="dateFin" required><br>
 	
 	
-	<fieldset>
+	<fieldset id="retrait">
+		
 		<legend>Retrait</legend>
 		
 		<label for="rue">Rue : </label>
@@ -40,18 +56,22 @@
 			<input type="text" id="codePostal" name="codePostal"><br>
 		<label for="ville">Ville : </label>
 			<input type="text" id="ville" name="ville"><br>
+	
 	</fieldset>
 	
 	<br>
-	<input type="submit" name="BTN_ENREGISTRER" value="Enregistrer">
+	
+	<input class="footer" type="submit" name="BTN_ENREGISTRER" value="Enregistrer">
 </form>
 
 <form action="VenteServlet" method="POST">
-	<input type="submit" name="BTN_ANNULER" value="Annuler">
+	<input class="footer" type="submit" name="BTN_ANNULER" value="Annuler">
 </form>
 
+</div>
 
 
 <p style="color:red">${error}</p>
+</div>
 </body>
 </html>
