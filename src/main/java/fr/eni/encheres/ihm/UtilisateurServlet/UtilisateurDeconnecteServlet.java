@@ -32,11 +32,9 @@ public class UtilisateurDeconnecteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		ServletContext context = request.getServletContext();
 		
 
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurClique");
+		Utilisateur utilisateur =  new Utilisateur ();
 		
 
 		UtilisateurDeconnecteModel model = new UtilisateurDeconnecteModel();
