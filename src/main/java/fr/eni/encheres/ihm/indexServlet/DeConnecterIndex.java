@@ -60,16 +60,18 @@ public class DeConnecterIndex extends HttpServlet {
 		request.setAttribute("FilterArticle", request.getParameter("filtreNomArticle"));
 		request.setAttribute("FilterCategorie", request.getParameter("filtreCategorie"));
 		
-		if (model.getFilterArticle() == null && model.getFiltreCategorie() == null) {
-			try {
-				model.setLstArticleVendus(managerArticle.getAllArticleVendu());
-				System.out.println(
-						"Je suis passé dans le premier filtre filtreCategorie = null et filtreNomArticle = null");
-			} catch (BLLException e) {
-				model.setMessage("Erreur !!!! : " + e.getMessage());
-			}
-		}
-
+		
+				if (model.getFilterArticle() == null && model.getFiltreCategorie() == null) {
+					try {
+						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
+						System.out.println(
+								"Je suis passé dans le premier filtre filtreCategorie = null et filtreNomArticle = null");
+					} catch (BLLException e) {
+						model.setMessage("Erreur !!!! : " + e.getMessage());
+					}
+				}
+		
+		
 		if (request.getParameter("BT_RECHERCHER") != null) {
 
 			switch (model.getFiltreCategorie()) {
@@ -85,7 +87,7 @@ public class DeConnecterIndex extends HttpServlet {
 					}
 				} else {
 					try {
-						model.setLstArticleVendus(managerArticle.getAllArticleVendu());
+						model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
 						System.out.println("Je suis la ");
 					} catch (BLLException e) {
 						e.printStackTrace();
@@ -119,6 +121,7 @@ public class DeConnecterIndex extends HttpServlet {
 
 		}
 		page = "/WEB-INF/indexDeconnecter.jsp";
+
 
 
 		request.getRequestDispatcher(page).forward(request, response);
