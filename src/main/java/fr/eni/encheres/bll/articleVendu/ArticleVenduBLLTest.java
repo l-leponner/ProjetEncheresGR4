@@ -69,15 +69,15 @@ public class ArticleVenduBLLTest {
 //			throw new BLLException("Erreur :" + e.getMessage());
 //		}
 		
-		System.out.println(managerA.getByIdArticleVendu(25));
+		System.out.println(managerA.getByIdArticleVendu(29));
 		
 		System.out.println("##########");
 		
-		System.out.println(managerA.getByIdArticleVendu(25).getLstEncheres());
+		System.out.println(managerA.getByIdArticleVendu(29).getLstEncheres());
 		
 		System.out.println("##########");
 		
-		System.out.println(managerA.getMeilleureEnchere(managerA.getByIdArticleVendu(25).getLstEncheres()));
+		System.out.println(managerA.getMeilleureEnchere(managerA.getByIdArticleVendu(29).getLstEncheres()));
 
 	}
 

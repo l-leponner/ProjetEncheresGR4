@@ -231,7 +231,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		result.setEtatVente(etatVente);
 		result.setNoArticle(noArticle);
 
-//		result.setLstEncheres(daoEnchere.selectAllEncheresByNoArticle(noArticle));
+		result.setLstEncheres(daoEnchere.selectAllEncheresByNoArticle(noArticle));
 		result.setPrixVente(prixVente);
 		
 		lieuRetrait = selectRetraitByIDArticleVendu(result.getNoArticle()); 

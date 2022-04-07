@@ -253,9 +253,12 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
-						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours")) {
-					returnlstArticleVendus.add(articleVendu);
+				if (articleVendu.getEtatVente().equalsIgnoreCase("En cours")) {
+					if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+							.equals(user.getNoUtilisateur())) {
+						returnlstArticleVendus.add(articleVendu);
+					}
+
 				}
 			}
 		} catch (DALException e) {
@@ -276,8 +279,6 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 					if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
 							.equals(user.getNoUtilisateur())) {
-
-						System.out.println(articleVendu.getLstEncheres());
 
 						returnlstArticleVendus.add(articleVendu);
 					}
@@ -315,7 +316,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 				if (articleVendu.getEtatVente().equalsIgnoreCase("En cours")
-						&& articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
@@ -375,16 +376,12 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 
-				Boolean testMesE = getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
-						.getNoUtilisateur().equals(user.getNoUtilisateur());
-
 				Boolean testEOuvertes = articleVendu.getEtatVente().equalsIgnoreCase("En cours");
 
-				Boolean testMesERemportees = (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
-						.getNoUtilisateur().equals(user.getNoUtilisateur())
-						&& articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées"));
+				Boolean testMesERemportees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
 
-				if (testMesE || testEOuvertes || testMesERemportees) {
+				if (testEOuvertes || testMesERemportees) {
+					System.out.println(returnlstArticleVendus);
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
@@ -404,12 +401,9 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 
-				Boolean testMesE = getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
-						.getNoUtilisateur().equals(user.getNoUtilisateur());
-
 				Boolean testEOuvertes = articleVendu.getEtatVente().equalsIgnoreCase("En cours");
 
-				if (testMesE || testEOuvertes) {
+				if (testEOuvertes) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
@@ -428,15 +422,13 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 
-				Boolean testMesE = getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
-						.getNoUtilisateur().equals(user.getNoUtilisateur());
+				Boolean testMesERemportees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
 
-				Boolean testMesERemportees = (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
-						.getNoUtilisateur().equals(user.getNoUtilisateur())
-						&& articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées"));
-
-				if (testMesE || testMesERemportees) {
-					returnlstArticleVendus.add(articleVendu);
+				if (testMesERemportees) {
+					if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+							.equals(user.getNoUtilisateur())) {
+						returnlstArticleVendus.add(articleVendu);
+					}
 				}
 			}
 		} catch (DALException e) {
@@ -451,21 +443,18 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		List<ArticleVendu> returnlstArticleVendus = new ArrayList<ArticleVendu>();
 		autoUpdateEtatArticle();
 
-		try {
-			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
+		for (ArticleVendu articleVendu : getAllArticleEncheresOuvertes()) {
 
-				Boolean testEOuvertes = articleVendu.getEtatVente().equalsIgnoreCase("En cours");
+			Boolean testEOuvertes = articleVendu.getEtatVente().equalsIgnoreCase("En cours");
 
-				Boolean testMesERemportees = (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur()
-						.getNoUtilisateur().equals(user.getNoUtilisateur())
-						&& articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées"));
+			Boolean testMesERemportees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
 
-				if (testEOuvertes || testMesERemportees) {
+			if (articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")) {
+				if ((getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+						.equals(user.getNoUtilisateur()))) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
-		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getAllArticleEOuvertesMesERemportees" + e.getMessage());
 		}
 
 		return returnlstArticleVendus;
@@ -482,9 +471,11 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur()
 						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours");
 
-				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée");
+				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée")
+						&& articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur();
 
-				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
+				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur());
 
 				if (testMesVEnCours || VNonDebutees || testVTerminees) {
 					returnlstArticleVendus.add(articleVendu);
@@ -509,7 +500,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur()
 						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours");
 
-				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée");
+				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur());
 
 				if (testMesVEnCours || VNonDebutees) {
 					returnlstArticleVendus.add(articleVendu);
@@ -533,7 +525,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 				Boolean testMesVEnCours = articleVendu.getUtilisateur().getNoUtilisateur()
 						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("En cours");
 
-				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
+				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur());
 
 				if (testMesVEnCours || testVTerminees) {
 					returnlstArticleVendus.add(articleVendu);
@@ -554,9 +547,11 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
 
-				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée");
+				Boolean VNonDebutees = articleVendu.getEtatVente().equalsIgnoreCase("Créée")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur());
 
-				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées");
+				Boolean testVTerminees = articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur());
 
 				if (VNonDebutees || testVTerminees) {
 					returnlstArticleVendus.add(articleVendu);
