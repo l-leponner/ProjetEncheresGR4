@@ -33,6 +33,8 @@ public class EnchereRemporteeAcheteur extends HttpServlet {
 	private static UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private static RetraitManager rManager = RetraitManagerSing.getInstance();
 	private static EnchereBLL eManager = EnchereBLLSing.getInstance();
+	EnchereRemporteeAcheteurModel model = new EnchereRemporteeAcheteurModel();
+	String page;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -49,7 +51,7 @@ public class EnchereRemporteeAcheteur extends HttpServlet {
 
 		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		ArticleVendu articleClique = (ArticleVendu) session.getAttribute("articleClique");
-		EnchereRemporteeAcheteurModel model = new EnchereRemporteeAcheteurModel();
+		
 		request.setAttribute("model", model);
 		
 		model.setCurrentArticle(articleClique);
@@ -64,6 +66,22 @@ public class EnchereRemporteeAcheteur extends HttpServlet {
 			request.setAttribute("error", e1.getMessage());
 		}
 		
+		page = "/WEB-INF/enchereRemporteeMoi.jsp";
+		
+		request.getRequestDispatcher(page).forward(request, response);
+	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+
+		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		ArticleVendu articleClique = (ArticleVendu) session.getAttribute("articleClique");
+
 		if(request.getParameter("BTN_RETRAIT") != null) {
 			utilisateurConnecte.setCredit(utilisateurConnecte.getCredit() + model.getMeillereEnchere().getMontantEnchere());
 			try {
@@ -77,17 +95,10 @@ public class EnchereRemporteeAcheteur extends HttpServlet {
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+			page = "/ConnecterIndex";
 		}
-		request.getRequestDispatcher("/WEB-INF/enchereRemporteeMoi.jsp").forward(request, response);
-	
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		
+		response.sendRedirect(request.getContextPath() + page);
 	}
 
 }
