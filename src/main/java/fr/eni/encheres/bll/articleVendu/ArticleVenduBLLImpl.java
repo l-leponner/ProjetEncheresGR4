@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bll.enchere.EnchereBLL;
+import fr.eni.encheres.bll.enchere.EnchereBLLSing;
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
@@ -42,7 +44,6 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 			throw new BLLException("Problème dans la méthode addArticleVendu" + e.getMessage());
 		}
 	}
-	
 
 	/**
 	 * {@inheritedDoc}
@@ -160,7 +161,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 			return lstArticleVendus;
 		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getAllArticleFilterCategorieAndNomArticle" + e.getMessage());
+			throw new BLLException(
+					"Problème dans la méthode getAllArticleFilterCategorieAndNomArticle" + e.getMessage());
 		}
 	}
 
@@ -270,12 +272,15 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
-						.equals(user.getNoUtilisateur()) && articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")) {
-					
-					System.out.println(articleVendu.getLstEncheres());
-					
-					returnlstArticleVendus.add(articleVendu);
+				if (articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")) {
+
+					if (getMeilleureEnchere(articleVendu.getLstEncheres()).getUtilisateur().getNoUtilisateur()
+							.equals(user.getNoUtilisateur())) {
+
+						System.out.println(articleVendu.getLstEncheres());
+
+						returnlstArticleVendus.add(articleVendu);
+					}
 				}
 			}
 		} catch (DALException e) {
@@ -309,7 +314,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getEtatVente().equalsIgnoreCase("En cours") && articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("En cours")
+						&& articleVendu.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
@@ -327,7 +333,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getEtatVente().equalsIgnoreCase("Créée") && articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("Créée")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
 					returnlstArticleVendus.add(articleVendu);
 				}
 			}
@@ -345,7 +352,8 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 
 		try {
 			for (ArticleVendu articleVendu : dao.selectAllArticleVendu()) {
-				if (articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées") && articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
+				if (articleVendu.getEtatVente().equalsIgnoreCase("Enchères terminées")
+						&& articleVendu.getUtilisateur().getNoUtilisateur().equals(user.getNoUtilisateur())) {
 					returnlstArticleVendus.add(articleVendu);
 					articleVendu.setEtatVente("Enchères terminées");
 				}
@@ -569,14 +577,30 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 				if (LocalDateTime.now().isAfter(articleVendu.getDateDebutEncheres())) {
 					articleVendu.setEtatVente("En cours");
 				}
-				
+
 				if (LocalDateTime.now().isAfter(articleVendu.getDateFinEncheres())) {
 					articleVendu.setEtatVente("Enchères terminées");
 				}
-				
+
 			}
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode autoUpdateEtatArticle" + e.getMessage());
+		}
+
+	}
+
+	@Override
+	public void setLstEncheres(ArticleVendu articlevendu) throws BLLException {
+		EnchereBLL managerE = EnchereBLLSing.getInstance();
+		List<Enchere> lstEncheres = new ArrayList<Enchere>();
+
+		for (ArticleVendu a : getAllArticleVendu()) {
+			for (Enchere e : managerE.getAllEnchere()) {
+				if (e.getArticleVendu().getNoArticle().equals(a.getNoArticle())) {
+					lstEncheres.add(e);
+				}
+				a.setLstEncheres(lstEncheres);
+			}
 		}
 
 	}

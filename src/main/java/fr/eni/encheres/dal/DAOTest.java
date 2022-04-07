@@ -128,13 +128,13 @@ public class DAOTest {
 			// Test SELECTBYID
 //			System.out.println(daoUtilisateur.selectByIDUtilisateur(29));
 //			System.out.println(daoCategorie.selectByIdCategorie(1));
-//			System.out.println(daoArticleVendu.selectByIdArticleVendu(29));
-//			System.out.println("selectRetraitByID");
+			System.out.println(daoArticleVendu.selectByIdArticleVendu(29));
+			System.out.println("selectRetraitByID");
 //			System.out.println(daoArticleVendu.selectRetraitByIDArticleVendu(5));
 //			System.out.println("selectByIdRetrait");
 //			System.out.println(daoRetrait.selectByIdRetrait(2));
 //			System.out.println("selectByIDEnchere");
-//			System.out.println(daoEnchere.selectByIDEnchere(23));
+//			System.out.println(daoEnchere.selectByIDEnchere(24));
 //			System.out.println("selectAllEncheresByNoArticle");
 //			System.out.println(daoEnchere.selectAllEncheresByNoArticle(article1.getNoArticle()));
 		

@@ -15,6 +15,7 @@ import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DALException;
@@ -229,7 +230,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		result.setMiseAPrix(miseAPrix);
 		result.setEtatVente(etatVente);
 		result.setNoArticle(noArticle);
-		result.setLstEncheres(daoEnchere.selectAllEncheresByNoArticle(noArticle));
+
+//		result.setLstEncheres(daoEnchere.selectAllEncheresByNoArticle(noArticle));
 		result.setPrixVente(prixVente);
 		
 		lieuRetrait = selectRetraitByIDArticleVendu(result.getNoArticle()); 
