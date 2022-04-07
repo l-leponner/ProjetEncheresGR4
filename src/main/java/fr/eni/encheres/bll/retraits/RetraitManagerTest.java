@@ -37,7 +37,7 @@ public class RetraitManagerTest {
 		System.out.println("############");
 
 		// Update
-		retrait1.setCode_postal("0");
+		retrait1.setCodePostal("0");
 		manager.updateRetrait(retrait1);
 		System.out.println(retrait1);
 

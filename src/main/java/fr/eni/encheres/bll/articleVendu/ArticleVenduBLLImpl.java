@@ -36,7 +36,7 @@ public class ArticleVenduBLLImpl implements ArticleVenduBLLManager {
 	public void addArticleVendu(ArticleVendu articlevendu) throws BLLException {
 		try {
 
-			articlevendu.setEtatVente("Créé");
+			articlevendu.setEtatVente("Créée");
 			dao.insertArticleVendu(articlevendu);
 		} catch (DALException e) {
 			throw new BLLException("Problème dans la méthode addArticleVendu" + e.getMessage());

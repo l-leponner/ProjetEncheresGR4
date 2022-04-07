@@ -83,6 +83,7 @@ public class VenteServlet extends HttpServlet {
 		page = "/ConnecterIndex";
 		
 		if(request.getParameter("BTN_ENREGISTRER") != null) {
+			System.out.println("BTN_ENREGISTRER");
 			String nom = request.getParameter("nom");
 			String description = request.getParameter("description");
 			String categorieLibelle = request.getParameter("categorie");
@@ -97,14 +98,21 @@ public class VenteServlet extends HttpServlet {
 			LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("dateFin"));
 			
 			Retrait retrait = new Retrait();
-			if(request.getParameter("rue") != null || request.getParameter("codePostal") != null || request.getParameter("ville") != null) {
-				retrait.setRue(request.getParameter("rue"));
-				retrait.setCode_postal(request.getParameter("codePostal"));
-				retrait.setVille(request.getParameter("ville"));
-			} else {
+			if((request.getParameter("rue") == null || request.getParameter("rue").isBlank()) && 
+					(request.getParameter("codePostal") == null || request.getParameter("codePostal").isBlank()) && 
+					(request.getParameter("ville") == null || request.getParameter("ville").isBlank())) {
 				retrait.setRue(utilisateur.getRue());
-				retrait.setCode_postal(utilisateur.getCodePostal());
+				retrait.setCodePostal(utilisateur.getCodePostal());
 				retrait.setVille(utilisateur.getVille());
+				
+				System.out.println(request.getParameter("rue"));
+				System.out.println(request.getParameter("codePostal"));
+				System.out.println(request.getParameter("ville"));
+			} else {
+				retrait.setRue(request.getParameter("rue"));
+				retrait.setCodePostal(request.getParameter("codePostal"));
+				retrait.setVille(request.getParameter("ville"));
+				
 			}
 			
 			ArticleVendu article = new ArticleVendu();
@@ -138,6 +146,7 @@ public class VenteServlet extends HttpServlet {
 		}
 		
 		if(request.getParameter("BTN_ANNULER") != null) {
+			System.out.println("BTN_ANNULER");
 			page = "/ConnecterIndex";
 		}
 		

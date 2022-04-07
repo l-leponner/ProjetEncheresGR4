@@ -35,7 +35,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(INSERT);
 			stmt.setString(1, retrait.getRue());
-			stmt.setString(2, retrait.getCode_postal());
+			stmt.setString(2, retrait.getCodePostal());
 			stmt.setString(3, retrait.getVille());
 			stmt.setInt(4, retrait.getNoArticleVendu());
 
@@ -52,7 +52,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
 			stmt.setString(1, retrait.getRue());
-			stmt.setString(2, retrait.getCode_postal());
+			stmt.setString(2, retrait.getCodePostal());
 			stmt.setString(3, retrait.getVille());
 			stmt.setInt(4, retrait.getNoArticleVendu());
 

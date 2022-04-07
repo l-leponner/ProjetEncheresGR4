@@ -112,7 +112,7 @@ public class CategorieManagerImpl implements CategoriesManager {
 		}
 		
 		for (Categorie c : lstCategories) {
-			if(c.getLibelle().equals(libelle)) {
+			if(libelle.equals(c.getLibelle())) {
 				categorie = c;
 			}
 		}

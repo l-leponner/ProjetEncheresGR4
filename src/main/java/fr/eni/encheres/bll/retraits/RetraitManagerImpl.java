@@ -24,8 +24,11 @@ public class RetraitManagerImpl implements RetraitManager {
 
 	@Override
 	public void addRetrait(Retrait retrait, ArticleVendu articleVendu) throws BLLException {
+		retrait.setNoArticleVendu(articleVendu.getNoArticle());
+		
+		
 		try {
-			retrait.setNoArticleVendu(articleVendu.getNoArticle());
+			
 			dao.insertRetrait(retrait);
 		} catch (DALException e) {
 			throw new BLLException("Erreur dans la méthode addRetrait" + e.getMessage());

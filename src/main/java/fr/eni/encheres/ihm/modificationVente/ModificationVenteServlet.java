@@ -36,37 +36,58 @@ public class ModificationVenteServlet extends HttpServlet {
 	private static ArticleVenduBLLManager aManager = ArticleVenduBLLSing.getInstance();
 	private static UtilisateurBLL uManager = UtilisateurBLLSing.getInstance();
 	private static RetraitManager rManager = RetraitManagerSing.getInstance();
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModificationVenteServlet() {
-        super();
-    }
+	ModificationVenteModel model = new ModificationVenteModel();
+	String page;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ModificationVenteServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
-		
-		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
-		
-		ModificationVenteModel model = new ModificationVenteModel();
+
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+
 		request.setAttribute("model", model);
 		try {
 			model.setLstCategories(cManager.getALLCategorie());
 		} catch (BLLException e1) {
 			e1.printStackTrace();
 		}
-		Utilisateur utilisateur = utilisateurConnecte;
+
 		model.setCurrentUtilisateur(utilisateur);
-		
+
 		ArticleVendu current = (ArticleVendu) session.getAttribute("articleClique");
 		model.setCurrentArticle(current);
+
+		page = "/WEB-INF/modificationVente.jsp";
 		
-		if(request.getParameter("BTN_ENREGISTRER") != null) {
+		request.getRequestDispatcher(page).forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
+
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		ArticleVendu current = (ArticleVendu) session.getAttribute("articleClique");
+
+		if (request.getParameter("BTN_ENREGISTRER") != null) {
 			String nom = request.getParameter("nom");
 			String description = request.getParameter("description");
 			String categorieLibelle = request.getParameter("categorie");
@@ -79,69 +100,67 @@ public class ModificationVenteServlet extends HttpServlet {
 			Integer miseAPrix = Integer.parseInt(request.getParameter("miseAPrix"));
 			LocalDateTime dateDebut = LocalDateTime.parse(request.getParameter("dateDebut"));
 			LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("dateFin"));
-			
+
 			Retrait retrait = new Retrait();
-			if(request.getParameter("rue").isBlank() && request.getParameter("codePostal").isBlank() && request.getParameter("ville").isBlank()) {
+			if ((request.getParameter("rue") == null || request.getParameter("rue").equals(""))
+					&& (request.getParameter("codePostal") == null || request.getParameter("codePostal").equals(""))
+					&& (request.getParameter("ville") == null || request.getParameter("ville").equals(""))) {
 				retrait.setRue(utilisateur.getRue());
-				retrait.setCode_postal(utilisateur.getCodePostal());
+				retrait.setCodePostal(utilisateur.getCodePostal());
 				retrait.setVille(utilisateur.getVille());
+
+				System.out.println(request.getParameter("rue"));
+				System.out.println(request.getParameter("codePostal"));
+				System.out.println(request.getParameter("ville"));
 			} else {
 				retrait.setRue(request.getParameter("rue"));
-				retrait.setCode_postal(request.getParameter("codePostal"));
+				retrait.setCodePostal(request.getParameter("codePostal"));
 				retrait.setVille(request.getParameter("ville"));
+
+				ArticleVendu article = current;
+				article.setNomArticle(nom);
+				article.setDescription(description);
+				article.setCategorie(categorie);
+				article.setMiseAPrix(miseAPrix);
+				article.setDateDebutEncheres(dateDebut);
+				article.setDateFinEncheres(dateFin);
+				try {
+					aManager.controlDateEnchere(dateDebut, dateFin);
+				} catch (BLLException e1) {
+					request.setAttribute("error", e1.getMessage());
+				}
+				article.setLieuRetrait(retrait);
+				article.setUtilisateur(utilisateur);
+				try {
+					aManager.updateArticleVendu(article);
+					rManager.updateRetrait(retrait);
+
+				} catch (BLLException e) {
+					e.printStackTrace();
+				}
+
+				model.setCurrentArticle(article);
+
+				page = "/ConnecterIndex";
+
 			}
-			
-			ArticleVendu article = current;
-			article.setNomArticle(nom);
-			article.setDescription(description);
-			article.setCategorie(categorie);
-			article.setMiseAPrix(miseAPrix);
-			article.setDateDebutEncheres(dateDebut);
-			article.setDateFinEncheres(dateFin);
-			try {
-				aManager.controlDateEnchere(dateDebut, dateFin);
-			} catch (BLLException e1) {
-				request.setAttribute("error", e1.getMessage());
-			}
-			article.setLieuRetrait(retrait);
-			article.setUtilisateur(utilisateur);
-			try {
-				aManager.updateArticleVendu(article);
-				rManager.updateRetrait(retrait);
-				
-			} catch (BLLException e) {
-				e.printStackTrace();
-			}
-			
-			model.setCurrentArticle(article);
-			
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+
 			
 		}
-		
-		
-		
-		if(request.getParameter("BTN_ANNULER") != null) {
-			request.getRequestDispatcher("/WEB-INF/indexConnecter.jsp").forward(request, response);
+		if (request.getParameter("BTN_ANNULER") != null) {
+			page = "/ConnecterIndex";
 		}
-		
-		if(request.getParameter("BTN_SUPPRIMER") != null) {
+
+		if (request.getParameter("BTN_SUPPRIMER") != null) {
 			try {
 				aManager.removeArticleVendu(current);
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}
+			page = "/ConnecterIndex";
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/modificationVente.jsp").forward(request, response);
-	
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		response.sendRedirect(request.getContextPath() + page);
 	}
 
 }

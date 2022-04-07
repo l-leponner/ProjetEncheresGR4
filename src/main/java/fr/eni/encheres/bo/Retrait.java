@@ -20,33 +20,57 @@ public class Retrait {
 		super();
 	}
 
-	public Retrait(String rue, String code_postal, String ville) {
+	public Retrait(String rue, String codePostal, String ville) {
 		super();
 		this.rue = rue;
-		this.codePostal = code_postal;
+		this.codePostal = codePostal;
 		this.ville = ville;
 	}
 
+	/**
+	 * Getter pour rue.
+	 * @return the rue
+	 */
 	public String getRue() {
 		return rue;
 	}
 
+	/**
+	 * Setter pour rue.
+	 * @param rue the rue to set
+	 */
 	public void setRue(String rue) {
 		this.rue = rue;
 	}
 
-	public String getCode_postal() {
+	/**
+	 * Getter pour codePostal.
+	 * @return the codePostal
+	 */
+	public String getCodePostal() {
 		return codePostal;
 	}
 
-	public void setCode_postal(String code_postal) {
-		this.codePostal = code_postal;
+	/**
+	 * Setter pour codePostal.
+	 * @param codePostal the codePostal to set
+	 */
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 
+	/**
+	 * Getter pour ville.
+	 * @return the ville
+	 */
 	public String getVille() {
 		return ville;
 	}
 
+	/**
+	 * Setter pour ville.
+	 * @param ville the ville to set
+	 */
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
@@ -80,7 +104,7 @@ public class Retrait {
 			builder.append(", ");
 		}
 		if (codePostal != null) {
-			builder.append("code_postal=");
+			builder.append("codePostal=");
 			builder.append(codePostal);
 			builder.append(", ");
 		}
@@ -97,4 +121,5 @@ public class Retrait {
 		return builder.toString();
 	}
 
+	
 }
