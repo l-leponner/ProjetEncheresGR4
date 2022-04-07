@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+header {
+	justify-content: flex-start;
+	padding: 20px;
+}
+
+a:hover {
+	color: lime;
+	font-size: 20px;
+}
+
+a {
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 0 auto;
+	
+}
+
+.hautpage {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.milieupage {
+	display: flex;
+	background-color: red;
+	flex-direction: row;
+
+}
+
+.milieudroitpage {
+	display: flex;
+	flex-direction: column;
+}
+
+.baspage {
+	display: flex;
+	justify-content: center;
+}

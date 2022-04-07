@@ -26,8 +26,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 </head>
 <body>
-<h4>ENI_Enchères</h4>
-
+<header>
+<a href="DeConnecterIndex" target="_blank">ENI-Enchères</a>
+</header>
 
 <form action="UtilisateurDeconnecteServlet" method="post">
 <div principale>
