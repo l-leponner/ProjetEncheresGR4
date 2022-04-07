@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Accueil;</title>
+<title>Accueil</title>
 </head>
 <body>
 

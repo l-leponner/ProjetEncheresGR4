@@ -76,11 +76,21 @@ public class ConnecterIndex extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		try {
+			context.setAttribute("LST_UTILISATEURS", managerUtilisateur.getAllUtilisateur());
+		} catch (BLLException e1) {
+			e1.printStackTrace();
+		}
+			try {
+				context.setAttribute("LST_ARTICLE", managerArticle.getAllArticleVendu());
+			} catch (BLLException e1) {
+				e1.printStackTrace();
+			}
 		// Récupération de l'article en session
 		if (request.getParameter("article") != null) {
 			
 			Integer noArticle = Integer.parseInt(request.getParameter("article"));
+			
 				try {
 					session.setAttribute("articleClique",
 							managerArticle.getByIdArticleVendu(noArticle));
@@ -90,7 +100,6 @@ public class ConnecterIndex extends HttpServlet {
 				} catch (BLLException e) {
 					e.printStackTrace();
 				}
-			
 		}
 
 		// Gestion de la déconnexion

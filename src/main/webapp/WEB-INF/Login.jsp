@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 
 
 <!DOCTYPE html>
@@ -11,7 +15,11 @@
 <meta charset="UTF-8">
 
 
+
+
 <!-- Bootstrap CSS -->
+
+
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -20,8 +28,12 @@
 	crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/styles/css/login.css" />
+
+
 
 
 <title>Login Utilisateur</title>
@@ -43,6 +55,8 @@
 				</div>
 			</div>
 
+
+
 			<div class="milieupage">
 				<div class="col-md-2">
 					<input type="submit" name="BT_CONNEXION" value="Connexion" />
@@ -62,7 +76,11 @@
 		</div>
 	</form>
 
+
+
 	<form action="LoginServlet" method="POST">
+
+
 
 		<div class="baspage">
 			<div>
@@ -72,7 +90,12 @@
 		</div>
 	</form>
 
+
+
 	<p>${error}</p>
+
+
 
 </body>
 </html>
+
