@@ -87,19 +87,19 @@ public class EnchereBLLImpl implements EnchereBLL {
 		}
 	}
 
-	@Override
-	public List<Enchere> getAllArticleFilterCategorie(Categorie categorie) throws BLLException {
-		List<Enchere> lstEncheres = new ArrayList<Enchere>();
-		try {
-			for (Enchere i : eDAO.selectAllEnchere()) {
-				if (i.getArticleVendu().getCategorie().equals(categorie)) {
-					lstEncheres.add(i);
-				}
-			}
-			return lstEncheres;
-		} catch (DALException e) {
-			throw new BLLException("Problème dans la méthode getByIDEnchere" + e.getMessage());
-		}
-	}
+//	@Override
+//	public List<Enchere> getAllArticleFilterCategorie(Categorie categorie) throws BLLException {
+//		List<Enchere> lstEncheres = new ArrayList<Enchere>();
+//		try {
+//			for (Enchere i : eDAO.selectAllEnchere()) {
+//				if (i.get getArticleVendu().getCategorie().equals(categorie)) {
+//					lstEncheres.add(i);
+//				}
+//			}
+//			return lstEncheres;
+//		} catch (DALException e) {
+//			throw new BLLException("Problème dans la méthode getByIDEnchere" + e.getMessage());
+//		}
+//	}
 
 }

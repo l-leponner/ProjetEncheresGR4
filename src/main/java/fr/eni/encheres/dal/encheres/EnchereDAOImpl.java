@@ -55,7 +55,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			stmt.setTimestamp(1, java.sql.Timestamp.valueOf(enchere.getDateEnchere()));
 			stmt.setInt(2, enchere.getMontantEnchere());
-			stmt.setInt(3, enchere.getArticleVendu().getNoArticle());
+			stmt.setInt(3, enchere.getNoArticleVendu());
 			stmt.setInt(4, enchere.getUtilisateur().getNoUtilisateur());
 			
 			int nb = stmt.executeUpdate();
@@ -169,11 +169,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 		enchere.setNoEnchere(noEnchere);
 		enchere.setDateEnchere(dateEnchere);
 		enchere.setMontantEnchere(montantEnchere);
-		try {
-			enchere.setArticleVendu(avDAO.selectByIdArticleVendu(noArticle));
-		} catch (DALException e) {
-			throw new DALException("Erreur dans itembuilder EnchereDAOImpl : " + e.getMessage());
-		}
+		enchere.setNoArticleVendu(noArticle);
 		try {
 			enchere.setUtilisateur(uDAO.selectByIDUtilisateur(noUtilisateur));
 		} catch (DALException e) {
@@ -192,28 +188,28 @@ public class EnchereDAOImpl implements EnchereDAO {
 		Integer noArticle = rs.getInt("no_article");
 		Integer noUtilisateur = rs.getInt("no_utilisateur");
 		
-		String nomArticle = rs.getString("nom_article").trim();
-		String description = rs.getString("description").trim();
-		LocalDateTime dateDebutEncheres = rs.getTimestamp("date_debut_enchere").toLocalDateTime();
-		LocalDateTime dateFinEncheres = rs.getTimestamp("date_fin_enchere").toLocalDateTime();
-		Integer miseAPrix = rs.getInt("prix_initial");
-		Integer prixVente = rs.getInt("prix_vente");
-		String etatVente = rs.getString("etat_vente").trim();
+//		String nomArticle = rs.getString("nom_article").trim();
+//		String description = rs.getString("description").trim();
+//		LocalDateTime dateDebutEncheres = rs.getTimestamp("date_debut_enchere").toLocalDateTime();
+//		LocalDateTime dateFinEncheres = rs.getTimestamp("date_fin_enchere").toLocalDateTime();
+//		Integer miseAPrix = rs.getInt("prix_initial");
+//		Integer prixVente = rs.getInt("prix_vente");
+//		String etatVente = rs.getString("etat_vente").trim();
 
 		Enchere enchere = new Enchere();
 		enchere.setNoEnchere(noEnchere);
 		enchere.setDateEnchere(dateEnchere);
 		enchere.setMontantEnchere(montantEnchere);
 		
-		ArticleVendu article = new ArticleVendu();
-		article.setCategorie(daoCategorie.selectByIdCategorie(rs.getInt("no_categorie")));
-		article.setDateDebutEncheres(dateDebutEncheres);
-		article.setDateFinEncheres(dateFinEncheres);
-		article.setDescription(description);
-		article.setEtatVente(etatVente);
-		article.setMiseAPrix(miseAPrix);
-		article.setNomArticle(nomArticle);
-		enchere.setArticleVendu(article);
+//		ArticleVendu article = new ArticleVendu();
+//		article.setCategorie(daoCategorie.selectByIdCategorie(rs.getInt("no_categorie")));
+//		article.setDateDebutEncheres(dateDebutEncheres);
+//		article.setDateFinEncheres(dateFinEncheres);
+//		article.setDescription(description);
+//		article.setEtatVente(etatVente);
+//		article.setMiseAPrix(miseAPrix);
+//		article.setNomArticle(nomArticle);
+		enchere.setNoArticleVendu(noArticle);
 		try {
 			enchere.setUtilisateur(uDAO.selectByIDUtilisateur(noUtilisateur));
 		} catch (DALException e) {

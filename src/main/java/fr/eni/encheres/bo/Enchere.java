@@ -20,14 +20,14 @@ public class Enchere {
 	private Integer montantEnchere;
 	
 	private Utilisateur utilisateur;
-	private ArticleVendu articleVendu;
+	private Integer noArticleVendu;
 	
 	
-	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu articleVendu, Utilisateur utilisateur) {
+	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, Integer noArticleVendu, Utilisateur utilisateur) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
-		this.articleVendu = articleVendu;
+		this.noArticleVendu = noArticleVendu;
 		
 		
 	}
@@ -91,18 +91,18 @@ public class Enchere {
 		this.utilisateur = utilisateur;
 	}
 	/**
-	 * Getter pour articleVendu.
-	 * @return the articleVendu
+	 * Getter pour noArticleVendu.
+	 * @return the noArticleVendu
 	 */
-	public ArticleVendu getArticleVendu() {
-		return articleVendu;
+	public Integer getNoArticleVendu() {
+		return noArticleVendu;
 	}
 	/**
-	 * Setter pour articleVendu.
-	 * @param articleVendu the articleVendu to set
+	 * Setter pour noArticleVendu.
+	 * @param noArticleVendu the noArticleVendu to set
 	 */
-	public void setArticleVendu(ArticleVendu articleVendu) {
-		this.articleVendu = articleVendu;
+	public void setNoArticleVendu(Integer noArticleVendu) {
+		this.noArticleVendu = noArticleVendu;
 	}
 	/**
 	*{@inheritedDoc}
@@ -131,9 +131,9 @@ public class Enchere {
 			builder.append(utilisateur);
 			builder.append(", ");
 		}
-		if (articleVendu != null) {
-			builder.append("articleVendu=");
-			builder.append(articleVendu);
+		if (noArticleVendu != null) {
+			builder.append("noArticleVendu=");
+			builder.append(noArticleVendu);
 		}
 		builder.append("]");
 		return builder.toString();

@@ -98,7 +98,7 @@ public class EncherirServlet extends HttpServlet {
 		if (request.getParameter("BTN_ENCHERIR") != null) {
 			Integer montantEnchere = Integer.parseInt(request.getParameter("montantEnchere"));
 
-			Enchere enchere = new Enchere(LocalDateTime.now(), montantEnchere, model.getCurrentArticle(),
+			Enchere enchere = new Enchere(LocalDateTime.now(), montantEnchere, model.getCurrentArticle().getNoArticle(),
 					model.getAcheteur());
 			try {
 				uManager.peutEncherir(utilisateurConnecte.getCredit(), montantEnchere);

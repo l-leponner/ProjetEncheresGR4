@@ -29,5 +29,5 @@ public void addEnchere (Enchere enchere) throws BLLException;
 	
 	public void removeEnchere (Enchere enchere) throws BLLException;
 	
-	public List<Enchere> getAllArticleFilterCategorie(Categorie categorie)throws BLLException;
+	//public List<Enchere> getAllArticleFilterCategorie(Categorie categorie)throws BLLException;
 }
