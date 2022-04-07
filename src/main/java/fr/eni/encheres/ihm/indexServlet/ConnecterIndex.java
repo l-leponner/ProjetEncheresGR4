@@ -2,6 +2,7 @@ package fr.eni.encheres.ihm.indexServlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +54,7 @@ public class ConnecterIndex extends HttpServlet {
 		model.setFiltreRadio(request.getParameter("radio"));
 
 		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		model.setCurrentUser(utilisateur);
 
