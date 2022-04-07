@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+* {
+	
+	color: #000000;
+}
+
+
+body{
+background-color: #f8dfcd;
+	display: flex;
+align-items: center;
+	justify-content: center;
+}
+
+div {
+	min-height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
+
+
+
+}
+
+
+
+ul {
+
+list-style:none;
+
+
+
+
+}
+

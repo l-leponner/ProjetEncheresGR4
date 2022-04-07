@@ -10,10 +10,8 @@
 <html>
 <head>
 
-<<<<<<< HEAD
-<meta charset="ISO-8859-1">
-<title>UtilisateurDeconnecte</title>
 
+<meta charset="utf-8">
 
 <!-- Bootstrap CSS -->
 
@@ -23,22 +21,17 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/css/main.css" />
 
-=======
-<link rel="stylesheet" href="style.css" />
 <title>Page de ${model.current.pseudo}</title>
->>>>>>> 77554d84dd0ce99e80825e13580425ee94e8a589
+
 
 </head>
 <body>
-<h4>ENI_Enchères</h2>
+<h4>ENI_Enchères</h4>
 
-<<<<<<< HEAD
+
 <form action="UtilisateurDeconnecteServlet" method="post">
 <div principale>
 <div>
-=======
-
->>>>>>> 77554d84dd0ce99e80825e13580425ee94e8a589
 	<ul>
 		<li>Pseudo: ${model.current.pseudo}</li>
 		<li>Nom: ${model.current.nom}</li>
@@ -49,12 +42,10 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 		<li>Code postal: ${model.current.codePostal}</li>
 		<li>Ville: ${model.current.ville}</li>
 	</ul>
-<<<<<<< HEAD
+
 </div>	
 </div>
 </form>
-=======
->>>>>>> 77554d84dd0ce99e80825e13580425ee94e8a589
 
 </body>
 </html>
