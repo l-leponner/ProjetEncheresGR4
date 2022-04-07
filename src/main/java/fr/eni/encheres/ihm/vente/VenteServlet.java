@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JRadioButton;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.articleVendu.ArticleVenduBLLManager;
@@ -25,7 +24,6 @@ import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
-import fr.eni.encheres.ihm.loginServlet.LoginModel;
 
 /**
  * Servlet implementation class VenteServlet

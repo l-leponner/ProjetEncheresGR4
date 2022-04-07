@@ -62,7 +62,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
 				if (rs.next()) {
-					enchere.setNoEnchere(1);
+					enchere.setNoEnchere(rs.getInt(1));
 				}
 			}
 		} catch (SQLException e) {
