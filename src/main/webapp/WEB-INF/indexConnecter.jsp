@@ -74,7 +74,7 @@
 			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
@@ -84,7 +84,7 @@
 			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
@@ -94,7 +94,7 @@
 			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
@@ -104,7 +104,7 @@
 			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
@@ -114,7 +114,7 @@
 			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
@@ -124,7 +124,7 @@
 			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
@@ -134,7 +134,7 @@
 			<li><a href="<%=request.getContextPath()%>/EncherirServlet?article=${article.noArticle}" data-name="article">${article.nomArticle}</a></li>
 			<li>Prix : ${article.miseAPrix}</li>
 			<li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-			<li>Vendeur : <a href="<%=request.getContextPath()%>/Encheres/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
+			<li>Vendeur : <a href="<%=request.getContextPath()%>/UtilisateurDeconnecteServlet?vendeur=${article.utilisateur.noUtilisateur}" data-name="vendeur"> ${article.utilisateur.pseudo}</a></li>
 			<li id ="noArticle" data-name="noArticle"> ${article.noArticle}</li>
 		</ul>
 	</c:forEach>
