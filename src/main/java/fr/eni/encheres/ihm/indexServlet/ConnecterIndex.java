@@ -134,8 +134,22 @@ public class ConnecterIndex extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		model.setFilterArticle(request.getParameter("filtreNomArticle"));
+		model.setFiltreCategorie(request.getParameter("filtreCategorie"));
+		model.setFiltreRadio(request.getParameter("radio"));
+
 		HttpSession session = request.getSession();
+		ServletContext context = request.getServletContext();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+		model.setCurrentUser(utilisateur);
+
+		// Récupération des catégories pour le filtre
+		try {
+			model.setLstCategories(managerCategorie.getALLCategorie());
+		} catch (BLLException e1) {
+			e1.printStackTrace();
+		}
+		
 		
 		// Affichage conditionné Achats
 				if (request.getParameter("BT_RECHERCHER") != null) {
