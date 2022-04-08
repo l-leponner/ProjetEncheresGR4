@@ -1,5 +1,4 @@
-
-
+@charset "UTF-8";
 @charset "UTF-8";
 
 header {
@@ -18,14 +17,19 @@ header {
 	color: black;
 }
 
+
+	
 .container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
 }
 
-.contenu {
-	text-align: justify-all;
-	width: 700px;
-	margin-left: 30%;
+
+.row {
+	display: flex;
+	flex-direction: column;
+	justify-content:  center;
 }
+
+

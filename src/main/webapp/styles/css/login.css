@@ -5,12 +5,12 @@ header {
 	padding: 20px;
 }
 
-a:hover {
+.eni:hover {
 	color: lime;
 	font-size: 20px;
 }
 
-a {
+.eni {
 	font-size: 20px;
 	text-decoration: none;
 	color: black;
@@ -18,31 +18,44 @@ a {
 
 .container {
 	display: flex;
-	justify-content: center;
+	height: 700 px;
 	flex-direction: column;
-	margin: 0 auto;
-	
 }
 
 .hautpage {
 	display: flex;
-	justify-content: center;
 	flex-direction: column;
+	text-align: center;
+	padding: 15px;
+	margin: 15px;
+	margin-top: 20%;
 }
 
 .milieupage {
 	display: flex;
-	background-color: red;
 	flex-direction: row;
-
+	justify-content: center;
+	padding: 15px;
+	margin: 15px;
 }
 
-.milieudroitpage {
+.a {
+	color: violet;
+}
+
+.row {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	padding: 5px;
+	margin: 5px;
 }
 
 .baspage {
 	display: flex;
 	justify-content: center;
+}
+
+.BT_CREER_UN_COMPTE {
+	border-radius: 15px;
 }

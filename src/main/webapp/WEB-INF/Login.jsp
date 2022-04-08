@@ -40,37 +40,39 @@
 </head>
 <body>
 	<header>
-		<a href="ConnecterIndex" target="_blank">ENI-Enchères</a>
+		<a class="eni" href="ConnecterIndex" target="_blank">ENI-Enchères</a>
 	</header>
 	<form action="LoginServlet" method="POST">
 		<div class="container">
 			<div class="hautpage">
-				<div class="col-md-6">
+				<div class="col">
 					<label for="identifiant">Identifiant : </label> <input type="text"
-						name="identifiant" id="identifiant" required /><br>
+						name="identifiant" id="identifiant" required />
 				</div>
-				<div class="col-md-6">
+				<br><br>
+				<div class="col">
 					<label for="MDP">Mot de passe:</label> <input type="password"
-						name="MDP" id="MDP" required /><br>
+						name="MDP" id="MDP" required />
 				</div>
 			</div>
 
 
 
 			<div class="milieupage">
-				<div class="col-md-2">
-					<input type="submit" name="BT_CONNEXION" value="Connexion" />
+				<div class="row">
+					<div class="col">
+						<input type="submit" name="BT_CONNEXION" value="Connexion" />
+					</div>
 				</div>
-				<div class="milieudroitpage">
-					<div class="col-md-6">
+				<div class="row">
+					<div class="col">
 						<input type="checkbox" name="BT_SE_SOUVENIR_DE_MOI"
 							id="BT_SE_SOUVENIR_DE_MOI" /> <label for="BT_SE_SOUVENIR_DE_MOI">Se
 							souvenir de moi</label>
 					</div>
-					<br>
-				</div>
-				<div class="col-md-6">
-					<a href="#" data-name="">Mot de passe oublié</a>
+					<div class="col">
+						<a href="#" data-name="">Mot de passe oublié</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -88,6 +90,7 @@
 					value="Créer un compte" />
 			</div>
 		</div>
+
 	</form>
 
 
