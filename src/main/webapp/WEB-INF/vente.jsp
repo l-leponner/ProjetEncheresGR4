@@ -22,11 +22,11 @@
 <title>Vente</title>
 </head>
 <body>
+	<div class="container">
+		<h1>Nouvelle vente</h1>
+		<form action="VenteServlet" method="POST">
 
-	<h1>Nouvelle vente</h1>
-	<form action="VenteServlet" method="POST">
 
-		<div class="container">
 			<div class="myform">
 
 				<label for="nom">Article : </label> <input type="text" id="nom"
@@ -63,17 +63,18 @@
 				<br> <input class="footer" type="submit" name="BTN_ENREGISTRER"
 					value="Enregistrer">
 			</div>
-		</div>
-	</form>
 
-	<form action="VenteServlet" method="POST">
-		<input class="footer" type="submit" name="BTN_ANNULER" value="Annuler">
-	</form>
+		</form>
+
+		<form action="VenteServlet" method="POST">
+			<input class="footer" type="submit" name="BTN_ANNULER"
+				value="Annuler">
+		</form>
 
 
 
 
-	<p style="color: red">${error}</p>
-
+		<p style="color: red">${error}</p>
+	</div>
 </body>
 </html>

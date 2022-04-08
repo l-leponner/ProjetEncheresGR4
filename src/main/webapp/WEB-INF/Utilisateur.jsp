@@ -28,29 +28,31 @@
 	</header>
 
 
-	<div class="container mt-2">
-		<form class="myform" action="UtilisateurServlet" method="post">
-		<div class= "row">
-			<ul>
-				<li>Pseudo: ${model.current.pseudo}</li>
-				<li>Nom: ${model.current.nom}</li>
-				<li>Prenom: ${model.current.prenom}</li>
-				<li>Email: ${model.current.email}</li>
-				<li>Telephone:${model.current.telephone}</li>
-				<li>Rue: ${model.current.rue}</li>
-				<li>Code postal: ${model.current.codePostal}</li>
-				<li>Ville: ${model.current.ville}</li>
-				<li>Crédits : ${model.current.credit}</li>
-			</ul>
-			</div>
+	<div class="container">
+		<div class="row">
+			<form class="myform" action="UtilisateurServlet" method="post">
+				<div class="row">
+					<ul>
+						<li>Pseudo: ${model.current.pseudo}</li>
+						<li>Nom: ${model.current.nom}</li>
+						<li>Prenom: ${model.current.prenom}</li>
+						<li>Email: ${model.current.email}</li>
+						<li>Telephone:${model.current.telephone}</li>
+						<li>Rue: ${model.current.rue}</li>
+						<li>Code postal: ${model.current.codePostal}</li>
+						<li>Ville: ${model.current.ville}</li>
+						<li>Crédits : ${model.current.credit}</li>
+					</ul>
+				</div>
 
-	
-	<div class= "bouton">
 
-		<input type="submit" name="BT_MODIFIER" value="Modifier" />
+				<div class="bouton">
+
+					<input type="submit" name="BT_MODIFIER" value="Modifier" />
+				</div>
+
+			</form>
 		</div>
-
-</form>
-</div>
+	</div>
 </body>
 </html>
