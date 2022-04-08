@@ -288,46 +288,46 @@ public class ConnecterIndex extends HttpServlet {
 					}
 
 					// Filtre nom Article et filtre catègorie
-//					switch (model.getFiltreCategorie()) {
-//					case "Toutes":
-		//
-//						if (!model.getFilterArticle().isBlank()) {
-//							try {
-//								model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-//										model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
-//							} catch (BLLException e) {
-//								e.printStackTrace();
-//							}
-//						} else {
-//							try {
-//								model.setLstArticleVendus(managerArticle.getAllArticleEncheresOuvertes());
-//							} catch (BLLException e) {
-//								e.printStackTrace();
-//							}
-//						}
-		//
-//						break;
-		//
-//					default:
-		//
-//						if (!model.getFilterArticle().isBlank()) {
-//							try {
-//								model.setLstArticleVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
-//										model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticleVendus()));
-//							} catch (BLLException e) {
-//								e.printStackTrace();
-//							}
-//						} else {
-//							try {
-//								model.setLstArticleVendus(managerArticle
-//										.getAllArticleFilterCategorie(model.getFiltreCategorie(), model.getLstArticleVendus()));
-//							} catch (BLLException e) {
-//								e.printStackTrace();
-//							}
-//						}
-		//
-//						break;
-//					}
+					switch (model.getFiltreCategorie()) {
+					case "Toutes":
+		
+						if (!model.getFilterArticle().isBlank()) {
+							try {
+								model.setLstArticlesVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+										model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticlesVendus()));
+							} catch (BLLException e) {
+								e.printStackTrace();
+							}
+						} else {
+							try {
+								model.setLstArticlesVendus(managerArticle.getAllArticleEncheresOuvertes());
+							} catch (BLLException e) {
+								e.printStackTrace();
+							}
+						}
+		
+						break;
+		
+					default:
+		
+						if (!model.getFilterArticle().isBlank()) {
+							try {
+								model.setLstArticlesVendus(managerArticle.getAllArticleFilterCategorieAndNomArticle(
+										model.getFilterArticle(), model.getFiltreCategorie(), model.getLstArticlesVendus()));
+							} catch (BLLException e) {
+								e.printStackTrace();
+							}
+						} else {
+							try {
+								model.setLstArticlesVendus(managerArticle
+										.getAllArticleFilterCategorie(model.getFiltreCategorie(), model.getLstArticlesVendus()));
+							} catch (BLLException e) {
+								e.printStackTrace();
+							}
+						}
+		
+						break;
+					}
 					
 				}
 				request.getRequestDispatcher(page).forward(request, response);	

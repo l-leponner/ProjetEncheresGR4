@@ -9,21 +9,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Accueil</title>
+
+<!-- Bootstrap CSS -->
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/styles/css/indexConnecter.css" />
+
 </head>
 <body>
+<header>
+	<a href="ConnecterIndex" target="_blank" id="ENI">ENI-Enchères</a>
+	
 
 	<h1>ENI-Encheres</h1>
 	
 	
 		<ul>
-			<li><a href="<%=request.getContextPath()%>/ConnecterIndex">Enchères</a></li>
-			<li><a href="<%=request.getContextPath()%>/VenteServlet">Vendre un article</a></li>
-			<li><a href="<%=request.getContextPath()%>/UtilisateurServlet">Mon profil</a></li>
-			<li><a href="<%=request.getContextPath()%>/DeConnecterIndex?deconnexion=${deconnexion}" data-name="deconnexion">Déconnexion</a></li>
+			<li class="header"><a href="<%=request.getContextPath()%>/ConnecterIndex">Enchères</a></li>
+			<li class="header"><a href="<%=request.getContextPath()%>/VenteServlet">Vendre un article</a></li>
+			<li class="header"><a href="<%=request.getContextPath()%>/UtilisateurServlet">Mon profil</a></li>
+			<li class="header"><a href="<%=request.getContextPath()%>/DeConnecterIndex?deconnexion=${deconnexion}" data-name="deconnexion">Déconnexion</a></li>
 		</ul>
 	
-	<h2>Liste des enchères</h2>
+	<h2 id="titreDeLaPage">Liste des enchères</h2>
+	</header>
+
 	<p style="color: red">${model.message}</p>
 	<form action="ConnecterIndex" method="post">
 		<div>
