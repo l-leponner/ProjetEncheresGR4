@@ -6,39 +6,59 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- Bootstrap CSS -->
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" type="text/css"
+href="${pageContext.request.contextPath}/styles/css/inscription.css" />
 <title>Inscription</title>
 </head>
-<body>
+<body class="container-fluid">
 
-<h1>Mon Profil</h1>
-<form action="InscriptionServlet" method="POST">
-<label for="pseudo">Pseudo : </label>
-<input type="text" id="pseudo" name="pseudo" required placeholder="Votre pseudo" pattern="[A-Za-z0-9]{1,30}$"><br>
-<label for="nom">Nom : </label>
-<input type="text" id="nom" name="nom" required placeholder="Votre nom"><br>
-<label for="prenom">Prénom : </label>
-<input type="text" id="prenom" name="prenom" required placeholder="Votre prénom"><br>
-<label for="email">Email : </label>
-<input type="email" id="email" name="email" required placeholder="Votre email"><br>
-<label for="telephone">Téléphone : </label>
-<input type="tel" id="telephone" name="telephone" required placeholder="Votre téléphone"><br>
-<label for="rue">Rue : </label>
-<input type="text" id="rue" name="rue" required placeholder="Votre rue"><br>
-<label for="codePostal">Code postal : </label>
-<input type="text" id="codePostal" name="codePostal" required placeholder="Votre code postal"><br>
-<label for="ville">Ville : </label>
-<input type="text" id="ville" name="ville" required placeholder="Votre ville"><br>
-<label for="MDP">Mot de passe : </label>
-<input type="password" id="MDP" name="MDP" required placeholder="Votre mot de passe"><br>
-<label for="confirmationMDP">Confirmation : </label>
-<input type="password" id="confirmationMDP" name="confirmationMDP" required placeholder="Confirmation de votre mot de passe"><br>
-<br>
-<input type="submit" name="BTN_CREER" value="Créer">
-</form>
-<form action="DeConnecterIndex" method="POST">
-<input type="submit" name="BTN_ANNULER" value="Annuler">
-</form>
-
+	<div class="row col-8">
+		<h1>Mon Profil</h1>
+		
+		<div class="row col-12">
+			<form action="InscriptionServlet" method="POST">
+			<div class="col-6">
+				<label for="pseudo">Pseudo : </label>
+				<input type="text" id="pseudo" name="pseudo" required placeholder="Votre pseudo" pattern="[A-Za-z0-9]{1,30}$"><br>
+				
+				<label for="nom">Nom : </label>
+				<input type="text" id="nom" name="nom" required placeholder="Votre nom"><br>
+			</div>
+				<div></div>
+				<label for="prenom">Prénom : </label>
+				<input type="text" id="prenom" name="prenom" required placeholder="Votre prénom"><br>
+				<label for="email">Email : </label>
+				<input type="email" id="email" name="email" required placeholder="Votre email"><br>
+				<label for="telephone">Téléphone : </label>
+				<input type="tel" id="telephone" name="telephone" required placeholder="Votre téléphone"><br>
+				<label for="rue">Rue : </label>
+				<input type="text" id="rue" name="rue" required placeholder="Votre rue"><br>
+				<label for="codePostal">Code postal : </label>
+				<input type="text" id="codePostal" name="codePostal" required placeholder="Votre code postal"><br>
+				<label for="ville">Ville : </label>
+				<input type="text" id="ville" name="ville" required placeholder="Votre ville"><br>
+				<label for="MDP">Mot de passe : </label>
+				<input type="password" id="MDP" name="MDP" required placeholder="Votre mot de passe"><br>
+				<label for="confirmationMDP">Confirmation : </label>
+				<input type="password" id="confirmationMDP" name="confirmationMDP" required placeholder="Confirmation de votre mot de passe"><br>
+				<br>
+				<input type="submit" name="BTN_CREER" value="Créer">
+			</form>
+			<form action="DeConnecterIndex" method="POST">
+				<input type="submit" name="BTN_ANNULER" value="Annuler">
+			</form>
+		</div>
+	</div>
 <p style="color:red">${error}</p>
 </body>
 </html>

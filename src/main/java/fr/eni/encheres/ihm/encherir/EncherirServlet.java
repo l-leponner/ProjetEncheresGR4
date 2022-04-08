@@ -56,6 +56,8 @@ public class EncherirServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 
+		
+		
 		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 		ArticleVendu articleClique = (ArticleVendu) session.getAttribute("articleClique");
 		request.setAttribute("model", model);

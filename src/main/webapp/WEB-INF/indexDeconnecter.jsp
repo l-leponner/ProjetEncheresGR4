@@ -29,6 +29,7 @@
 	<header>
 		<a href="ConnecterIndex" target="_blank" id="ENI">ENI-Enchères</a>
 
+<<<<<<< HEAD
 		<h2 id="titreDeLaPage">Liste des enchères</h2>
 
 		<ul>
@@ -38,6 +39,15 @@
 		</ul>
 
 	</header>
+=======
+	<h1>ENI-Encheres</h1>
+	<ul>
+		<li><a href="http://localhost:8080/Encheres/LoginServlet">S'inscrire
+				- Se connecter</a></li>
+	</ul>
+
+	<h2>Liste des enchères</h2>
+>>>>>>> 96ef545e4b5363b27296017287951747504fc069
 	<p style="color: red">${model.message}</p>
 	<form action="DeConnecterIndex" method="post">
 		<div id="ensembleFilCatBtn">
