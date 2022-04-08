@@ -29,19 +29,18 @@
 <header>
 	<a href="ConnecterIndex" target="_blank" id="ENI">ENI-Enchères</a>
 	
-
-	<h1>ENI-Encheres</h1>
 	
-	
-		<ul>
+		<ul id="lienHeader">
 			<li class="header"><a href="<%=request.getContextPath()%>/ConnecterIndex">Enchères</a></li>
 			<li class="header"><a href="<%=request.getContextPath()%>/VenteServlet">Vendre un article</a></li>
 			<li class="header"><a href="<%=request.getContextPath()%>/UtilisateurServlet">Mon profil</a></li>
 			<li class="header"><a href="<%=request.getContextPath()%>/DeConnecterIndex?deconnexion=${deconnexion}" data-name="deconnexion">Déconnexion</a></li>
 		</ul>
 	
-	<h2 id="titreDeLaPage">Liste des enchères</h2>
+	
 	</header>
+	
+<h2 id="titreDeLaPage">Liste des enchères</h2>
 
 	<p style="color: red">${model.message}</p>
 	<form action="ConnecterIndex" method="post">
