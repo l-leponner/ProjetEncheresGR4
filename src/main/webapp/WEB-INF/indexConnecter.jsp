@@ -9,19 +9,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<!-- Bootstrap CSS -->
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/styles/css/indexConnecter.css" />
+
+
+<title>Acceuil</title>
 </head>
 <body>
+<header>
+	<a href="ConnecterIndex" target="_blank" id="ENI">ENI-Enchères</a>
+	
 
-	<h1>ENI-Encheres</h1>
-	<ul>
-		<li><a href="http://localhost:8080/Encheres/LoginServlet">Enchères</a></li>
-		<li><a href="http://localhost:8080/Encheres/VenteServlet">Vendre un article</a></li>
-		<li><a href="http://localhost:8080/Encheres/UtilisateurServlet">Mon profil</a></li>
-		<li><a href="http://localhost:8080/Encheres/DeConnecterIndex" data-name="deconnexion">Déconnexion</a></li>
+	
+
+	<ul id="lienHeader">
+		<li class="header"><a href="http://localhost:8080/Encheres/ConnecterIndex">Enchères</a></li>
+		<li class="header"><a href="http://localhost:8080/Encheres/VenteServlet">Vendre un article</a></li>
+		<li class="header"><a href="http://localhost:8080/Encheres/UtilisateurServlet">Mon profil</a></li>
+		<li class="header"><a href="http://localhost:8080/Encheres/DeConnecterIndex" data-name="deconnexion">Déconnexion</a></li>
 	</ul>
 
-	<h2>Liste des enchères</h2>
+</header>
+	<h2 id="titreDeLaPage">Liste des enchères</h2>
+
 	<p style="color: red">${model.message}</p>
 	<form action="ConnecterIndex" method="post">
 		<div>

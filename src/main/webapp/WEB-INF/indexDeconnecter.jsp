@@ -23,7 +23,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/styles/css/indexDeconnecter.css" />
 
-<title>Encheres</title>
+<title>Acceuil</title>
 </head>
 <body>
 	<header>

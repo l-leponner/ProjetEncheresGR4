@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+header {
+	display: flex;
+	flex-direction : row;
+	justify-content : space-between;
+	padding: 20px;
+
+}
+
+#ENI:hover {
+	color: blue;
+	font-size: 1.7rem;
+	font-weight: bold;
+}
+
+#ENI {
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+	font-size: 1.7rem;
+	font-weight: bold;
+}
+
+
+#lienHeader{
+	width: 25%;
+	height: 10px;
+	margin: 0;
+	
+	}
+	
+#lienHeader li{
+	display: inline;
+	text-align: end;
+	list-style: none;
+	padding: 1%;
+	}
+	
+#titreDeLaPage {
+	margin-top: 25px;
+	font-size: 20px;
+	color: black;
+	font-size: 1,5rem;
+	text-align: center;
+}
